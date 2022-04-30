@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrainningSessionTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -20,7 +20,7 @@ class CreateTrainningSessionTable extends Migration
             $table->time('finish_at');
             $table->unsignedBigInteger('gym_id');
             $table->unsignedBigInteger('training_package_id');
-            $table->foreign('gym_id')->references('id')->on('gym');
+            $table->foreign('gym_id')->references('id')->on('gyms');
             $table->foreign('training_package_id')->references('id')->on('training_packages');
             $table->timestamps();
         });
@@ -35,4 +35,4 @@ class CreateTrainningSessionTable extends Migration
     {
         Schema::dropIfExists('trainning_session');
     }
-}
+};

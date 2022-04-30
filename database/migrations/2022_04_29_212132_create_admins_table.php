@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrainningPacakgesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTrainningPacakgesTable extends Migration
      */
     public function up()
     {
-        Schema::create('training_pacakges', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('price');
-            $table->integer('total_session');
-            $table->unsignedBigInteger('gym_id');
-            $table->foreign('gym_id')->references('id')->on('gym');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateTrainningPacakgesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trainning_pacakges');
+        Schema::dropIfExists('admin');
     }
-}
+};

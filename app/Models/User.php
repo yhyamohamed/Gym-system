@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function trainingpackages()
+    {
+        return $this->belongsToMany(TrainingPackage::class);
+    }
+
+    public function trainingsessions()
+    {
+        return $this->belongsToMany(TrainingSession::class);
+    }
 }

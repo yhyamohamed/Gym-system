@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGymTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,7 @@ class CreateGymTable extends Migration
             $table->string('creator');
             $table->string('cover_img');
             $table->unsignedBigInteger('city_manager_id');
-            $table->foreign('city_manager_id')->references('id')->on('city_manager');
+            $table->foreign('city_manager_id')->references('id')->on('city_managers');
             $table->timestamps();
         });
     }
@@ -33,4 +33,4 @@ class CreateGymTable extends Migration
     {
         Schema::dropIfExists('gym');
     }
-}
+};
