@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
-            $table->integer('total_session');
-            $table->unsignedBigInteger('gym_id');
-            $table->foreign('gym_id')->references('id')->on('gyms');
+            $table->integer('total_sessions');
+            $table->foreignId('gym_id')->constrained();
             $table->timestamps();
         });
     }

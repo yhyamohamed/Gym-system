@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('training_package_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('training_package_id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('training_package_id')->references('id')->on('training_packages');
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->unsignedBigInteger('training_package_id');
+            // $table->unsignedBigInteger('user_id');
+            // $table->foreign('training_package_id')->references('id')->on('training_packages');
+            // $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('training_package_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('amount_paid');
             $table->integer('remaining_sessions');
             $table->timestamps();

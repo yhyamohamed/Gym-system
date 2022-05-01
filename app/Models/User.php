@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\models\TrainingSessionUser;
 
 class User extends Authenticatable
 {
@@ -42,13 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function trainingpackages()
+    public function training_package()
     {
         return $this->belongsToMany(TrainingPackage::class);
     }
 
-    public function trainingsessions()
+    public function training_sessions()
     {
-        return $this->belongsToMany(TrainingSession::class);
+        return $this->belongsToMany(TrainingSession::class)->using(TrainingSessionUser::class);
     }
 }

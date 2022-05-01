@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\models\TrainingSessionUser;
+use App\models\User;
 
 class TrainingSession extends Model
 {
@@ -17,10 +19,14 @@ class TrainingSession extends Model
         'training_package_id'
         
     ];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'start_at',
+        'finish_at'
+    ];
+    
 
-    public function gym(){
-        return $this->belongsTo(Gym::class);
-    }
 
     public function coaches(){
         return $this->belongsToMany(Coach::class);
@@ -30,4 +36,8 @@ class TrainingSession extends Model
         return $this->belongsTo(TrainingPackage::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->using(TrainingSessionUser::class);
+    }
 }

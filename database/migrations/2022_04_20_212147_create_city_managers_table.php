@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('name');
-            $table->string('avatar');//base64 decode
+            $table->string('avatar');
             $table->timestamps();
         });
     }

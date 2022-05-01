@@ -16,12 +16,9 @@ return new class extends Migration
         Schema::create('training_sessions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->time('start_at');
-            $table->time('finish_at');
-            $table->unsignedBigInteger('gym_id');
-            $table->unsignedBigInteger('training_package_id');
-            $table->foreign('gym_id')->references('id')->on('gyms');
-            $table->foreign('training_package_id')->references('id')->on('training_packages');
+            $table->dateTime('start_at');
+            $table->dateTime('finish_at');
+            $table->foreignId('training_package_id')->constrained();
             $table->timestamps();
         });
     }

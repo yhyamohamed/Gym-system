@@ -15,12 +15,8 @@ return new class extends Migration
     {
         Schema::create('training_session_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('training_session_id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('training_session_id')->references('id')->on('training_sessions');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->time('attendance_time');
-            $table->date('attendance_date');
+            $table->foreignId('training_session_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('name');
-            $table->string('avatar');//base64 decode
-            $table->unsignedBigInteger('gym_id')->nullable();
-            $table->foreign('gym_id')->references('id')->on('gyms');
+            $table->string('avatar');
+            // $table->unsignedBigInteger('gym_id')->nullable();
+            // $table->foreign('gym_id')->references('id')->on('gyms');
+            $table->foreignId('gym_id')->constrained();
             $table->timestamps();
         });
     }

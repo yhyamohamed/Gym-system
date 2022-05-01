@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\models\User;
 
 class TrainingPackage extends Model
 {
@@ -23,4 +24,9 @@ class TrainingPackage extends Model
     public function training_sessions(){
         return $this->hasMany(TrainingSession::class);
     }
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
 }
