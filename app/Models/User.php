@@ -43,13 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function training_package()
-    {
-        return $this->belongsToMany(TrainingPackage::class);
+    public function training_packages()
+    {					
+        return $this->belongsToMany(TrainingPackage::class)->withPivot('id','remaining_sessions','amount_paid')->withTimestamps();
     }
 
     public function training_sessions()
     {
-        return $this->belongsToMany(TrainingSession::class)->using(TrainingSessionUser::class);
+        return $this->belongsToMany(TrainingSession::class)->withPivot('id')->withTimestamps();
     }
 }

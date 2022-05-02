@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
         \App\models\TrainingSession::factory()->count(3)->create();
         \App\models\coachTrainingSession::factory()->count(2)->create();
         \App\models\TrainingPackageUser::factory()->count(2)->create();
+        \App\models\TrainingSessionUser::factory()->count(2)->create(['user_id'=>1, 'training_session_id'=>1]);
+
     }
 }

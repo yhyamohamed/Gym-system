@@ -15,6 +15,6 @@ class Coach extends Model
     ];
 
     public function training_sessions(){
-        return $this->belongsToMany(TrainingSession::class);
+        return $this->belongsToMany(TrainingSession::class)->withPivot('id')->withTimestamps();
     }
 }

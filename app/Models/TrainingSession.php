@@ -29,15 +29,15 @@ class TrainingSession extends Model
 
 
     public function coaches(){
-        return $this->belongsToMany(Coach::class);
+        return $this->belongsToMany(Coach::class)->withPivot('id')->withTimestamps();
     }
 
-    public function training_package(){
+    public function training_packages(){
         return $this->belongsTo(TrainingPackage::class);
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->using(TrainingSessionUser::class);
+        return $this->belongsToMany(User::class)->withPivot('id')->withTimestamps();
     }
 }

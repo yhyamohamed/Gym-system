@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\models\Gym;
+use App\models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +15,14 @@ use App\models\Gym;
 */
 
 Route::get('/', function () {
+    $g =Gym::find(8);
+    $u =User::find(1);
+    foreach ($u->training_sessions as $role) {
+        
+        echo $role->pivot;
+        echo $role->pivot->created_at->diffForHumans();
+    }
+    dd($u->training_sessions);
     return view('devView');
 });
 Route::get('/users', function () {

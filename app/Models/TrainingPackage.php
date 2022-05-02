@@ -26,7 +26,7 @@ class TrainingPackage extends Model
     }
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('id','remaining_sessions','amount_paid')->withTimestamps();;
     }
 
 }
