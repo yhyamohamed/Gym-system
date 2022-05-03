@@ -18,7 +18,7 @@ class GymFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'creator' =>  CityManager::factory(),
+            'creator' =>   $this->faker->name(),
             'city_manager_id' =>  CityManager::factory(),
            'cover_img'=>'uploads/gymsCovrs'
         ];

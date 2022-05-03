@@ -15,6 +15,7 @@ class UserController extends Controller
 
     public function index()
     {
+        
         return User::all();
     }
 
@@ -47,13 +48,14 @@ class UserController extends Controller
 
 
     public function show(User $user)
-    {
+    {   
         return $user;
     }
 
 
     public function update(StoreUpdateRequest $request, User $user)
     {
+        
         $isupdated = $user->update($request->all());
         if ($isupdated)
             return response()->json(['updated' => $isupdated], 200);

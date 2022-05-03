@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('creator');
             $table->string('cover_img');
-            // $table->unsignedBigInteger('city_manager_id');
-            // $table->foreign('city_manager_id')->references('id')->on('city_managers');
             $table->foreignId('city_manager_id')->constrained();
             $table->timestamps();
         });
