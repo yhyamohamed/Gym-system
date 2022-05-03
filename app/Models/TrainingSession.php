@@ -33,11 +33,15 @@ class TrainingSession extends Model
     }
 
     public function training_packages(){
-        return $this->belongsTo(TrainingPackage::class);
+        return $this->belongsTo(TrainingPackage::class,'training_package_id');
     }
 
     public function users()
     {
         return $this->belongsToMany(User::class)->withPivot('id')->withTimestamps();
+    }
+    public function gyms()
+    {
+        return $this->training_packages->gym;
     }
 }
