@@ -66,6 +66,10 @@ class GymController extends Controller
      *
      */
     public function destroy(Gym $gym) {
+
+        if($gym->training_sessions()->count()) {
+            return redirect()->back()->with('error', 'Can\'t delete a gym that has training sessions.');
+        }
         
         Storage::delete(str_replace('storage', 'public', $gym->cover_img));
         $gym->delete();
