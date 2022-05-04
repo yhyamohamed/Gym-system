@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\SessionConflict;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUpdateTrainingSessionRequest extends FormRequest
@@ -25,8 +26,8 @@ class StoreUpdateTrainingSessionRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'start_at' => 'required|date',
-            'finish_at' => 'required|date',
+            'start_at' => ['required', 'date', new SessionConflict],
+            'finish_at' => ['required', 'date', new SessionConflict],
             'training_package_id' => 'required|exists:training_packages,id',
         ];
     }

@@ -25,14 +25,6 @@ class TrainingSessionController extends Controller
      */
     public function store(StoreUpdateTrainingSessionRequest $request) {
         
-        $trainingSessions = TrainingSession::all();
-
-        foreach ($trainingSessions as $trainingSession) {
-            if (($trainingSession->start_at <= $request->start_at && $trainingSession->finish_at >= $request->start_at) || ($trainingSession->start_at <= $request->finish_at && $trainingSession->finish_at >= $request->finish_at)) {
-                return redirect()->back()->with('error', 'Training session time overlaps with another session.');
-            }
-        }
-
         TrainingSession::create($request->all());
 
         return redirect()->route('tables.training_sessions');
