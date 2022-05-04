@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +16,7 @@ class UserController extends Controller
 
     public function index()
     {
-        
+
         return User::all();
     }
 
@@ -34,11 +35,11 @@ class UserController extends Controller
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-        //NOTE : creating token is done in the user resource to send it bk 
+        //NOTE : creating token is done in the user resource to send it bk
         return new UserResource($user);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, StoreUserRequest $userRequest)
     {
         $hashedPass = Hash::make($request->password);
         $request->merge(['password' => $hashedPass]);
@@ -48,14 +49,14 @@ class UserController extends Controller
 
 
     public function show(User $user)
-    {   
+    {
         return $user;
     }
 
 
     public function update(StoreUpdateRequest $request, User $user)
     {
-        
+
         $isupdated = $user->update($request->all());
         if ($isupdated)
             return response()->json(['updated' => $isupdated], 200);
