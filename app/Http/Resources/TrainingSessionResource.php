@@ -20,6 +20,6 @@ class TrainingSessionResource extends JsonResource
             'gym_name' => $this->gyms,
             'start_at' => $this->start_at,
             'finish_at' => $this->finish_at,
-    ];
+        ];
     }
 }

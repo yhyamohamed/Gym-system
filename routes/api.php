@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/users/{user}', [UserController::class, 'update']);
     Route::get('/my-attendance', [AttendanceController::class, 'index']);
     Route::get('/remaining_sessions', [AttendanceController::class, 'remainingSessions']);
+    Route::post('training-sessions/{session}/attend', [AttendanceController::class, 'store']);
 });
 
 Route::post('/tokens/create', function (Request $request) {
