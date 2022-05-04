@@ -13,7 +13,7 @@ class TrainingPackage extends Model
     protected $fillable=[
         'name',
         'price',
-        'total_session',
+        'total_sessions',
         'gym_id'
     ];
     
