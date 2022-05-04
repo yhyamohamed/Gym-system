@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-create user
+create gym manager
 @endsection
 
 
@@ -28,10 +28,10 @@ create user
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Add User</h3>
+                <h3 class="card-title">Add Gym Manager</h3>
               </div>
               
-<form method="POST" action="{{ route('users.store')}}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('gym_managers.store')}}" enctype="multipart/form-data">
             @csrf
             <div class="card-body"> 
             <div class="mb-3">
@@ -53,17 +53,11 @@ create user
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Date Of Birth</label>
-                <input name="date_of_birth" type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
-            </div>
-
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Gender</label>
-                <select name="gender" class="form-control">
-                    
-                    <option value="female">female</option>
-                    <option value="male">male </option>
-                    
+                <label for="exampleFormControlTextarea1" class="form-label">Gym ID</label>
+                <select name="gym_id" class="form-control">
+                    @foreach($gyms as $gym)
+                    <option value="{{$gym->id}}">{{$gym->id}}</option>
+                    @endforeach
 
                 </select>
             </div>
@@ -92,6 +86,6 @@ create user
   @endsection
   @section('dataTable-scripts')
   <script>
-    $('#users').addClass('active');
+    $('#city-managers').addClass('active');
   </script>
   @endsection

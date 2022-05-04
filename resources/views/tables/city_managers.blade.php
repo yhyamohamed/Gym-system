@@ -1,12 +1,11 @@
 @extends('layouts.admin')
 @section('title')
-coaches Table
+city Mangers Table
 @endsection
 
 @section('page-header')
-All Coaches
-<a href="{{ route('coaches.create') }}" class="mt-4 btn btn-success">Create Coach</a>
-
+All City Managers
+<a href="{{ route('city_managers.create') }}" class="mt-4 btn btn-success">Create City Manager</a>
 @endsection
 
 
@@ -26,23 +25,29 @@ All Coaches
         </div> --}}
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="coach-table" class="table table-bordered">
+        <table id="city_managers-table" class="table table-bordered">
           <thead>
             <tr>
               <th>id</th>
               <th>name</th>
+              <th>email</th>
+              <th>created-at</th>
+              <th>profile image</th>
               <th>Actions</th>
             </tr>
           <tbody>
-          @foreach ($coaches as $coach)
+          @foreach ($city_managers as $city_manager)
                         <tr>
-                            <td>{{ $coach->id }}</td>
-                            <td>{{ $coach->name }}</td>
+                            <td>{{ $city_manager->id }}</td>
+                            <td>{{ $city_manager->name }}</td>
+                            <td>{{ $city_manager->email }}</td>
+                            <td>{{ $city_manager->created_at }}</td>
+                            <td><img src="{{ asset('storage/images/'.$city_manager->avatar) }}" style="width:50px;height:50px;"/></td>
                             
                             <td>
                                 <center>
-                                <a href="{{ route('coaches.edit', ['coach' => $coach->id]) }}" class="btn btn-primary">Edit</a>
-                                    <form style="display: inline" method="POST" action="{{ route('coaches.destroy', ['coach' => $coach->id]) }}">
+                                    <a href="{{ route('city_managers.edit', ['city_manager' => $city_manager->id]) }}" class="btn btn-primary">Edit</a>
+                                    <form style="display: inline" method="POST" action="{{ route('city_managers.destroy', ['city_manager' => $city_manager->id]) }}">
                                         @method('DELETE')
                                         @csrf
                                         <button onclick="return confirm('Are you sure?');" class="btn btn-danger">Delete</button>
@@ -79,7 +84,7 @@ All Coaches
         "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#coach-table').DataTable({
+      $('#city_managers-table').DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": false,
@@ -89,6 +94,6 @@ All Coaches
         "responsive": true,
       });
     });
-    $('#coaches').addClass('active');
+    $('#city-managers').addClass('active');
   </script>
   @endsection

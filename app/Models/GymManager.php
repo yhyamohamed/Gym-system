@@ -13,6 +13,7 @@ class GymManager extends Model
       'email',
       'name',
       'password',
+      'gym_id',
       'avatar'
     ];
 

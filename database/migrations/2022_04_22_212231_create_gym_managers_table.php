@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('avatar');
             // $table->unsignedBigInteger('gym_id')->nullable();
             // $table->foreign('gym_id')->references('id')->on('gyms');
-            $table->foreignId('gym_id')->constrained();
+            $table->foreignId('gym_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

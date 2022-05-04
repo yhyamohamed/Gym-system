@@ -24,11 +24,9 @@ class UserController extends Controller
 
     public function create()
     {
-        $users=User::all();
+        
 
-       return view('users.createuser',[
-           'users' => $users
-        ]); 
+       return view('users.createuser'); 
      }
 
     public function store(StoreUserRequest $request)

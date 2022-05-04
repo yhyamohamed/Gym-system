@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('training_package_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('training_package_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('training_package_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('amount_paid');
             $table->integer('remaining_sessions');
             $table->timestamps();

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->dateTime('start_at');
             $table->dateTime('finish_at');
-            $table->foreignId('training_package_id')->constrained();
+            $table->foreignId('training_package_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

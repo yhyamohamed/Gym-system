@@ -1,12 +1,11 @@
 @extends('layouts.admin')
 @section('title')
-coaches Table
+Gym Mangers Table
 @endsection
 
 @section('page-header')
-All Coaches
-<a href="{{ route('coaches.create') }}" class="mt-4 btn btn-success">Create Coach</a>
-
+All Gym Managers
+<a href="{{ route('gym_managers.create') }}" class="mt-4 btn btn-success">Create Gym Manager</a>
 @endsection
 
 
@@ -26,23 +25,31 @@ All Coaches
         </div> --}}
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="coach-table" class="table table-bordered">
+        <table id="gym_managers-table" class="table table-bordered">
           <thead>
             <tr>
               <th>id</th>
               <th>name</th>
+              <th>email</th>
+              <th>created-at</th>
+              <th>gym_id</th>
+              <th>profile image</th>
               <th>Actions</th>
             </tr>
           <tbody>
-          @foreach ($coaches as $coach)
+          @foreach ($gym_managers as $gym_manager)
                         <tr>
-                            <td>{{ $coach->id }}</td>
-                            <td>{{ $coach->name }}</td>
+                            <td>{{ $gym_manager->id }}</td>
+                            <td>{{ $gym_manager->name }}</td>
+                            <td>{{ $gym_manager->email }}</td>
+                            <td>{{ $gym_manager->created_at }}</td>
+                            <td>{{ $gym_manager->gym->id}}</td>
+                            <td><img src="{{ asset('storage/images/'.$gym_manager->avatar) }}" style="width:50px;height:50px;"/></td>
                             
                             <td>
                                 <center>
-                                <a href="{{ route('coaches.edit', ['coach' => $coach->id]) }}" class="btn btn-primary">Edit</a>
-                                    <form style="display: inline" method="POST" action="{{ route('coaches.destroy', ['coach' => $coach->id]) }}">
+                                    <a href="{{ route('gym_managers.edit', ['gym_manager' => $gym_manager->id]) }}" class="btn btn-primary">Edit</a>
+                                    <form style="display: inline" method="POST" action="{{ route('gym_managers.destroy', ['gym_manager' => $gym_manager->id]) }}">
                                         @method('DELETE')
                                         @csrf
                                         <button onclick="return confirm('Are you sure?');" class="btn btn-danger">Delete</button>
@@ -79,7 +86,7 @@ All Coaches
         "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#coach-table').DataTable({
+      $('#gym_managers-table').DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": false,
@@ -89,6 +96,6 @@ All Coaches
         "responsive": true,
       });
     });
-    $('#coaches').addClass('active');
+    $('#gym-managers').addClass('active');
   </script>
   @endsection
