@@ -101,7 +101,10 @@ class GymController extends Controller
     {
         $gym_ = Gym::find($request->id);
         if($gym->training_sessions()->count()) {
-            return redirect()->back()->with('error', 'Can\'t delete a gym that has training sessions.');
+            return response()->json([
+                'status' => false,
+                'Erorr' => 'cant delete a gym that has a session  ',
+            ]); 
         }
         Storage::delete(str_replace('storage', 'public', $gym_->cover_img));
         $gym_->delete();
