@@ -21,7 +21,7 @@ class CanAttend implements Rule
     public function passes($attribute, $value)
     {
         $user_subscription = TrainingPackageUser::find($value)->first();
-        return $user_subscription->amount_paid > 0 && $user_subscription->remaining_sessions > 0;
+        return $user_subscription && $user_subscription->remaining_sessions > 0;
     }
 
     public function message()
