@@ -9,10 +9,7 @@ use App\Models\Gym;
 
 class TrainingPackageController extends Controller
 {
-    /**
-     * Get all training packages.
-     *
-     */
+   
     public function index()
     {
 
@@ -21,10 +18,6 @@ class TrainingPackageController extends Controller
         return view('tables.training_packages', compact('trainingPackages'));
     }
 
-    /**
-     * Create a new gym.
-     *
-     */
     public function create()
     {
         $gyms = Gym::all();
@@ -32,10 +25,7 @@ class TrainingPackageController extends Controller
         return view('training_packages.create', compact('gyms'));
     }
 
-    /**
-     * Store a new training package.
-     *
-     */
+    
     public function store(StoreUpdateTrainingPackageRequest $request)
     {
 
@@ -72,8 +62,7 @@ class TrainingPackageController extends Controller
      */
     public function update(StoreUpdateTrainingPackageRequest $request, TrainingPackage $trainingPackage)
     {
-        $trainingPackage->update($request->all());
-
+      
         $trainingPackage->update([
             'name' => $request->name,
             'price' => number_format(($request->price)*100, 2, '.', ''),

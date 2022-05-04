@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateTrainingSessionRequest extends FormRequest
+class StoreUpdateSubscriptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreUpdateTrainingSessionRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,10 +24,10 @@ class StoreUpdateTrainingSessionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'start_at' => 'required|date',
-            'finish_at' => 'required|date',
             'training_package_id' => 'required|exists:training_packages,id',
+            'user_id' => 'required|exists:users,id',
+            'ammount_paid' => 'required|numeric',
+            'remaining_sessions' => 'required|numeric',
         ];
     }
 }

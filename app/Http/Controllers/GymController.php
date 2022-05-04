@@ -100,6 +100,9 @@ class GymController extends Controller
     public function destroy(Request $request, Gym $gym)
     {
         $gym_ = Gym::find($request->id);
+        if($gym->training_sessions()->count()) {
+            return redirect()->back()->with('error', 'Can\'t delete a gym that has training sessions.');
+        }
         Storage::delete(str_replace('storage', 'public', $gym_->cover_img));
         $gym_->delete();
         return response()->json([
@@ -107,9 +110,5 @@ class GymController extends Controller
             'msg' => 'Deleted',
             'id' => $request->id,
         ]);
-        // Storage::delete(str_replace('storage', 'public', $gym->cover_img));
-        // $gym->delete();
-
-        // return redirect()->route('gyms.index');
     }
 }
