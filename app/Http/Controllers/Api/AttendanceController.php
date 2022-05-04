@@ -5,28 +5,45 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\AttendanceResource;
-use App\Http\Resources\AttendanceResource;
+use App\Http\Resources\RemainingSessionsResource;
 use App\Models\TrainingSessionUser;
+use App\Models\TrainingPackageUser;
+use App\Http\Requests\storeAttendanceRequest;
+use App\Models\TrainingSession;
 
 class AttendanceController extends Controller
 {
 
     public function index(Request $request)
     {
-        // $user_sessions = $request->user()->training_sessions;
-        // return  $user_sessions;
-        // return ;
+
         return  AttendanceResource::collection(TrainingSessionUser::where('user_id', $request->user()->id)->get());
     }
 
     public function remainingSessions(Request $request)
     {
-        // {total_training_sessions:1000 ,//training package
-        //     remaining__training_sessions:300}training package user
+
+        return RemainingSessionsResource::collection(TrainingPackageUser::where('user_id', $request->user()->id)->get());
     }
-    public function store(Request $request)
+    public function store(storeAttendanceRequest $request)
     {
-        //
+        //find training session 
+        $training_session = TrainingSession::find($request->training_session_id);
+        if ($training_session){
+        $target_package =  $training_session->training_packages;
+        //attend 
+        $attend =  TrainingSessionUser::create($request->all());
+        //minus remaining
+        $target = TrainingPackageUser::where('training_package_id', $target_package->id)
+            ->where('user_id', $attend->user_id)
+            ->get()->first();
+            $target->decrement('remaining_sessions');
+            return ;
+            
+            return response()->json(['remaining_sessions' => $target->remaining_sessions], 200);
+        }else{
+            return response()->json(['Error' => 'some thing went wrong'], 500);
+        }
     }
 
 
