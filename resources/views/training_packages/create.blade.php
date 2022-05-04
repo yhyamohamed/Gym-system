@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 @section('title')
-Create Gym
+Create Training Packages
 @endsection
 
 @section('left-breadcrumb')
 <li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item"><a href="{{ route('gyms.index') }}">Gyms</a></li>
-<li class="breadcrumb-item active">Create Gym</li>
+<li class="breadcrumb-item"><a href="{{ route('training_packages.index') }}">Training Packages</a></li>
+<li class="breadcrumb-item active">Create Training Packages</li>
 @endsection
 
 @section('content')
@@ -28,9 +28,9 @@ Create Gym
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Add Gym</h3>
+                    <h3 class="card-title">Add Training Packages</h3>
                 </div>
-                <form method="POST" action="{{ route('gyms.store')}}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('training_packages.store')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="mb-3">
@@ -38,22 +38,20 @@ Create Gym
                             <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Creator</label>
-                            <input name="creator" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                            <label for="exampleFormControlTextarea1" class="form-label">Price</label>
+                            <input name="price" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">City Manger</label>
-                            <select name="city_manager_id" class="form-control">
-                                @foreach ($cityMangers as $cityManger)
-                                <option value="{{ $cityManger->id }}">{{ $cityManger->name }}</option>
+                            <label for="exampleFormControlTextarea1" class="form-label">Total Sessions</label>
+                            <input name="total_sessions" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Gym</label>
+                            <select name="gym_id" class="form-control">
+                                @foreach ($gyms as $gym)
+                                <option value="{{ $gym->id }}">{{ $gym->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="mb-3">
-                            <div>
-                                <label class="form-label" for="customFile @error('fileUpload') is-invalid @enderror">Upload Cover Image</label>
-                                <input type="file" name="cover_img" class="form-control" id="customFile" />
-                            </div>
                         </div>
                         <button class="btn btn-success">Create</button>
                     </div>
@@ -67,6 +65,6 @@ Create Gym
 @endsection
 @section('dataTable-scripts')
 <script>
-    $('#gyms').addClass('active');
+    $('#training_packages').addClass('active');
 </script>
 @endsection

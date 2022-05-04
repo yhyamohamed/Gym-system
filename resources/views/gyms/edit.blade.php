@@ -42,7 +42,7 @@ Edit Gym
               <input name="creator" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $gym->creator }}">
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlTextarea1" class="form-label">City Manger:</label>
+              <label for="exampleFormControlTextarea1" class="form-label">City Manger</label>
               <select name="city_manager_id" class="form-control">
               <option value="{{ $gym['city_manager_id'] }}" selected hidden>{{ $gym->city_manager->name }}</option>
                 @foreach ($cityMangers as $cityManger)
@@ -72,23 +72,6 @@ Edit Gym
 @endsection
 @section('dataTable-scripts')
 <script>
-  $(function() {
-    $("#example1").DataTable({
-      "responsive": true,
-      "lengthChange": false,
-      "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#user-table').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
   $('#gyms').addClass('active');
 </script>
 @endsection

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\models\Gym;
 use App\models\User;
 use App\Http\Controllers\GymController;
+use App\Http\Controllers\TrainingPackageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CoachController;
 /*
@@ -42,6 +43,16 @@ Route::post('/gyms', [GymController::class, 'store'])->name('gyms.store');
 Route::delete('/gyms/{gym}', [GymController::class , 'destroy'])->name('gyms.destroy');
 Route::get('/gyms/{gym}/edit' , [GymController::class, 'edit'])->name('gyms.edit');
 Route::put('/gyms/{gym}', [GymController::class, 'update'])->name('gyms.update');
+
+/*
+* Training Packages Routes 
+*/
+Route::get('/training-packages', [TrainingPackageController::class, 'index'])->name('training_packages.index');
+Route::get('/training-packages/create/', [TrainingPackageController::class, 'create'])->name('training_packages.create');
+Route::post('/training-packages', [TrainingPackageController::class, 'store'])->name('training_packages.store');
+Route::delete('/training-packages/{trainingPackage}', [TrainingPackageController::class , 'destroy'])->name('training_packages.destroy');
+Route::get('/training-packages/{trainingPackage}/edit' , [TrainingPackageController::class, 'edit'])->name('training_packages.edit');
+Route::put('/training-packages/{trainingPackage}', [TrainingPackageController::class, 'update'])->name('training_packages.update');
 
 /*
 * Users Routes
