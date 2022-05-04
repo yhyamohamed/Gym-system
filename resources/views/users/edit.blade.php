@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-create user
+edit user
 @endsection
 
 

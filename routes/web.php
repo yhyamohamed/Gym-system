@@ -3,11 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\models\Gym;
 use App\models\User;
-<<<<<<< HEAD
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\UserController;
-=======
->>>>>>> 638077cbcd0c836b2fd1e8be51615d78277d4acf
+use App\Http\Controllers\CoachController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +18,6 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-<<<<<<< HEAD
     // $g =Gym::find(8);
     // $u =User::find(1);
     // foreach ($u->training_sessions as $role) {
@@ -37,27 +34,23 @@ Route::get('/', function () {
 // })->name('users.index');
 
 Route::get('/gyms', [GymController::class, 'index'])->name('gyms.index');
+
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create/', [UserController::class, 'create'])->name('users.create');
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::delete('/users/{user}', [UserController::class , 'destroy'])->name('users.destroy');
 Route::get('/users/{user}/edit' , [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-=======
-    $g =Gym::find(8);
-    $u =User::find(1);
-    foreach ($u->training_sessions as $role) {
-        
-        echo $role->pivot;
-        echo $role->pivot->created_at->diffForHumans();
-    }
-    dd($u->training_sessions);
-    return view('devView');
-});
-Route::get('/users', function () {
-    return view('tables.users');
-})->name('users.index');
->>>>>>> 638077cbcd0c836b2fd1e8be51615d78277d4acf
+
+Route::get('/coaches', [CoachController::class, 'index'])->name('coaches.index');
+Route::get('/coaches/create/', [CoachController::class, 'create'])->name('coaches.create');
+Route::post('/coaches', [CoachController::class, 'store'])->name('coaches.store');
+Route::get('/coaches/{coach}/edit' , [CoachController::class, 'edit'])->name('coaches.edit');
+Route::put('/coaches/{coach}', [CoachController::class, 'update'])->name('coaches.update');
+Route::delete('/coaches/{coach}', [CoachController::class , 'destroy'])->name('coaches.destroy');
+
+
+
 
 Auth::routes();
 

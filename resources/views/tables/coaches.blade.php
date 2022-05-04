@@ -1,11 +1,12 @@
 @extends('layouts.admin')
 @section('title')
-users Table
+coaches Table
 @endsection
 
 @section('page-header')
-All Users
-<a href="{{ route('users.create') }}" class="mt-4 btn btn-success">Create User</a>
+All Coaches
+<a href="{{ route('coaches.create') }}" class="mt-4 btn btn-success">Create Coach</a>
+
 @endsection
 
 
@@ -25,33 +26,23 @@ All Users
         </div> --}}
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="user-table" class="table table-bordered">
+        <table id="coach-table" class="table table-bordered">
           <thead>
             <tr>
               <th>id</th>
               <th>name</th>
-              <th>email</th>
-              <th>gender</th>
-              <th>dateofbirth</th>
-              <th>created-at</th>
-              <th>profile image</th>
               <th>Actions</th>
             </tr>
           <tbody>
-          @foreach ($users as $user)
+          @foreach ($coaches as $coach)
                         <tr>
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->gender }}</td>
-                            <td>{{ $user->date_of_birth }}</td>
-                            <td>{{ $user->created_at }}</td>
-                            <td><img src="{{ asset('storage/images/'.$user->profile_image) }}" style="width:50px;height:50px;"/></td>
+                            <td>{{ $coach->id }}</td>
+                            <td>{{ $coach->name }}</td>
                             
                             <td>
                                 <center>
-                                    <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">Edit</a>
-                                    <form style="display: inline" method="POST" action="{{ route('users.destroy', ['user' => $user->id]) }}">
+                                <a href="{{ route('coaches.edit', ['coach' => $coach->id]) }}" class="btn btn-primary">Edit</a>
+                                    <form style="display: inline" method="POST" action="{{ route('coaches.destroy', ['coach' => $coach->id]) }}">
                                         @method('DELETE')
                                         @csrf
                                         <button onclick="return confirm('Are you sure?');" class="btn btn-danger">Delete</button>
