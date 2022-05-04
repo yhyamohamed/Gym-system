@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('creator');
             $table->string('cover_img');
-            $table->foreignId('city_manager_id')->constrained();
+            $table->foreignId('city_manager_id')->constrained()->onDelete('cascade')->onUpdate('cascade');;
             $table->timestamps();
         });
     }

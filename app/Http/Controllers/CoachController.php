@@ -19,11 +19,8 @@ class CoachController extends Controller
 
     public function create()
     {
-        $coaches=Coach::all();
 
-       return view('coaches.create',[
-           'coaches' => $coaches
-        ]); 
+       return view('coaches.create'); 
      }
 
     public function store(StoreCoachRequest $request)

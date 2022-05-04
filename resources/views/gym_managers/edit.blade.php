@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-edit user
+edit Gym Manager
 @endsection
 
 
@@ -28,61 +28,49 @@ edit user
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit User</h3>
+                <h3 class="card-title">Edit Gym Manager</h3>
               </div>
-<form method="POST" action=" {{ route('users.update', ['user' => $users->id]) }}" enctype="multipart/form-data">
+<form method="POST" action=" {{ route('gym_managers.update', ['gym_manager' => $gym_managers->id]) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="card-body"> 
-            <input type="hidden" name="user_id"  value="{{ $users->id }}" />
+            <input type="hidden" name="gym_manager_id"  value="{{ $gym_managers->id }}" />
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Name</label>
-                <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $users->name }}">
+                <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $gym_managers->name }}">
             </div>
 
             
             <div class="mb-3">
                
                 <label for="exampleFormControlTextarea1" class="form-label">Email</label>
-                <input name="email" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $users->email }}">
+                <input name="email" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $gym_managers->email }}">
             </div>
 
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Password</label>
-                <input name="password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $users->password }}">
+                <input name="password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $gym_managers->password }}">
             </div>
-
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Date Of Birth</label>
-                <input name="date_of_birth" type="date" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $users->date_of_birth }}" >
-            </div>
-
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Gender</label>
-                <select name="gender" class="form-control">
-                    
-                    <option value="{{ $users->gender }}">{{ $users->gender }}</option>
-                    @if(($users->gender)=='male'){
-                    <option value="female">female </option>
-                    }
-                    @else {
-                        <option value="male">male </option>
-                    }
-                    @endif
+                <label for="exampleFormControlTextarea1" class="form-label">Gym ID</label>
+                <select name="gym_id" class="form-control" >
+                <option value="{{$gym_managers->gym->id}}" selected>{{$gym_managers->gym->id}}</option>
+                    @foreach($gyms as $gym)
+                    <option value="{{$gym->id}}">{{$gym->id}}</option>
+                    @endforeach
 
                 </select>
             </div>
-
             <div class="mb-3" >
                 <label class="form-label" for="customFile @error('fileUpload') is-invalid @enderror">Upload image</label>
                 <div class="row">
                     <div class="col-sm-6">
-                        <input type="file" name="fileUpload" class="form-control " id="customFile" value= "{{ $users->profile_image}} "/>  
+                        <input type="file" name="fileUpload" class="form-control " id="customFile" value= "{{ $gym_managers->avatar}} "/>  
                     </div>                  
                     <div class="col-sm-6">
-                            <img src="{{ asset('storage/images/'.$users->profile_image) }}"  style="width:50px;height:50px;"/>
+                            <img src="{{ asset('storage/images/'.$gym_managers->avatar) }}"  style="width:50px;height:50px;"/>
                     </div>
                 </div>
           <button type="submit" class="btn btn-success">Update</button>
@@ -97,6 +85,6 @@ edit user
   @endsection
   @section('dataTable-scripts')
   <script>
-    $('#users').addClass('active');
+    $('#city_managers').addClass('active');
   </script>
   @endsection

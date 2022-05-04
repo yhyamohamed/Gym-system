@@ -6,6 +6,8 @@ use App\models\User;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CoachController;
+use App\Http\Controllers\CityManagerController;
+use App\Http\Controllers\GymManagerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,6 +50,20 @@ Route::post('/coaches', [CoachController::class, 'store'])->name('coaches.store'
 Route::get('/coaches/{coach}/edit' , [CoachController::class, 'edit'])->name('coaches.edit');
 Route::put('/coaches/{coach}', [CoachController::class, 'update'])->name('coaches.update');
 Route::delete('/coaches/{coach}', [CoachController::class , 'destroy'])->name('coaches.destroy');
+
+Route::get('/city_managers', [CityManagerController::class, 'index'])->name('city_managers.index');
+Route::get('/city_managers/create/', [CityManagerController::class, 'create'])->name('city_managers.create');
+Route::post('/city_managers', [CityManagerController::class, 'store'])->name('city_managers.store');
+Route::delete('/city_managers/{city_manager}', [CityManagerController::class , 'destroy'])->name('city_managers.destroy');
+Route::get('/city_managers/{city_manager}/edit' , [CityManagerController::class, 'edit'])->name('city_managers.edit');
+Route::put('/city_managers/{city_manager}', [CityManagerController::class, 'update'])->name('city_managers.update');
+
+Route::get('/gym_managers', [GymManagerController::class, 'index'])->name('gym_managers.index');
+Route::get('/gym_managers/create/', [GymManagerController::class, 'create'])->name('gym_managers.create');
+Route::post('/gym_managers', [GymManagerController::class, 'store'])->name('gym_managers.store');
+Route::delete('/gym_managers/{gym_manager}', [GymManagerController::class , 'destroy'])->name('gym_managers.destroy');
+Route::get('/gym_managers/{gym_manager}/edit' , [GymManagerController::class, 'edit'])->name('gym_managers.edit');
+Route::put('/gym_managers/{gym_manager}', [GymManagerController::class, 'update'])->name('gym_managers.update');
 
 
 

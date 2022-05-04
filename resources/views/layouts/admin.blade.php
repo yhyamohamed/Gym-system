@@ -213,13 +213,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a id="gym-managers" href="{{ route('users.index') }}" class="nav-link">
+                  <a id="gym-managers" href="{{ route('gym_managers.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Gym Managers</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a id="city-managers" href="{{ route('users.index') }}" class="nav-link">
+                  <a id="city-managers" href="{{ route('city_managers.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>City Managers</p>
                   </a>
