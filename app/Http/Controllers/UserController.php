@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -38,7 +39,7 @@ class UserController extends Controller
         User::create([
             'name' =>  $request['name'],
             'email' =>  $request['email'],
-            'password'=> $request['password'],
+            'password'=> Hash::make($request->password),
             'date_of_birth' => $request['date_of_birth'],
             'gender' => $request['gender'],
             'profile_image'=>$name,
