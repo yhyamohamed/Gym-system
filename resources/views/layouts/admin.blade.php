@@ -243,7 +243,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a id="training-packages" href="{{ route('users.index') }}" class="nav-link">
+                  <a id="training_packages" href="{{ route('training_packages.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Training Packages</p>
                   </a>
