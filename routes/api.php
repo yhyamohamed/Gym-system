@@ -15,13 +15,14 @@ use App\Http\Controllers\API\AttendanceController;
 |
 */
 Route::post('/login', [UserController::class, 'login']);//return authorization token 
+Route::post('/users', [UserController::class, 'store']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/{user}', [UserController::class, 'show']);
-    Route::post('/users', [UserController::class, 'store']);
     Route::put('/users/{user}', [UserController::class, 'update']);
     Route::get('/my-attendance', [AttendanceController::class, 'index']);
+    Route::get('/remaining_sessions', [AttendanceController::class, 'remainingSessions']);
 });
 
 Route::post('/tokens/create', function (Request $request) {
