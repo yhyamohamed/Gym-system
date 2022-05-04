@@ -33,8 +33,19 @@ Route::get('/', function () {
 //     return view('tables.users');
 // })->name('users.index');
 
+/*
+* Gyms Routes
+*/
 Route::get('/gyms', [GymController::class, 'index'])->name('gyms.index');
+Route::get('/gyms/create/', [GymController::class, 'create'])->name('gyms.create');
+Route::post('/gyms', [GymController::class, 'store'])->name('gyms.store');
+Route::delete('/gyms/{gym}', [GymController::class , 'destroy'])->name('gyms.destroy');
+Route::get('/gyms/{gym}/edit' , [GymController::class, 'edit'])->name('gyms.edit');
+Route::put('/gyms/{gym}', [GymController::class, 'update'])->name('gyms.update');
 
+/*
+* Users Routes
+*/
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create/', [UserController::class, 'create'])->name('users.create');
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
@@ -42,15 +53,15 @@ Route::delete('/users/{user}', [UserController::class , 'destroy'])->name('users
 Route::get('/users/{user}/edit' , [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
+/*
+* Coaches Routes
+*/
 Route::get('/coaches', [CoachController::class, 'index'])->name('coaches.index');
 Route::get('/coaches/create/', [CoachController::class, 'create'])->name('coaches.create');
 Route::post('/coaches', [CoachController::class, 'store'])->name('coaches.store');
 Route::get('/coaches/{coach}/edit' , [CoachController::class, 'edit'])->name('coaches.edit');
 Route::put('/coaches/{coach}', [CoachController::class, 'update'])->name('coaches.update');
 Route::delete('/coaches/{coach}', [CoachController::class , 'destroy'])->name('coaches.destroy');
-
-
-
 
 Auth::routes();
 
