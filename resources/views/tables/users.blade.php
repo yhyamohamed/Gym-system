@@ -16,6 +16,8 @@ All Users
 
 
 @section('content')
+
+
 <center>
     <div role="alert" class="alert  col-md-8" id="msg" style="display: none;"></div>
 
@@ -42,7 +44,8 @@ All Users
             </tr>
           <tbody>
           @foreach ($users as $user)
-                        <tr>
+                        <tr> 
+                          
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
