@@ -16,15 +16,7 @@ class GymController extends Controller
      * Get all gyms.
      *
      */
-    public function index()
-    {
-
-        $gyms = Gym::all();
-
-        return view('tables.gyms', compact('gyms'));
-    }
-
-    public function getAll(Request $request)
+    public function index(Request $request)
     {
         if ($request->ajax()) {
             $data = Gym::all();
@@ -57,6 +49,7 @@ class GymController extends Controller
         }
         return view('tables.gyms');
     }
+
     /**
      * Create a new gym.
      *
@@ -149,7 +142,6 @@ class GymController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => 'user no. ' . $gym->id . ' deleted',
-                    'id' => $gym->id,
                 ], 200);
             } else {
                 return response()->json(["message" => "Something went wrong"], 400);

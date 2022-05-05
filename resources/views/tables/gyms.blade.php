@@ -45,7 +45,7 @@ All Gyms
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Deleting Gym NO.</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Deleting a Gym</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -115,13 +115,10 @@ All Gyms
             });
         });
         $('#gyms').addClass('active');
-        var ids = null;
-
         function getRowId() {
             $('#gym-moadal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 id = button.data('id');
-                ids = id;
             });
         }
         getRowId();
@@ -133,7 +130,6 @@ All Gyms
             url[url.length - 1] = id;
             url = url.join("/");
             var msgDiv = $("#msg");
-
             $.ajax({
                 url: url,
                 type: 'DELETE',
@@ -155,7 +151,7 @@ All Gyms
                             "background-color": "#f8d7da",
                             "border-color": "#f5c6cb"
                         });
-                        msgDiv.addClass("alert-success").html(data.message).show();
+                        msgDiv.addClass("alert-danger").html(data.message).show();
                     }
                 },
                 error: function(reject) {

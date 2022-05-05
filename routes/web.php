@@ -27,9 +27,7 @@ Route::get('/', function () {
 /*
 * Gyms Routes
 */
-// Route::get('/test', [GymController::class, 'getAll'])->name('gyms.getAll');
-// Route::get('/gyms', [GymController::class, 'index'])->name('gyms.index');
-Route::get('/gyms', [GymController::class, 'getAll'])->name('gyms.index');
+Route::get('/gyms', [GymController::class, 'index'])->name('gyms.index');
 Route::get('/gyms/create/', [GymController::class, 'create'])->name('gyms.create');
 Route::post('/gyms', [GymController::class, 'store'])->name('gyms.store');
 Route::delete('/gyms/{gym}', [GymController::class , 'destroy'])->name('gyms.destroy');
