@@ -28,7 +28,7 @@ class UserController extends Controller
 
        return view('users.createuser',[
            'users' => $users
-        ]); 
+        ]);
      }
 
     public function store(StoreUserRequest $request)
@@ -43,11 +43,11 @@ class UserController extends Controller
             'date_of_birth' => $request['date_of_birth'],
             'gender' => $request['gender'],
             'profile_image'=>$name,
-            
+
         ]);
     }
         return redirect()->route('users.index');
-       
+
     }
 
     public function edit($userId)
@@ -59,7 +59,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request ,$userId)
 
-    { 
+    {
         $user=User::find($userId);
         if($user){
             $name = $user->profile_image;
@@ -69,7 +69,7 @@ class UserController extends Controller
 
                 if ($name != null) {
                     File::delete(public_path( Storage::url($user->profile_image)));
-                    
+
                 }
                 $image=$request->file('fileUpload');
                 $name = $image->getClientOriginalName();
@@ -83,7 +83,7 @@ class UserController extends Controller
                 'date_of_birth' => $request['date_of_birth'],
                 'gender' => $request['gender'],
                 'profile_image'=>$name,
-            
+
             ]);
     }
         return redirect()->route('users.index');
@@ -97,6 +97,6 @@ class UserController extends Controller
     }
 
 
-       
-    
+
+
 }

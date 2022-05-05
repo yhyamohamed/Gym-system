@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\models\TrainingSessionUser;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -48,7 +48,7 @@ class User extends Authenticatable
     ];
 
     public function training_packages()
-    {					
+    {
         return $this->belongsToMany(TrainingPackage::class)->withPivot('id','remaining_sessions','amount_paid')->withTimestamps();
     }
 
