@@ -19,9 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('name');
             $table->string('avatar');
-            // $table->unsignedBigInteger('gym_id')->nullable();
-            // $table->foreign('gym_id')->references('id')->on('gyms');
-            $table->foreignId('gym_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('gym_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class StoreUpdateSubscriptionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,8 +26,6 @@ class StoreUpdateSubscriptionRequest extends FormRequest
         return [
             'training_package_id' => 'required|exists:training_packages,id',
             'user_id' => 'required|exists:users,id',
-            'ammount_paid' => 'required|numeric',
-            'remaining_sessions' => 'required|numeric',
         ];
     }
 }

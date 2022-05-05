@@ -17,6 +17,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
+        
         if ($request->ajax()) {
             $data = User::all();
             return DataTables::of($data)
@@ -109,25 +110,24 @@ class UserController extends Controller
         return redirect()->route('users.index');
 
     }
-
     public function destroy($userId){
         $user = User::find($userId);
         if($user){
+            if($user->training_sessions()->count()){
+                return response()->json(["status"=>false,"message"=> "can't delete this user because still having sessions"] ,200);
+            }
             $deleted=$user->delete();
+              if($deleted){
+            return response()->json(["status"=>true,"message"=> "user no. ".$userId." deleted"] ,200);
+           }else{
+            return response()->json(["message"=> "something went wrong"] ,400);
+             }
         }else{
             return response()->json(["message"=> "could't find this user"] ,400);
         }
-        if($deleted){
-            return response()->json(["message"=> "user no. ".$userId." deleted"] ,200);
-        }else{
-            return response()->json(["message"=> "something went wrong"] ,400);
-        }
+      
         
         
-    }
-
-
-
-       
+    }       
     
 }

@@ -35,3 +35,5 @@ Route::post('/tokens/create', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/subscription/result', [App\Http\Controllers\Api\SubscriptionController::class, 'checkoutEndpoint'])->name('subscription.result');

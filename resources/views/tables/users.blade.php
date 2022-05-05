@@ -124,11 +124,22 @@ $(".delete_btn").on('click', (e) =>{
       type: "DELETE",
       data: {'_token': "{{csrf_token()}}", },
       success: function(data)  {
-         
-        msgDiv.css({"color": "#155724", "background-color": " #d4edda","border-color": "#c3e6cb"});
-        msgDiv.addClass("alert-success").html(data.message).show();
-          
-        table.ajax.reload();
+        if (data.status) {
+                        msgDiv.css({
+                            "color": "#155724",
+                            "background-color": " #d4edda",
+                            "border-color": "#c3e6cb"
+                        });
+                        msgDiv.addClass("alert-success").html(data.message).show();
+                        table.ajax.reload();
+                    } else {
+                        msgDiv.css({
+                            "color": "#721c24",
+                            "background-color": "#f8d7da",
+                            "border-color": "#f5c6cb"
+                        });
+                        msgDiv.addClass("alert-danger").html(data.message).show();
+                    }
       },
       error: function(error) {
         err=JSON.parse(error.responseText);

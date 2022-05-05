@@ -9,16 +9,40 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreCityManagerRequest;
 use App\Http\Requests\UpdateCityManagerRequest;
+use DataTables;
 
 class CityManagerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $city_managers = CityManager::all();
-        return view('tables.city_managers', [
-            'city_managers' => $city_managers,
-        ]);
+        {if ($request->ajax()) {
+            $data = CityManager::all();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('date', function ($row) {
+                    $data = $row->created_at->format('y-m-d');
+                    return $data;
+                })
+                ->addColumn('image', function ($row) {
+                    $src = asset('storage/images/'. $row->avatar);
+                    return '<img src="' . $src . '" style="width:50px;height:50px;" />';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . route('city_managers.edit', ['city_manager' => $row->id]) . '" class="btn btn-primary">Edit</a>
+                    <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                    data-bs-target="#usermoadal"
+                    data-id=' . $row->id .'>
+                    delete
+                        </button>
+                        ';
+                
+                })
+                ->rawColumns(['image', 'action','date'])
+                ->make(true);
+        }
+        return view('tables.city_managers');
     }
+}
 
     public function create()
     {
@@ -88,7 +112,7 @@ class CityManagerController extends Controller
 
     // }
     public function destroy($city_managerId){
-        $city_manager = CityManager::find(11);
+        $city_manager = CityManager::find($city_managerId );
         if($city_manager){
             $deleted=$city_manager->delete();
         }else{

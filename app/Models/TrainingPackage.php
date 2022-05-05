@@ -14,7 +14,8 @@ class TrainingPackage extends Model
         'name',
         'price',
         'total_sessions',
-        'gym_id'
+        'gym_id',
+        'stripe_product_id'
     ];
     
     public function gym(){
