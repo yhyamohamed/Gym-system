@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateSubscriptionRequest;
+use App\Models\TrainingPackage;
 use App\Models\TrainingPackageUser;
+use Stripe\StripeClient;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
@@ -25,9 +27,44 @@ class SubscriptionController extends Controller
      */
     public function store(StoreUpdateSubscriptionRequest $request) {
 
-        TrainingPackageUser::create($request->all());
+        $stripe = new StripeClient(config('services.stripe.secret'));
 
-        return redirect()->route('tables.subscriptions');
+        $trainingPackage = TrainingPackage::find($request->training_package_id);
+
+        $price = $stripe->prices->create([
+            'unit_amount' => $trainingPackage->price,
+            'currency' => 'usd',
+            'product' => $trainingPackage->stripe_product_id,
+        ]);
+
+        $paymentLink = $stripe->paymentLinks->create([
+            'line_items' => [
+                [
+                    'price' => $price->id,
+                    'quantity' => 1,
+                ],
+            ],
+            'after_completion' => [
+                'type' => 'redirect',
+                'redirect' => [
+                    'url' => route('training_packages.index'),
+                ],
+            ]
+        ]);
+
+        $data = $request->all();
+
+        $data['amount_paid'] = $trainingPackage->price;
+
+        $data['remaining_sessions'] = $trainingPackage->total_sessions;
+
+        $data['payment_status'] = 'pending';
+
+        $data['payment_link_id'] = $paymentLink->id;
+        
+        TrainingPackageUser::create($data);
+
+        return redirect()->to($paymentLink->url);
     }
 
     /**

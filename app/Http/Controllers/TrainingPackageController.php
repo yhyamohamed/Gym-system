@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateTrainingPackageRequest;
 use Illuminate\Http\Request;
+use Stripe\StripeClient;
 use App\Models\TrainingPackage;
 use App\Models\Gym;
 
@@ -28,15 +29,17 @@ class TrainingPackageController extends Controller
     
     public function store(StoreUpdateTrainingPackageRequest $request)
     {
+        $stripe = new StripeClient(config('services.stripe.secret'));
 
-        TrainingPackage::create($request->all());
-
-        TrainingPackage::create([
+        $stripeProduct = $stripe->products->create([
             'name' => $request->name,
-            'price' => number_format(($request->price)*100, 2, '.', ''),
-            'total_sessions' => $request->total_sessions,
-            'gym_id' => $request->gym_id,
         ]);
+
+        $data = $request->all();
+
+        $data['stripe_product_id'] = $stripeProduct->id;
+
+        TrainingPackage::create($data);
 
         return redirect()->route('training_packages.index');
     }

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('amount_paid');
             $table->integer('remaining_sessions');
+            $table->string('payment_status')->nullable();
+            $table->string('payment_link_id')->nullable();
             $table->timestamps();
         });
     }
