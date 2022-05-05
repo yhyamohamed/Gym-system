@@ -16,7 +16,10 @@ All Users
 
 
 @section('content')
+<center>
+    <div role="alert" class="alert  col-md-8" id="msg" style="display: none;"></div>
 
+</center>
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -51,11 +54,11 @@ All Users
                             <td>
                                 <center>
                                     <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">Edit</a>
-                                    <form style="display: inline" method="POST" action="{{ route('users.destroy', ['user' => $user->id]) }}">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button onclick="return confirm('Are you sure?');" class="btn btn-danger">Delete</button>
-                                    </form>
+                                    <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                                data-bs-target="#moadal{{ $user->id }}">
+                                delete
+                                    </button>
+                                    
                                 </center>
                             </td>
                         </tr>
@@ -63,6 +66,27 @@ All Users
            
           </tbody>
         </table>
+        @foreach ($users as $user)
+        <!-- Modal -->
+        <div class="modal fade" id="moadal{{ $user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">deleting user NO.{{ $user->id }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        are you SURE ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="" id="{{ $user->id }}" class="btn btn-danger delete_btn">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
       </div>
 
       <div class="card-footer clearfix">
@@ -81,14 +105,9 @@ All Users
   @endsection
   @section('dataTable-scripts')
   <script>
+    let table
     $(function() {
-      $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#user-table').DataTable({
+      table=$('#user-table').DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": false,
@@ -96,8 +115,50 @@ All Users
         "info": true,
         "autoWidth": false,
         "responsive": true,
+        
       });
     });
     $('#users').addClass('active');
+    $(".delete_btn").on('click', (e) =>{
+    
+    e.preventDefault();
+    var id = $(e.target).attr("id");
+    $('#moadal' + id).modal('toggle');
+    test="{{ route('users.destroy',['user' => $user->id])}}";
+    url=test.split("/")
+    url[url.length-1]=id;
+    url=url.join("/");
+    let msgDiv=$("#msg")
+    
+
+
+  //  console.log( url);
+    
+    $.ajax({
+      url: url,
+      type: "DELETE",
+      data: {'_token': "{{csrf_token()}}", },
+      success: function(data)  {
+         
+          msgDiv.css({"color": "#155724", "background-color": " #d4edda","border-color": "#c3e6cb"});
+          msgDiv.addClass("alert-success").html(data.message).show();
+          
+        
+        // table.ajax.reload(); 
+      },
+      error: function(error) {
+        err=JSON.parse(error.responseText);
+        usertable=$("#user-table").DataTable()
+        usertable.clear()
+        usertable.ajax.reload()
+        console.log()
+        msgDiv.css({"color": "#721c24", "background-color": "#f8d7da","border-color": "#f5c6cb"});
+        msgDiv.addClass("alert-danger").html(err.message).show();
+      }
+    });
+            
+ 
+});
   </script>
+
   @endsection

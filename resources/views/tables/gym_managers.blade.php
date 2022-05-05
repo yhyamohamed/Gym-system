@@ -16,7 +16,10 @@ All Gym Managers
 
 
 @section('content')
+<center>
+    <div role="alert" class="alert  col-md-8" id="msg" style="display: none;"></div>
 
+</center>
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -49,11 +52,10 @@ All Gym Managers
                             <td>
                                 <center>
                                     <a href="{{ route('gym_managers.edit', ['gym_manager' => $gym_manager->id]) }}" class="btn btn-primary">Edit</a>
-                                    <form style="display: inline" method="POST" action="{{ route('gym_managers.destroy', ['gym_manager' => $gym_manager->id]) }}">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button onclick="return confirm('Are you sure?');" class="btn btn-danger">Delete</button>
-                                    </form>
+                                    <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                                data-bs-target="#moadal{{ $gym_manager->id }}">
+                                delete
+                                    </button>
                                 </center>
                             </td>
                         </tr>
@@ -61,6 +63,27 @@ All Gym Managers
            
           </tbody>
         </table>
+        @foreach ($gym_managers as $gym_manager)
+        <!-- Modal -->
+        <div class="modal fade" id="moadal{{ $gym_manager->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">deleting manager NO.{{ $gym_manager->id }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        are you SURE ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="" id="{{ $gym_manager->id }}" class="btn btn-danger delete_btn">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
       </div>
 
       <div class="card-footer clearfix">
@@ -79,13 +102,6 @@ All Gym Managers
   @endsection
   @section('dataTable-scripts')
   <script>
-    $(function() {
-      $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
       $('#gym_managers-table').DataTable({
         "paging": true,
         "lengthChange": false,
@@ -95,7 +111,46 @@ All Gym Managers
         "autoWidth": false,
         "responsive": true,
       });
-    });
     $('#gym-managers').addClass('active');
+    $(".delete_btn").on('click', (e) =>{
+    
+    e.preventDefault();
+    var id = $(e.target).attr("id");
+    $('#moadal' + id).modal('toggle');
+    test="{{ route('gym_managers.destroy',['gym_manager' => $gym_manager->id])}}";
+    url=test.split("/")
+    url[url.length-1]=id;
+    url=url.join("/");
+    let msgDiv=$("#msg")
+    
+
+
+  //  console.log( url);
+    
+    $.ajax({
+      url: url,
+      type: "DELETE",
+      data: {'_token': "{{csrf_token()}}", },
+      success: function(data)  {
+         
+          msgDiv.css({"color": "#155724", "background-color": " #d4edda","border-color": "#c3e6cb"});
+          msgDiv.addClass("alert-success").html(data.message).show();
+          
+        
+        // table.ajax.reload(); 
+      },
+      error: function(error) {
+        err=JSON.parse(error.responseText);
+        managertable=$("#gym_managers-table").DataTable()
+        managertable.clear()
+        // managertable.ajax.reload()
+        console.log()
+        msgDiv.css({"color": "#721c24", "background-color": "#f8d7da","border-color": "#f5c6cb"});
+        msgDiv.addClass("alert-danger").html(err.message).show();
+      }
+    });
+            
+ 
+});
   </script>
   @endsection

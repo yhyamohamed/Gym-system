@@ -12,15 +12,7 @@ create city manager
 @endsection
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 <div class="container-fluid offset-md-2">
         <div class="row">
           <!-- left column -->
@@ -37,25 +29,40 @@ create city manager
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Name</label>
                 <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Email</label>
                 <input name="email" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                @error('email')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
 
              <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Password</label>
                 <input name="password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="">
+                @error('password')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Confirm-password</label>
                 <input name="confirmation_password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="">
+                @error('confirmation_password')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
 
             <div class="mb-3">
             <div>
             <label class="form-label" for="customFile @error('fileUpload') is-invalid @enderror">Upload image</label>
             <input type="file" name="fileUpload" class="form-control" id="customFile" />
+            @error('fileUpload')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
             
         </div>

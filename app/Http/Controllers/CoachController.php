@@ -52,9 +52,24 @@ class CoachController extends Controller
 
     }
 
-    public function destroy($coachId){
-        Coach::where('id', $coachId)->delete();
-        return redirect()->route('coaches.index');
+    // public function destroy($coachId){
+    //     Coach::where('id', $coachId)->delete();
+    //     return redirect()->route('coaches.index');
 
+    // }
+    public function destroy($coachId){
+        $coach = Coach::find(11);
+        if($coach){
+            $deleted=$coach->delete();
+        }else{
+            return response()->json(["message"=> "could't find this coach"] ,400);
+        }
+        if($deleted){
+            return response()->json(["message"=> "coach no. ".$coachId." deleted"] ,200);
+        }else{
+            return response()->json(["message"=> "something went wrong"] ,400);
+        }
+        
+        
     }
 }

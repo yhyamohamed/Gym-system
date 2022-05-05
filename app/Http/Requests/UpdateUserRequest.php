@@ -31,6 +31,7 @@ class UpdateUserRequest extends FormRequest
             'password'=>"min:6",
             'date_of_birth'=>"required",
             'fileUpload'=>['nullable','image','mimes:jpg,png,jpeg'],
+            'gender'=>"required",
         ];
     }
 }

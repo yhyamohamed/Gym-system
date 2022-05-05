@@ -88,10 +88,26 @@ class GymManagerController extends Controller
 
     }
 
-    public function destroy($gym_managerId){
-        GymManager::where('id', $gym_managerId)->delete();
-        return redirect()->route('gym_managers.index');
+    // public function destroy($gym_managerId){
+    //     GymManager::where('id', $gym_managerId)->delete();
+    //     return redirect()->route('gym_managers.index');
 
+    // }
+    public function destroy($gym_managerId){
+        $gym_manager = GymManager::find(11);
+        if($gym_manager){
+            $deleted=$gym_manager->delete();
+        }else{
+            return response()->json(["message"=> "could't find this manager"] ,400);
+        }
+        if($deleted){
+            return response()->json(["message"=> "manager no. ".$gym_managerId." deleted"] ,200);
+        }else{
+            return response()->json(["message"=> "something went wrong"] ,400);
+        }
+        
+        
     }
+
 
 }

@@ -25,7 +25,6 @@ class UserController extends Controller
     public function create()
     {
         
-
        return view('users.createuser'); 
      }
 
@@ -89,10 +88,21 @@ class UserController extends Controller
     }
 
     public function destroy($userId){
-        User::where('id', $userId)->delete();
-        return redirect()->route('users.index');
-
+        $user = User::find(11);
+        if($user){
+            $deleted=$user->delete();
+        }else{
+            return response()->json(["message"=> "could't find this user"] ,400);
+        }
+        if($deleted){
+            return response()->json(["message"=> "user no. ".$userId." deleted"] ,200);
+        }else{
+            return response()->json(["message"=> "something went wrong"] ,400);
+        }
+        
+        
     }
+
 
 
        

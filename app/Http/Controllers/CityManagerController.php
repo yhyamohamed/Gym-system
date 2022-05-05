@@ -82,10 +82,25 @@ class CityManagerController extends Controller
 
     }
 
-    public function destroy($city_managerId){
-        CityManager::where('id', $city_managerId)->delete();
-        return redirect()->route('city_managers.index');
+    // public function destroy($city_managerId){
+    //     CityManager::where('id', $city_managerId)->delete();
+    //     return redirect()->route('city_managers.index');
 
+    // }
+    public function destroy($city_managerId){
+        $city_manager = CityManager::find(11);
+        if($city_manager){
+            $deleted=$city_manager->delete();
+        }else{
+            return response()->json(["message"=> "could't find this manager"] ,400);
+        }
+        if($deleted){
+            return response()->json(["message"=> "manager no. ".$city_managerId." deleted"] ,200);
+        }else{
+            return response()->json(["message"=> "something went wrong"] ,400);
+        }
+        
+        
     }
 
 }

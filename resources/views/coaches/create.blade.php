@@ -12,15 +12,7 @@ create coach
 @endsection
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 <div class="container-fluid offset-md-2">
         <div class="row">
           <!-- left column -->
@@ -37,7 +29,11 @@ create coach
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Name</label>
                 <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
+            
           <button class="btn btn-success">Create</button>
           </div>
         </form>

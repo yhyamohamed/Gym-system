@@ -17,7 +17,10 @@ All Coaches
 
 
 @section('content')
+<center>
+    <div role="alert" class="alert  col-md-8" id="msg" style="display: none;"></div>
 
+</center>
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -42,11 +45,10 @@ All Coaches
                             <td>
                                 <center>
                                 <a href="{{ route('coaches.edit', ['coach' => $coach->id]) }}" class="btn btn-primary">Edit</a>
-                                    <form style="display: inline" method="POST" action="{{ route('coaches.destroy', ['coach' => $coach->id]) }}">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button onclick="return confirm('Are you sure?');" class="btn btn-danger">Delete</button>
-                                    </form>
+                                <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                                data-bs-target="#moadal{{ $coach->id }}">
+                                delete
+                                    </button>
                                 </center>
                             </td>
                         </tr>
@@ -54,6 +56,27 @@ All Coaches
            
           </tbody>
         </table>
+        @foreach ($coaches as $coach)
+        <!-- Modal -->
+        <div class="modal fade" id="moadal{{ $coach->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">deleting coach NO.{{ $coach->id }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        are you SURE ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="" id="{{ $coach->id }}" class="btn btn-danger delete_btn">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
       </div>
 
       <div class="card-footer clearfix">
@@ -73,12 +96,6 @@ All Coaches
   @section('dataTable-scripts')
   <script>
     $(function() {
-      $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
       $('#coach-table').DataTable({
         "paging": true,
         "lengthChange": false,
@@ -90,5 +107,45 @@ All Coaches
       });
     });
     $('#coaches').addClass('active');
+    $(".delete_btn").on('click', (e) =>{
+    
+    e.preventDefault();
+    var id = $(e.target).attr("id");
+    $('#moadal' + id).modal('toggle');
+    test="{{ route('coaches.destroy',['coach' => $coach->id])}}";
+    url=test.split("/")
+    url[url.length-1]=id;
+    url=url.join("/");
+    let msgDiv=$("#msg")
+    
+
+
+  //  console.log( url);
+    
+    $.ajax({
+      url: url,
+      type: "DELETE",
+      data: {'_token': "{{csrf_token()}}", },
+      success: function(data)  {
+         
+          msgDiv.css({"color": "#155724", "background-color": " #d4edda","border-color": "#c3e6cb"});
+          msgDiv.addClass("alert-success").html(data.message).show();
+          
+        
+        // table.ajax.reload(); 
+      },
+      error: function(error) {
+        err=JSON.parse(error.responseText);
+        coachtable=$("#coach-table").DataTable()
+        coachtable.clear()
+        // coachtable.ajax.reload()
+        console.log()
+        msgDiv.css({"color": "#721c24", "background-color": "#f8d7da","border-color": "#f5c6cb"});
+        msgDiv.addClass("alert-danger").html(err.message).show();
+      }
+    });
+            
+ 
+});
   </script>
   @endsection

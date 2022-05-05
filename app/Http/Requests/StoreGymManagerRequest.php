@@ -27,8 +27,17 @@ class StoreGymManagerRequest extends FormRequest
             'name'=>"required",
             'email'=>["required","unique:users,email"],
             'password'=>"min:6",
+            'gym_id' =>"required",
             'confirmation_password'=>'required|same:password|min:6',
             'fileUpload'=>['required','image','mimes:jpg,png,jpeg'],
+        ];
+    }
+
+    public function messages(){
+        return [
+            'password.required' => 'you must enter password at least 6 characters and numbers',
+            'confirmation_password.required' => 'The confirmation password must match the password',
+
         ];
     }
 }

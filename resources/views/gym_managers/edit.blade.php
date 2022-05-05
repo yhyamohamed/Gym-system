@@ -12,15 +12,7 @@ edit Gym Manager
 @endsection
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 <div class="container-fluid offset-md-2">
         <div class="row">
           <!-- left column -->
@@ -39,6 +31,9 @@ edit Gym Manager
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Name</label>
                 <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $gym_managers->name }}">
+                @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
 
             
@@ -46,12 +41,18 @@ edit Gym Manager
                
                 <label for="exampleFormControlTextarea1" class="form-label">Email</label>
                 <input name="email" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $gym_managers->email }}">
+                @error('email')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
 
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Password</label>
                 <input name="password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $gym_managers->password }}">
+                @error('password')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Gym ID</label>
@@ -60,7 +61,6 @@ edit Gym Manager
                     @foreach($gyms as $gym)
                     <option value="{{$gym->id}}">{{$gym->id}}</option>
                     @endforeach
-
                 </select>
             </div>
             <div class="mb-3" >
@@ -72,6 +72,9 @@ edit Gym Manager
                     <div class="col-sm-6">
                             <img src="{{ asset('storage/images/'.$gym_managers->avatar) }}"  style="width:50px;height:50px;"/>
                     </div>
+                    @error('fileUpload')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
                 </div>
           <button type="submit" class="btn btn-success">Update</button>
           </div>

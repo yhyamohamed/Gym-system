@@ -29,7 +29,15 @@ class StoreUserRequest extends FormRequest
             'password'=>"min:6",
             'confirmation_password'=>'required|same:password|min:6',
             'date_of_birth'=>"required",
+            'gender'=>"required",
             'fileUpload'=>['required','image','mimes:jpg,png,jpeg'],
+        ];
+    }
+    public function messages(){
+        return [
+            'password.required' => 'you must enter password at least 6 characters and numbers',
+            'confirmation_password.required' => 'The confirmation password must match the password',
+
         ];
     }
 }

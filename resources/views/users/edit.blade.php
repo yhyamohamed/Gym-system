@@ -12,15 +12,7 @@ edit user
 @endsection
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 <div class="container-fluid offset-md-2">
         <div class="row">
           <!-- left column -->
@@ -39,6 +31,9 @@ edit user
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Name</label>
                 <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $users->name }}">
+                @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
 
             
@@ -46,17 +41,26 @@ edit user
                
                 <label for="exampleFormControlTextarea1" class="form-label">Email</label>
                 <input name="email" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $users->email }}">
+                @error('email')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
 
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Password</label>
                 <input name="password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $users->password }}">
+                @error('password')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Date Of Birth</label>
                 <input name="date_of_birth" type="date" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $users->date_of_birth }}" >
+                @error('date_of_birth')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
 
             <div class="mb-3">
@@ -73,6 +77,7 @@ edit user
                     @endif
 
                 </select>
+             
             </div>
 
             <div class="mb-3" >
@@ -84,6 +89,9 @@ edit user
                     <div class="col-sm-6">
                             <img src="{{ asset('storage/images/'.$users->profile_image) }}"  style="width:50px;height:50px;"/>
                     </div>
+                    @error('fileUpload')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
                 </div>
           <button type="submit" class="btn btn-success">Update</button>
           </div>
