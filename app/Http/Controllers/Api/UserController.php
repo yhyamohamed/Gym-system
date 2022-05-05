@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Notifications\GreetingUser;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +33,10 @@ class UserController extends Controller
 
 
         $user = User::where('email', $request->email)->first();
+
+        $user->update([
+            'last_login_at' => Carbon::now()->toDateTimeString()
+        ]);
 
         if($user->email_verified_at == null){
             Notification::send($user, new GreetingUser($user));
