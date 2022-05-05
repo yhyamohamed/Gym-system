@@ -78,9 +78,6 @@
         ]
     });
     
- 
-
-
 var ids =null ;
 function getRowId() {
     $('#usermoadal').on('show.bs.modal', function (event) {

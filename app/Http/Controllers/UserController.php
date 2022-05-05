@@ -10,17 +10,39 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
-
+use DataTables;
 
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return view('tables.users', [
-            'users' => $users,
-        ]);
+        if ($request->ajax()) {
+            $data = User::all();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('date', function ($row) {
+                    $data = $row->created_at->format('y-m-d');
+                    return $data;
+                })
+                ->addColumn('image', function ($row) {
+                    $src = asset('storage/images/'. $row->profile_image);
+                    return '<img src="' . $src . '" style="width:50px;height:50px;" />';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . route('users.edit', ['user' => $row->id]) . '" class="btn btn-primary">Edit</a>
+                    <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                    data-bs-target="#usermoadal"
+                    data-id=' . $row->id .'>
+                    delete
+                        </button>
+                        ';
+    
+                })
+                ->rawColumns(['image', 'action','date'])
+                ->make(true);
+        }
+        return view('tables.users');
     }
 
     public function create()
