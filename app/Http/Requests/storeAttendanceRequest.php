@@ -19,6 +19,7 @@ class storeAttendanceRequest extends FormRequest
     {
         return [
             'training_session_id' => ['required', 'exists:training_sessions,id',new SessionDate],
+            
             'user_id' => ['required', 'exists:users,id', new CanAttend],
         ];
     }

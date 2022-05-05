@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Gym;
 use App\Models\CityManager;
+use App\Models\User;
+use DataTables;
 
 class GymController extends Controller
 {
@@ -23,6 +25,34 @@ class GymController extends Controller
         return view('tables.gyms', compact('gyms'));
     }
 
+    public function getAll(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = User::all();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('date', function ($row) {
+                    $data = $row->created_at->format('y-m-d');
+                    return $data;
+                })
+                ->addColumn('image', function ($row) {
+                    $src = asset('storage/images/'. $row->profile_image);
+                    return '<img src="' . $src . '" style="width:50px;height:50px;" />';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                    data-bs-target="#usermoadal"
+                    data-id=' . $row->id . '
+                    >
+                    delete
+                        </button>
+                        <a href="{{ route(\'users.edit\', [\'user\' => $user->id]) }}" class="btn btn-primary">Edit</a>';
+                })
+                ->rawColumns(['image', 'action','date'])
+                ->make(true);
+        }
+        return view('test');
+    }
     /**
      * Create a new gym.
      *
@@ -63,7 +93,9 @@ class GymController extends Controller
     {
         $cityMangers = CityManager::all();
 
-        return view('gyms.edit', [
+        return view(
+            'gyms.edit',
+            [
                 'gym' => $gym,
                 'cityMangers' => $cityMangers,
             ]
@@ -100,11 +132,11 @@ class GymController extends Controller
     public function destroy(Request $request, Gym $gym)
     {
         $gym_ = Gym::find($request->id);
-        if($gym->training_sessions()->count()) {
+        if ($gym->training_sessions()->count()) {
             return response()->json([
                 'status' => false,
                 'Erorr' => 'cant delete a gym that has a session  ',
-            ]); 
+            ]);
         }
         Storage::delete(str_replace('storage', 'public', $gym_->cover_img));
         $gym_->delete();
