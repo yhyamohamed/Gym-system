@@ -16,13 +16,14 @@ class CoachController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . route('coaches.edit', ['coach' => $row->id]) . '" class="btn btn-primary">Edit</a>
+                    return '<center>
+                    <a href="' . route('coaches.edit', ['coach' => $row->id]) . '" class="btn btn-primary">Edit</a>
                     <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                     data-bs-target="#usermoadal"
                     data-id=' . $row->id .'>
                     delete
-                        </button>
-                        ';
+                    </button>
+                    </center>';
                 
                 })
                 ->rawColumns(['action'])

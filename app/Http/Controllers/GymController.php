@@ -126,8 +126,9 @@ class GymController extends Controller
      * Delete a gym.
      *
      */
-    public function destroy(Gym $gym)
+    public function destroy($gymId)
     {
+        $gym = Gym::find($gymId);
         if ($gym) {
             if ($gym->training_sessions()->count()) {
                 return response()->json([

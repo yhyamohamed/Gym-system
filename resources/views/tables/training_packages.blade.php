@@ -62,97 +62,99 @@ All Training Package
         </div>
         <!-- /.card -->
     </div>
+</div>
 
-    @endsection
-    @section('dataTable-scripts')
-    <script>
-        var table;
-        $(function() {
-            table = $('#trainingPackage-table').DataTable({
-                processing: true,
-                serverSide: true,
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                ajax: "{{ route('training_packages.index') }}",
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'price',
-                        name: 'price'
-                    },
-                    {
-                        data: 'total_sessions',
-                        name: 'total_sessions'
-                    },
-                    {
-                        data: 'gym',
-                        name: 'gym'
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ]
-            });
-        });
-        $('#training_packages').addClass('active');
-        function getRowId() {
-            $('#training-package-moadal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget);
-                id = button.data('id');
-            });
-        }
-        getRowId();
-        $(".delete_btn").on('click', (e) => {
-            e.preventDefault();
-            $('#training-package-moadal').modal('toggle');
-            var url = "{{ route('training_packages.destroy',['trainingPackage' => 1])}}";
-            url = url.split("/")
-            url[url.length - 1] = id;
-            url = url.join("/")
-            var msgDiv = $("#msg");
-            $.ajax({
-                url: url,
-                type: 'DELETE',
-                data: {
-                    '_token': "{{csrf_token()}}",
+@endsection
+@section('dataTable-scripts')
+<script>
+    var table;
+    $(function() {
+        table = $('#trainingPackage-table').DataTable({
+            processing: true,
+            serverSide: true,
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            ajax: "{{ route('training_packages.index') }}",
+            columns: [{
+                    data: 'id',
+                    name: 'id'
                 },
-                success: function(data) {
-                    msgDiv.css({
-                        "color": "#155724",
-                        "background-color": " #d4edda",
-                        "border-color": "#c3e6cb"
-                    });
-                    msgDiv.addClass("alert-danger").html(data.message).show();
-                    table.ajax.reload();
+                {
+                    data: 'name',
+                    name: 'name'
                 },
-                error: function(reject) {
-                    error = JSON.parse(reject.responseText);
-                    msgDiv.css({
-                        "color": "#721c24",
-                        "background-color": "#f8d7da",
-                        "border-color": "#f5c6cb"
-                    });
-                    msgDiv.addClass("alert-danger").html(error.message).show();
-                }
-            });
+                {
+                    data: 'price',
+                    name: 'price'
+                },
+                {
+                    data: 'total_sessions',
+                    name: 'total_sessions'
+                },
+                {
+                    data: 'gym',
+                    name: 'gym'
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
         });
-    </script>
-    @endsection
+    });
+    $('#training_packages').addClass('active');
+
+    function getRowId() {
+        $('#training-package-moadal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            id = button.data('id');
+        });
+    }
+    getRowId();
+    $(".delete_btn").on('click', (e) => {
+        e.preventDefault();
+        $('#training-package-moadal').modal('toggle');
+        var url = "{{ route('training_packages.destroy',['trainingPackage' => 1])}}";
+        url = url.split("/")
+        url[url.length - 1] = id;
+        url = url.join("/")
+        var msgDiv = $("#msg");
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            data: {
+                '_token': "{{csrf_token()}}",
+            },
+            success: function(data) {
+                msgDiv.css({
+                    "color": "#155724",
+                    "background-color": " #d4edda",
+                    "border-color": "#c3e6cb"
+                });
+                msgDiv.addClass("alert-danger").html(data.message).show();
+                table.ajax.reload();
+            },
+            error: function(reject) {
+                error = JSON.parse(reject.responseText);
+                msgDiv.css({
+                    "color": "#721c24",
+                    "background-color": "#f8d7da",
+                    "border-color": "#f5c6cb"
+                });
+                msgDiv.addClass("alert-danger").html(error.message).show();
+            }
+        });
+    });
+</script>
+@endsection

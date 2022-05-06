@@ -22,7 +22,11 @@ class TrainingPackageController extends Controller
                     return $data;
                 })
                 ->addColumn('gym', function ($row) {
-                    $data = $row->gym->name;
+                    if ($row->gym) {
+                        $data = $row->gym->name;
+                    } else {
+                        $data = '*No Gym*';
+                    }
                     return $data;
                 })
                 ->addColumn('cover_img', function ($row) {
@@ -110,8 +114,9 @@ class TrainingPackageController extends Controller
      * Delete a training package.
      *
      */
-    public function destroy(TrainingPackage $trainingPackage)
+    public function destroy($trainingPackageId)
     {
+        $trainingPackage = TrainingPackage::find($trainingPackageId);
         if ($trainingPackage) {
             $deleted = $trainingPackage->delete();
             if ($deleted) {
