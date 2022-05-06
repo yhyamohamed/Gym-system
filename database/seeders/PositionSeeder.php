@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class PossessionSeeder extends Seeder
+class PositionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,19 +16,19 @@ class PossessionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('possessions')->insert(
+        DB::table('positions')->insert(
             [
                 [
-                    'possession' => 'admin',
+                    'position' => 'admin',
                 ],
                 [
-                    'possession' => 'city_manager',
+                    'position' => 'city_manager',
                 ],
                 [
-                    'possession' => 'gym_manager',
+                    'position' => 'gym_manager',
                 ],
                 [
-                    'possession' => 'user',
+                    'position' => 'user',
                 ]
             ]
         );

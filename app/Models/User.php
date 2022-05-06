@@ -65,9 +65,9 @@ class User extends Authenticatable implements MustVerifyEmail, BannableContract
     public function city_managers(){
         return $this->hasMany(CityManager::class);
     }
-    public function possession()
+    public function position()
     {
-        return $this->belongsTo(Possession::class);
+        return $this->belongsTo(Position::class);
     }
-    
+
 }

@@ -18,7 +18,7 @@ class GymManagerController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::where('possession_id', 3)->get();
+            $data = User::where('position_id', 3)->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('date', function ($row) {
@@ -65,7 +65,7 @@ class GymManagerController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'possession_id' => 3,
+                'position_id' => 3,
             ]);
 
             GymManager::create([

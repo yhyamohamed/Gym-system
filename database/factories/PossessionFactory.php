@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Possession>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Position>
  */
-class PossessionFactory extends Factory
+class PositionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class PossessionFactory extends Factory
     public function definition()
     {
         return [
-            'possession' => $this->faker->unique()->randomElement(['admin', 'gym-manager','city-manager','user']),
+            'position' => $this->faker->unique()->randomElement(['admin', 'gym-manager','city-manager','user']),
         ];
     }
 }

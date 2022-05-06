@@ -65,7 +65,7 @@ class UserController extends Controller
                 'date_of_birth' => $request['date_of_birth'],
                 'gender' => $request['gender'],
                 'profile_image' => $name,
-                'possession_id' => 4,
+                'position_id' => 4,
             ]);
         }
         return redirect()->route('users.index');
