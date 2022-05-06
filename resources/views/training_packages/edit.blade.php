@@ -40,7 +40,7 @@ Edit Training Package
             </div>
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-label">Price</label>
-              <input name="price" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ number_format(($trainingPackage->price)/100, 2, '.', ' ') }}">
+              <input name="price" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ number_format(($trainingPackage->price)/100, 2, '.', '') }}">
             </div>
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-label">Total Sessions</label>

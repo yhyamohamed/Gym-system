@@ -24,7 +24,6 @@ Route::get('/', function () {
     return view('devView');
 });
 
-Route::get('/test', [GymController::class, 'getAll'])->name('gyms.getAll');
 /*
 * Gyms Routes
 */
