@@ -256,7 +256,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a id="attendance" href="{{ route('users.index') }}" class="nav-link">
+                  <a id="attendance" href="{{ route('attendances.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Attendance</p>
                   </a>

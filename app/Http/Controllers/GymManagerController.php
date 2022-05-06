@@ -28,13 +28,14 @@ class GymManagerController extends Controller
                 return '<img src="' . $src . '" style="width:50px;height:50px;" />';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="' . route('gym_managers.edit', ['gym_manager' => $row->id]) . '" class="btn btn-primary">Edit</a>
+                return '<center>
+                <a href="' . route('gym_managers.edit', ['gym_manager' => $row->id]) . '" class="btn btn-primary">Edit</a>
                 <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                 data-bs-target="#usermoadal"
                 data-id=' . $row->id .'>
                 delete
-                    </button>
-                    ';
+                </button>
+                </center>';
             
             })
             ->rawColumns(['image', 'action','date'])
