@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CityManagerController;
 use App\Http\Controllers\GymManagerController;
+use App\Http\Controllers\TrainingSessionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,7 +80,15 @@ Route::delete('/gym_managers/{gym_manager}', [GymManagerController::class , 'des
 Route::get('/gym_managers/{gym_manager}/edit' , [GymManagerController::class, 'edit'])->name('gym_managers.edit');
 Route::put('/gym_managers/{gym_manager}', [GymManagerController::class, 'update'])->name('gym_managers.update');
 
-
+/*
+* Training Sessions Routes
+*/
+Route::get('/training_sessions', [TrainingSessionController::class, 'index'])->name('training_sessions.index');
+Route::get('/training_sessions/create/', [TrainingSessionController::class, 'create'])->name('training_sessions.create');
+Route::post('/training_sessions', [TrainingSessionController::class, 'store'])->name('training_sessions.store');
+Route::delete('/training_sessions/{trainingSession}', [TrainingSessionController::class , 'destroy'])->name('training_sessions.destroy');
+Route::get('/training_sessions/{trainingSession}/edit' , [TrainingSessionController::class, 'edit'])->name('training_sessions.edit');
+Route::put('/training_sessions/{trainingSession}', [TrainingSessionController::class, 'update'])->name('training_sessions.update');
 
 
 Auth::routes();
