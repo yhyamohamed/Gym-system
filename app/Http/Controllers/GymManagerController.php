@@ -10,15 +10,38 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreGymManagerRequest;
 use App\Http\Requests\UpdateGymManagerRequest;
+use DataTables;
 
 class GymManagerController extends Controller
 {
-    public function index()
-    {
-        $gym_managers = GymManager::all();
-        return view('tables.gym_managers', [
-            'gym_managers' => $gym_managers,
-        ]);
+    public function index(Request $request)
+    {if ($request->ajax()) {
+        $data = GymManager::all();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('date', function ($row) {
+                $data = $row->created_at->format('y-m-d');
+                return $data;
+            })
+            ->addColumn('image', function ($row) {
+                $src = asset('storage/images/'. $row->profile_image);
+                return '<img src="' . $src . '" style="width:50px;height:50px;" />';
+            })
+            ->addColumn('action', function ($row) {
+                return '<center>
+                <a href="' . route('gym_managers.edit', ['gym_manager' => $row->id]) . '" class="btn btn-primary">Edit</a>
+                <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                data-bs-target="#usermoadal"
+                data-id=' . $row->id .'>
+                delete
+                </button>
+                </center>';
+            
+            })
+            ->rawColumns(['image', 'action','date'])
+            ->make(true);
+    }
+    return view('tables.gym_managers');
     }
 
     public function create()
@@ -94,7 +117,7 @@ class GymManagerController extends Controller
 
     // }
     public function destroy($gym_managerId){
-        $gym_manager = GymManager::find(11);
+        $gym_manager = GymManager::find($gym_managerId);
         if($gym_manager){
             $deleted=$gym_manager->delete();
         }else{

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price');
             $table->integer('total_sessions');
-            $table->foreignId('gym_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('gym_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('stripe_product_id')->nullable();
             $table->timestamps();
         });
     }

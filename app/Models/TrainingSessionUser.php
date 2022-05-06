@@ -17,5 +17,4 @@ class TrainingSessionUser extends Pivot
         'updated_at',
     ];
     
-   
 }

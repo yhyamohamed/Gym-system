@@ -16,7 +16,7 @@ All Training Package
 
 @section('content')
 <center>
-    <div class="alert alert-success col-md-8" id="deleted_msg" style="display: none;">Deleted</div>
+    <div role="alert" class="alert col-md-8" id="msg" style="display: none;"></div>
 </center>
 <div class="row">
     <div class="col-12">
@@ -38,71 +38,123 @@ All Training Package
                             <th>Actions</th>
                         </tr>
                     <tbody>
-                        @foreach ($trainingPackages as $trainingPackage)
-                        <tr class="trainingPackageRow{{$trainingPackage->id}}">
-                            <td>{{ $trainingPackage->id }}</td>
-                            <td>{{ $trainingPackage->name }}</td>
-                            <td>{{ number_format(($trainingPackage->price)/100, 2, '.', ' ') }}$</td>
-                            <td>{{ $trainingPackage->total_sessions }}</td>
-                            <td>{{ $trainingPackage->gym->name }}</td>
-                            <td>{{ \Carbon\Carbon::parse( $trainingPackage->created_at )->toDateString(); }}</td>
-                            <td>
-                                <center>
-                                    <a href="{{ route('training_packages.edit', ['trainingPackage' => $trainingPackage->id]) }}" class="btn btn-primary">Edit</a>
-                                    <a href="" id="{{ $trainingPackage->id }}" class="btn btn-danger delete_btn">Delete</a>
-                                </center>
-                            </td>
-                        </tr>
-                        @endforeach
                     </tbody>
                 </table>
+                <!-- Modal -->
+                <div class="modal fade" id="training-package-moadal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Deleting a Training Package</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="" id="" class="btn btn-danger delete_btn">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- /.card -->
     </div>
+</div>
 
-    @endsection
-    @section('dataTable-scripts')
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#trainingPackage-table').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+@endsection
+@section('dataTable-scripts')
+<script>
+    var table;
+    $(function() {
+        table = $('#trainingPackage-table').DataTable({
+            processing: true,
+            serverSide: true,
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            ajax: "{{ route('training_packages.index') }}",
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'price',
+                    name: 'price'
+                },
+                {
+                    data: 'total_sessions',
+                    name: 'total_sessions'
+                },
+                {
+                    data: 'gym',
+                    name: 'gym'
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
         });
-        $('#training_packages').addClass('active');
-        $(".delete_btn").on('click', (e) => {
-            e.preventDefault();
-            // var id = $(this).attr("id");//undefined
-            var id = $(e.target).attr("id");
-            if (confirm('Are you sure?')) {
-                $.ajax({
-                    type: 'delete',
-                    url: "{{ route('training_packages.destroy', ['trainingPackage' => $trainingPackage->id]) }}", // Remove id 
-                    data: {
-                        '_token': "{{csrf_token()}}",
-                        'id': id,
-                    },
-                    success: function(data) {
-                        if (data.status) {
-                            $('#deleted_msg').show();
-                            $('.trainingPackageRow' + data.id).remove();
-                        }
-                    },
-                    error: function(reject) {}
+    });
+    $('#training_packages').addClass('active');
+
+    function getRowId() {
+        $('#training-package-moadal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            id = button.data('id');
+        });
+    }
+    getRowId();
+    $(".delete_btn").on('click', (e) => {
+        e.preventDefault();
+        $('#training-package-moadal').modal('toggle');
+        var url = "{{ route('training_packages.destroy',['trainingPackage' => 1])}}";
+        url = url.split("/")
+        url[url.length - 1] = id;
+        url = url.join("/")
+        var msgDiv = $("#msg");
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            data: {
+                '_token': "{{csrf_token()}}",
+            },
+            success: function(data) {
+                msgDiv.css({
+                    "color": "#155724",
+                    "background-color": " #d4edda",
+                    "border-color": "#c3e6cb"
                 });
+                msgDiv.addClass("alert-danger").html(data.message).show();
+                table.ajax.reload();
+            },
+            error: function(reject) {
+                error = JSON.parse(reject.responseText);
+                msgDiv.css({
+                    "color": "#721c24",
+                    "background-color": "#f8d7da",
+                    "border-color": "#f5c6cb"
+                });
+                msgDiv.addClass("alert-danger").html(error.message).show();
             }
         });
-    </script>
-    @endsection
+    });
+</script>
+@endsection
