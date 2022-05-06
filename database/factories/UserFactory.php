@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Possession;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -22,6 +23,7 @@ class UserFactory extends Factory
             'date_of_birth' => $this->faker->date('Y_m_d'),
             'profile_image' => 'uploads/users',
             'remember_token' => Str::random(10),
+            'possession_id'=>Possession::factory(),
         ];
     }
 

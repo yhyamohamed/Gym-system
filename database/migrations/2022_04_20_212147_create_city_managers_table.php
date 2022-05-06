@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::create('city_managers', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('name');
-            $table->string('avatar');
+            $table->bigInteger('NID')->unique();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()->onUpdate('cascade');
             $table->timestamps();
         });
     }
