@@ -32,7 +32,7 @@ class TrainingSession extends Model
         return $this->belongsToMany(Coach::class)->withPivot('id')->withTimestamps();
     }
 
-    public function training_packages(){
+    public function training_package(){
         return $this->belongsTo(TrainingPackage::class,'training_package_id');
     }
 
