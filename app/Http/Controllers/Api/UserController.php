@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Notifications\GreetingUser;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\StoreUpdateRequest;
@@ -28,7 +31,17 @@ class UserController extends Controller
             'device_name' => 'required',
         ]);
 
+
         $user = User::where('email', $request->email)->first();
+
+        $user->update([
+            'last_login_at' => Carbon::now()->toDateTimeString()
+        ]);
+
+        if($user->email_verified_at == null){
+            Notification::send($user, new GreetingUser($user));
+        }
+
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
@@ -43,7 +56,6 @@ class UserController extends Controller
     {
         $hashedPass = Hash::make($request->password);
         $request->merge(['password' => $hashedPass]);
-        //TO DO validate request via storePostRequest
         return User::create($request->except('password_confirmation'));
     }
 
