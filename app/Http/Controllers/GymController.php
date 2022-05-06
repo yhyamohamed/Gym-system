@@ -24,7 +24,7 @@ class GymController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('city_manager', function ($row) {
-                    $data = $row->user->name;
+                    $data = $row->city_manager->user->name;
                     return $data;
                 })
                 ->addColumn('cover_img', function ($row) {
@@ -57,7 +57,7 @@ class GymController extends Controller
      */
     public function create()
     {
-        $cityMangers = User::has('role_id', 2)->get();
+        $cityMangers = User::where('possession_id', 2)->get();
 
         return view('gyms.create', [
             'cityMangers' => $cityMangers,
@@ -89,7 +89,7 @@ class GymController extends Controller
      */
     public function edit(Gym $gym)
     {
-        $cityMangers = User::has('role_id', 2)->get();
+        $cityMangers = User::where('possession_id', 2)->get();
 
         return view(
             'gyms.edit',

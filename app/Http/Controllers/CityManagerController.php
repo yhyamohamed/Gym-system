@@ -17,7 +17,7 @@ class CityManagerController extends Controller
     public function index(Request $request)
     { {
             if ($request->ajax()) {
-                $data = User::has('role_id', 2)->get();
+                $data = User::where('possession_id', 2)->get();
                 return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('date', function ($row) {
@@ -63,7 +63,7 @@ class CityManagerController extends Controller
                 'email' =>  $request['email'],
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'role_id' => 2,
+                'possession_id' => 2,
             ]);
 
             CityManager::create([

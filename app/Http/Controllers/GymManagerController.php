@@ -18,7 +18,7 @@ class GymManagerController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::has('role_id', 3)->get();
+            $data = User::where('possession_id', 3)->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('date', function ($row) {
@@ -65,7 +65,7 @@ class GymManagerController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'role_id' => 3,
+                'possession_id' => 3,
             ]);
 
             GymManager::create([
@@ -86,7 +86,6 @@ class GymManagerController extends Controller
     }
 
     public function update(UpdateGymManagerRequest $request, $gym_managerId)
-
     {
         $user = User::find($gym_managerId);
         if ($user) {
@@ -115,6 +114,20 @@ class GymManagerController extends Controller
             ]);
         }
         return redirect()->route('gym_managers.index');
+    }
+
+    public function ban($gym_managerId)
+    {
+        $user = User::find($gym_managerId);
+        $user->ban();
+        return response()->json(['success' => 'Gym manager banned successfully.']);
+    }
+
+    public function unban($gym_managerId)
+    {
+        $user = User::find($gym_managerId);
+        $user->unban();
+        return response()->json(['success' => 'Gym manager unbanned successfully.']);
     }
 
     public function destroy($gym_managerId)

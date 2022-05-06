@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('profile_image')->nullable();
             $table->foreignId('possession_id')->nullable()->constrained()->nullOnDelete()->onUpdate('cascade');
             $table->rememberToken();
+            $table->timestamp('banned_at')->nullable();
             $table->timestamps();
         });
     }
