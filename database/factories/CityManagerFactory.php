@@ -17,10 +17,14 @@ class CityManagerFactory extends Factory
     public function definition()
     {
         return [
+            /*
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => 'citymanager', 
+            'password' => 'citymanager',
            'avatar'=>'uploads/citymangers'
+            */
+            'national_id' => $this->faker->unique()->randomNumber(),
+            'user_id' => User::factory()
         ];
     }
 }
