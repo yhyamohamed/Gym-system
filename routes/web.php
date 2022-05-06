@@ -24,7 +24,6 @@ Route::get('/', function () {
     return view('devView');
 });
 
-
 /*
 * Gyms Routes
 */

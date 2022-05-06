@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Gym;
 use App\Models\CityManager;
+use DataTables;
 
 class GymController extends Controller
 {
@@ -15,12 +16,38 @@ class GymController extends Controller
      * Get all gyms.
      *
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        $gyms = Gym::all();
-
-        return view('tables.gyms', compact('gyms'));
+        if ($request->ajax()) {
+            $data = Gym::all();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('city_manager', function ($row) {
+                    $data = $row->city_manager->name;
+                    return $data;
+                })
+                ->addColumn('cover_img', function ($row) {
+                    $src = "/$row->cover_img";
+                    return '<img src="' . $src . '" style="width:200px;height:100px;" />';
+                })
+                ->addColumn('created_at', function ($row) {
+                    $data = $row->created_at->format('y-m-d');
+                    return $data;
+                })
+                ->addColumn('action', function ($row) {
+                    return '<center>
+                    <a href="' . route('gyms.edit', ['gym' => $row->id]) . '" class="btn btn-primary">Edit</a>
+                    <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                    data-bs-target="#gym-moadal"
+                    data-id=' . $row->id . '>
+                    Delete
+                    </button>
+                    </center>';
+                })
+                ->rawColumns(['city_manager', 'cover_img', 'created_at', 'action'])
+                ->make(true);
+        }
+        return view('tables.gyms');
     }
 
     /**
@@ -63,7 +90,9 @@ class GymController extends Controller
     {
         $cityMangers = CityManager::all();
 
-        return view('gyms.edit', [
+        return view(
+            'gyms.edit',
+            [
                 'gym' => $gym,
                 'cityMangers' => $cityMangers,
             ]
@@ -97,21 +126,31 @@ class GymController extends Controller
      * Delete a gym.
      *
      */
-    public function destroy(Request $request, Gym $gym)
+    public function destroy($gymId)
     {
-        $gym_ = Gym::find($request->id);
-        if($gym->training_sessions()->count()) {
+        $gym = Gym::find($gymId);
+        if ($gym) {
+            if ($gym->training_sessions()->count()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Can\'t delete a Gym that has a Session',
+                ], 200);
+            }
+            $deleted = $gym->delete();
+
+            if ($deleted) {
+                Storage::delete(str_replace('storage', 'public', $gym->cover_img));
+                return response()->json([
+                    'status' => true,
+                    'message' => 'user no. ' . $gym->id . ' deleted',
+                ], 200);
+            } else {
+                return response()->json(["message" => "Something went wrong"], 400);
+            }
+        } else {
             return response()->json([
-                'status' => false,
-                'Erorr' => 'cant delete a gym that has a session  ',
-            ]); 
+                'message' => 'Can\'t Find this Gym',
+            ], 404);
         }
-        Storage::delete(str_replace('storage', 'public', $gym_->cover_img));
-        $gym_->delete();
-        return response()->json([
-            'status' => true,
-            'msg' => 'Deleted',
-            'id' => $request->id,
-        ]);
     }
 }
