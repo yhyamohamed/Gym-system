@@ -52,7 +52,7 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function store(Request $request, StoreUserRequest $userRequest)
+    public function store(StoreUserRequest $request)
     {
         $hashedPass = Hash::make($request->password);
         $request->merge(['password' => $hashedPass]);

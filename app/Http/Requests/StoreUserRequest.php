@@ -30,7 +30,7 @@ class StoreUserRequest extends FormRequest
             'confirmation_password'=>'required|same:password|min:6',
             'date_of_birth'=>"required",
             'gender'=>"required",
-            'fileUpload'=>['required','image','mimes:jpg,png,jpeg'],
+            'fileUpload'=>['image','mimes:jpg,png,jpeg'],
         ];
     }
     public function messages(){
