@@ -12,5 +12,8 @@ class Possession extends Model
         'possession',
        
       ];
-  
+      public function users()
+      {
+          return $this->hasMany(User::class);
+      }
 }

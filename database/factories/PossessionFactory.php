@@ -17,7 +17,7 @@ class PossessionFactory extends Factory
     public function definition()
     {
         return [
-            'possession' => $this->faker->randomElement(['admin', 'gym-manager','city-manager','user']),
+            'possession' => $this->faker->unique()->randomElement(['admin', 'gym-manager','city-manager','user']),
         ];
     }
 }

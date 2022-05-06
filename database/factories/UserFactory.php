@@ -23,7 +23,7 @@ class UserFactory extends Factory
             'date_of_birth' => $this->faker->date('Y_m_d'),
             'profile_image' => 'uploads/users',
             'remember_token' => Str::random(10),
-            'possession_id'=>Possession::factory(),
+            'possession_id'=>$this->faker->numberBetween(1, 4),
         ];
     }
 

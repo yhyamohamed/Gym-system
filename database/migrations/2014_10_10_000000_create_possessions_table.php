@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('possessions', function (Blueprint $table) {
             $table->id();
-            $table->string('possession');
+            $table->string('possession')->unique();
             $table->timestamps();
         });
     }

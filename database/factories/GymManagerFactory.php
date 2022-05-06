@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\models\Gym;
+use App\Models\User;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
@@ -16,15 +18,10 @@ class GymManagerFactory extends Factory
      */
     public function definition()
     {
+        $allGymManagersID = User::where('possession_id',3)->pluck('id');
         return [
-            /*'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'password' => 'gymmanager',
-           'avatar'=>'uploads/gymmangers',
-           'gym_id'=>Gym::factory(),
-            */
-            'national_id' => $this->faker->unique()->randomNumber(),
-            'user_id' => User::factory(),
+            'NID' => $this->faker->unique()->numerify('##############'),
+            'user_id' =>  $this->faker->unique()->randomElement($allGymManagersID),
             'gym_id' => Gym::factory()
         ];
     }
