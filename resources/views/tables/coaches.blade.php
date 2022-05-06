@@ -37,33 +37,16 @@ All Coaches
               <th>Actions</th>
             </tr>
           <tbody>
-          @foreach ($coaches as $coach)
-                        <tr>
-                            <td>{{ $coach->id }}</td>
-                            <td>{{ $coach->name }}</td>
-                            
-                            <td>
-                                <center>
-                                <a href="{{ route('coaches.edit', ['coach' => $coach->id]) }}" class="btn btn-primary">Edit</a>
-                                <button type="button" class="btn btn-danger " data-bs-toggle="modal"
-                                data-bs-target="#moadal{{ $coach->id }}">
-                                delete
-                                    </button>
-                                </center>
-                            </td>
-                        </tr>
-                        @endforeach
-           
+    
           </tbody>
         </table>
-        @foreach ($coaches as $coach)
         <!-- Modal -->
-        <div class="modal fade" id="moadal{{ $coach->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="usermoadal" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">deleting coach NO.{{ $coach->id }}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">deleting coach NO</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -71,22 +54,12 @@ All Coaches
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <a href="" id="{{ $coach->id }}" class="btn btn-danger delete_btn">Delete</a>
+                        <a href="" id="" class="btn btn-danger delete_btn">Delete</a>
                     </div>
                 </div>
             </div>
         </div>
-    @endforeach
-      </div>
 
-      <div class="card-footer clearfix">
-        <ul class="pagination pagination-sm m-0 float-right">
-          <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-        </ul>
       </div>
     </div>
     <!-- /.card -->
@@ -95,8 +68,11 @@ All Coaches
   @endsection
   @section('dataTable-scripts')
   <script>
-    $(function() {
-      $('#coach-table').DataTable({
+    var table
+    $(function () { 
+    table = $('#coach-table').DataTable({
+        processing: true,
+        serverSide: true,
         "paging": true,
         "lengthChange": false,
         "searching": false,
@@ -104,48 +80,51 @@ All Coaches
         "info": true,
         "autoWidth": false,
         "responsive": true,
-      });
+        ajax: "{{ route('coaches.index') }}",
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
     });
     $('#coaches').addClass('active');
-    $(".delete_btn").on('click', (e) =>{
-    
+    var ids =null ;
+function getRowId() {
+    $('#usermoadal').on('show.bs.modal', function (event) {
+               var button = $(event.relatedTarget) // Button that triggered the modal
+       id = button.data('id'); // Extract info from data-* attributes
+       ids = id;
+           });
+}
+getRowId();
+
+$(".delete_btn").on('click', (e) =>{
     e.preventDefault();
-    var id = $(e.target).attr("id");
-    $('#moadal' + id).modal('toggle');
-    test="{{ route('coaches.destroy',['coach' => $coach->id])}}";
+    test="{{ route('coaches.destroy',['coach' => 10])}}";
     url=test.split("/")
     url[url.length-1]=id;
     url=url.join("/");
+    $('#usermoadal').modal('toggle');
     let msgDiv=$("#msg")
-    
-
-
-  //  console.log( url);
-    
     $.ajax({
       url: url,
       type: "DELETE",
       data: {'_token': "{{csrf_token()}}", },
       success: function(data)  {
          
-          msgDiv.css({"color": "#155724", "background-color": " #d4edda","border-color": "#c3e6cb"});
-          msgDiv.addClass("alert-success").html(data.message).show();
+        msgDiv.css({"color": "#155724", "background-color": " #d4edda","border-color": "#c3e6cb"});
+        msgDiv.addClass("alert-success").html(data.message).show();
           
-        
-        // table.ajax.reload(); 
+        table.ajax.reload();
       },
       error: function(error) {
         err=JSON.parse(error.responseText);
-        coachtable=$("#coach-table").DataTable()
-        coachtable.clear()
-        // coachtable.ajax.reload()
-        console.log()
         msgDiv.css({"color": "#721c24", "background-color": "#f8d7da","border-color": "#f5c6cb"});
         msgDiv.addClass("alert-danger").html(err.message).show();
       }
     });
-            
- 
+})
+
 });
   </script>
   @endsection
