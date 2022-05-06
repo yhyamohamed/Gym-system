@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Gym;
 use App\Models\CityManager;
+use App\Models\User;
 use DataTables;
 
 class GymController extends Controller
@@ -23,7 +24,7 @@ class GymController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('city_manager', function ($row) {
-                    $data = $row->city_manager->name;
+                    $data = $row->user->name;
                     return $data;
                 })
                 ->addColumn('cover_img', function ($row) {
@@ -56,7 +57,7 @@ class GymController extends Controller
      */
     public function create()
     {
-        $cityMangers = CityManager::all();
+        $cityMangers = User::has('role_id', 2)->get();
 
         return view('gyms.create', [
             'cityMangers' => $cityMangers,
@@ -88,7 +89,7 @@ class GymController extends Controller
      */
     public function edit(Gym $gym)
     {
-        $cityMangers = CityManager::all();
+        $cityMangers = User::has('role_id', 2)->get();
 
         return view(
             'gyms.edit',
