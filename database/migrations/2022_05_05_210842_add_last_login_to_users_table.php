@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('city_managers', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('NID')->unique();
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()->onUpdate('cascade');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->datetime('last_login_at')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('city_manager');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

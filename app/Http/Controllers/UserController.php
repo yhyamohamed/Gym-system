@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        
+
         if ($request->ajax()) {
             $data = User::all();
             return DataTables::of($data)
@@ -27,7 +27,7 @@ class UserController extends Controller
                     return $data;
                 })
                 ->addColumn('image', function ($row) {
-                    $src = asset('storage/images/'. $row->profile_image);
+                    $src = asset('storage/images/' . $row->profile_image);
                     return '<img src="' . $src . '" style="width:50px;height:50px;" />';
                 })
                 ->addColumn('action', function ($row) {
@@ -35,12 +35,12 @@ class UserController extends Controller
                     <a href="' . route('users.edit', ['user' => $row->id]) . '" class="btn btn-primary">Edit</a>
                     <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                     data-bs-target="#usermoadal"
-                    data-id=' . $row->id .'>
+                    data-id=' . $row->id . '>
                     delete
                     </button>
                     </center>';
                 })
-                ->rawColumns(['image', 'action','date'])
+                ->rawColumns(['image', 'action', 'date'])
                 ->make(true);
         }
         return view('tables.users');
@@ -48,86 +48,83 @@ class UserController extends Controller
 
     public function create()
     {
-        
-       return view('users.createuser'); 
-     }
+
+        return view('users.createuser');
+    }
 
     public function store(StoreUserRequest $request)
-    {   if ($request->hasFile('fileUpload')) {
-        $image=$request->file('fileUpload');
-        $name = $image->getClientOriginalName();
-        $imagePath = $request->file('fileUpload')->storeAs('public/images/',$name);
-        User::create([
-            'name' =>  $request['name'],
-            'email' =>  $request['email'],
-            'password'=> Hash::make($request->password),
-            'date_of_birth' => $request['date_of_birth'],
-            'gender' => $request['gender'],
-            'profile_image'=>$name,
-            
-        ]);
-    }
+    {
+        if ($request->hasFile('fileUpload')) {
+            $image = $request->file('fileUpload');
+            $name = $image->getClientOriginalName();
+            $imagePath = $request->file('fileUpload')->storeAs('public/images/', $name);
+            User::create([
+                'name' =>  $request['name'],
+                'email' =>  $request['email'],
+                'password' => Hash::make($request->password),
+                'date_of_birth' => $request['date_of_birth'],
+                'gender' => $request['gender'],
+                'profile_image' => $name,
+                'position_id' => 4,
+            ]);
+        }
         return redirect()->route('users.index');
-       
     }
 
     public function edit($userId)
     {
-        $users=User::find($userId);
-        return view('users.edit',
-         ['users' => $users]);
+        $users = User::find($userId);
+        return view(
+            'users.edit',
+            ['users' => $users]
+        );
     }
 
-    public function update(UpdateUserRequest $request ,$userId)
+    public function update(UpdateUserRequest $request, $userId)
 
-    { 
-        $user=User::find($userId);
-        if($user){
+    {
+        $user = User::find($userId);
+        if ($user) {
             $name = $user->profile_image;
-            // dd($name);
+
 
             if ($request->hasFile('fileUpload')) {
 
                 if ($name != null) {
-                    File::delete(public_path( Storage::url($user->profile_image)));
-                    
+                    File::delete(public_path(Storage::url($user->profile_image)));
                 }
-                $image=$request->file('fileUpload');
+                $image = $request->file('fileUpload');
                 $name = $image->getClientOriginalName();
-                $imagePath = $request->file('fileUpload')->storeAs('public/images/',$name);
+                $imagePath = $request->file('fileUpload')->storeAs('public/images/', $name);
             }
 
-           $user->update([
+            $user->update([
                 'name' =>  $request['name'],
                 'email' =>  $request['email'],
-                'password'=> $request['password'],
+                'password' => $request['password'],
                 'date_of_birth' => $request['date_of_birth'],
                 'gender' => $request['gender'],
-                'profile_image'=>$name,
-            
-            ]);
-    }
-        return redirect()->route('users.index');
+                'profile_image' => $name,
 
-    }
-    public function destroy($userId){
-        $user = User::find($userId);
-        if($user){
-            if($user->training_sessions()->count()){
-                return response()->json(["status"=>false,"message"=> "can't delete this user because still having sessions"] ,200);
-            }
-            $deleted=$user->delete();
-              if($deleted){
-            return response()->json(["status"=>true,"message"=> "user no. ".$userId." deleted"] ,200);
-           }else{
-            return response()->json(["message"=> "something went wrong"] ,400);
-             }
-        }else{
-            return response()->json(["message"=> "could't find this user"] ,400);
+            ]);
         }
-      
-        
-        
-    }       
-    
+        return redirect()->route('users.index');
+    }
+    public function destroy($userId)
+    {
+        $user = User::find($userId);
+        if ($user) {
+            if ($user->training_sessions()->count()) {
+                return response()->json(["status" => false, "message" => "can't delete this user because still having sessions"], 200);
+            }
+            $deleted = $user->delete();
+            if ($deleted) {
+                return response()->json(["status" => true, "message" => "user no. " . $userId . " deleted"], 200);
+            } else {
+                return response()->json(["message" => "something went wrong"], 400);
+            }
+        } else {
+            return response()->json(["message" => "could't find this user"], 400);
+        }
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,11 +17,11 @@ class CityManagerFactory extends Factory
      */
     public function definition()
     {
+        $allCityManagersID = User::where('position_id',2)->pluck('id');
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'password' => 'citymanager', 
-           'avatar'=>'uploads/citymangers'
+            'NID' => $this->faker->unique()->numerify('##############'),
+            'user_id' =>  $this->faker->unique()->randomElement($allCityManagersID),
+
         ];
     }
 }

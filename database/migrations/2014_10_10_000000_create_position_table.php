@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('gym_managers', function (Blueprint $table) {
+        Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->nullable()->constrained()->nullOnDelete();
-            $table->bigInteger('NID')->unique();
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()->onUpdate('cascade');
+            $table->string('position')->unique();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gym_manager');
+        Schema::dropIfExists('rules');
     }
 };

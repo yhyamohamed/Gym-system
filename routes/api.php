@@ -1,9 +1,14 @@
 <?php
 
+use App\Models\User;
+use App\Notifications\GreetingUser;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\API\AttendanceController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AttendanceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,7 +19,10 @@ use App\Http\Controllers\API\AttendanceController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/login', [UserController::class, 'login']);//return authorization token 
+
+Auth::routes(['verify' => true]);
+
+Route::post('/login', [UserController::class, 'login']);//return authorization token
 Route::post('/users', [UserController::class, 'store']);
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -28,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/tokens/create', function (Request $request) {
     $token = $request->user()->createToken($request->token_name);
- 
+
     return ['token' => $token->plainTextToken];
 });
 
@@ -37,3 +45,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/subscription/result', [App\Http\Controllers\Api\SubscriptionController::class, 'checkoutEndpoint'])->name('subscription.result');
+/*Route::get('/email/verify', function () {
+    return view('auth/verify.blade.php');
+})->middleware('auth:sanctum')->name('verification.notice');
+*/
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/user');
+})->middleware(['auth:sanctum', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth:sanctum', 'throttle:6,1'])->name('verification.send');
