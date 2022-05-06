@@ -9,13 +9,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\TrainingPackageController;
 use App\Http\Controllers\CoachController;
-<<<<<<< HEAD
 use App\Http\Controllers\CityManagerController;
 use App\Http\Controllers\GymManagerController;
 use App\Http\Controllers\TrainingSessionController;
-=======
 use App\Http\Controllers\AttendanceController;
->>>>>>> 076f452eb83c90859280e10f2ab243c1eef107b9
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,7 +88,6 @@ Route::get('/coaches/{coach}/edit' , [CoachController::class, 'edit'])->name('co
 Route::put('/coaches/{coach}', [CoachController::class, 'update'])->name('coaches.update');
 Route::delete('/coaches/{coach}', [CoachController::class , 'destroy'])->name('coaches.destroy');
 
-<<<<<<< HEAD
 Route::get('/city_managers', [CityManagerController::class, 'index'])->name('city_managers.index');
 Route::get('/city_managers/create/', [CityManagerController::class, 'create'])->name('city_managers.create');
 Route::post('/city_managers', [CityManagerController::class, 'store'])->name('city_managers.store');
@@ -116,12 +112,10 @@ Route::delete('/training_sessions/{trainingSession}', [TrainingSessionController
 Route::get('/training_sessions/{trainingSession}/edit' , [TrainingSessionController::class, 'edit'])->name('training_sessions.edit');
 Route::put('/training_sessions/{trainingSession}', [TrainingSessionController::class, 'update'])->name('training_sessions.update');
 
-=======
 /*
  * Attendance Routes
  */
 Route::get('/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
->>>>>>> 076f452eb83c90859280e10f2ab243c1eef107b9
 
 Auth::routes();
 
