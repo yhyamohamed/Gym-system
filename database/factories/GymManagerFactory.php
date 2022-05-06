@@ -17,11 +17,15 @@ class GymManagerFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            /*'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => 'gymmanager', 
+            'password' => 'gymmanager',
            'avatar'=>'uploads/gymmangers',
            'gym_id'=>Gym::factory(),
+            */
+            'national_id' => $this->faker->unique()->randomNumber(),
+            'user_id' => User::factory(),
+            'gym_id' => Gym::factory()
         ];
     }
 }
