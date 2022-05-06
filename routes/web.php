@@ -9,10 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\TrainingPackageController;
 use App\Http\Controllers\CoachController;
-use App\Http\Controllers\CityManagerController;
-use App\Http\Controllers\GymManagerController;
-use App\Http\Controllers\TrainingSessionController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\SubscriptionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,34 +86,20 @@ Route::get('/coaches/{coach}/edit' , [CoachController::class, 'edit'])->name('co
 Route::put('/coaches/{coach}', [CoachController::class, 'update'])->name('coaches.update');
 Route::delete('/coaches/{coach}', [CoachController::class , 'destroy'])->name('coaches.destroy');
 
-Route::get('/city_managers', [CityManagerController::class, 'index'])->name('city_managers.index');
-Route::get('/city_managers/create/', [CityManagerController::class, 'create'])->name('city_managers.create');
-Route::post('/city_managers', [CityManagerController::class, 'store'])->name('city_managers.store');
-Route::delete('/city_managers/{city_manager}', [CityManagerController::class , 'destroy'])->name('city_managers.destroy');
-Route::get('/city_managers/{city_manager}/edit' , [CityManagerController::class, 'edit'])->name('city_managers.edit');
-Route::put('/city_managers/{city_manager}', [CityManagerController::class, 'update'])->name('city_managers.update');
-
-Route::get('/gym_managers', [GymManagerController::class, 'index'])->name('gym_managers.index');
-Route::get('/gym_managers/create/', [GymManagerController::class, 'create'])->name('gym_managers.create');
-Route::post('/gym_managers', [GymManagerController::class, 'store'])->name('gym_managers.store');
-Route::delete('/gym_managers/{gym_manager}', [GymManagerController::class , 'destroy'])->name('gym_managers.destroy');
-Route::get('/gym_managers/{gym_manager}/edit' , [GymManagerController::class, 'edit'])->name('gym_managers.edit');
-Route::put('/gym_managers/{gym_manager}', [GymManagerController::class, 'update'])->name('gym_managers.update');
-
-/*
-* Training Sessions Routes
-*/
-Route::get('/training_sessions', [TrainingSessionController::class, 'index'])->name('training_sessions.index');
-Route::get('/training_sessions/create/', [TrainingSessionController::class, 'create'])->name('training_sessions.create');
-Route::post('/training_sessions', [TrainingSessionController::class, 'store'])->name('training_sessions.store');
-Route::delete('/training_sessions/{trainingSession}', [TrainingSessionController::class , 'destroy'])->name('training_sessions.destroy');
-Route::get('/training_sessions/{trainingSession}/edit' , [TrainingSessionController::class, 'edit'])->name('training_sessions.edit');
-Route::put('/training_sessions/{trainingSession}', [TrainingSessionController::class, 'update'])->name('training_sessions.update');
-
 /*
  * Attendance Routes
  */
 Route::get('/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
+
+/*
+ * Buy Package For User Routes
+ */
+Route::get('/buy-package', [SubscriptionController::class, 'index'])->name('subscriptions.index');
+Route::get('/buy-package/create/', [SubscriptionController::class, 'create'])->name('subscriptions.create');
+Route::post('/buy-package', [SubscriptionController::class, 'store'])->name('subscriptions.store');
+Route::get('/buy-package/{subscription}/edit' , [SubscriptionController::class, 'edit'])->name('subscriptions.edit');
+Route::put('/buy-package/{subscription}', [SubscriptionController::class, 'update'])->name('subscriptions.update');
+Route::delete('/buy-package/{subscription}', [SubscriptionController::class , 'destroy'])->name('subscriptions.destroy');
 
 Auth::routes();
 

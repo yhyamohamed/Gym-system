@@ -243,12 +243,6 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a id="training_sessions" href="{{ route('training_sessions.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Training Sessions</p>
-                  </a>
-                </li>
-                <li class="nav-item">
                   <a id="coaches" href="{{ route('coaches.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Coaches</p>
@@ -261,7 +255,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a id="buy-package" href="{{ route('users.index') }}" class="nav-link">
+                  <a id="subscriptions" href="{{ route('subscriptions.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Buy Package for User</p>
                   </a>
@@ -374,10 +368,6 @@
   <script src="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-  
-  <!-- Select2 -->  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- 
   @yield('dataTable-scripts')
 </body>
 
