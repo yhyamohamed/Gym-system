@@ -20,7 +20,8 @@ class RoleFactory extends Factory
             ['role'=>'admin'],
             ['role'=>'city_manager'],
             ['role'=>'gym_manager'],
-            ['role'=>'user']
+            ['role'=>'user'],
+
         ];
     }
 }
