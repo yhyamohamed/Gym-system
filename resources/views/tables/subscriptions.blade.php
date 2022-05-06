@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('title')
-Training Packages Table
+Subscriptions
 @endsection
 
 @section('page-header')
-All Training Package
+All subscriptions
 <br />
-<a href="{{ route('training_packages.create') }}" class="btn btn-success">Create Training Package</a>
+<a href="{{ route('subscriptions.create') }}" class="btn btn-success">Subscriptions</a>
 @endsection
 
 @section('left-breadcrumb')
 <li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">Training Package</li>
+<li class="breadcrumb-item active">Buy Package For User</li>
 @endsection
 
 @section('content')
@@ -26,14 +26,14 @@ All Training Package
         </div> --}}
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="trainingPackage-table" class="table table-bordered">
+                <table id="subscriptions-table" class="table table-bordered">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Total Sessions</th>
-                            <th>Gym</th>
+                            <th>Training Package</th>
+                            <th>Subscriber</th>
+                            <th>Amount Paid</th>
+                            <th>Remaining Sessions</th>
                             <th>Created At</th>
                             <th>Actions</th>
                         </tr>
@@ -41,11 +41,11 @@ All Training Package
                     </tbody>
                 </table>
                 <!-- Modal -->
-                <div class="modal fade" id="training-package-moadal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="subscription-moadal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Deleting a Training Package</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Deleting a Subscription</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -63,13 +63,12 @@ All Training Package
         <!-- /.card -->
     </div>
 </div>
-
 @endsection
 @section('dataTable-scripts')
 <script>
     var table;
     $(function() {
-        table = $('#trainingPackage-table').DataTable({
+        table = $('#subscriptions-table').DataTable({
             processing: true,
             serverSide: true,
             "paging": true,
@@ -79,26 +78,26 @@ All Training Package
             "info": true,
             "autoWidth": false,
             "responsive": true,
-            ajax: "{{ route('training_packages.index') }}",
+            ajax: "{{ route('subscriptions.index') }}",
             columns: [{
                     data: 'id',
                     name: 'id'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'training_package',
+                    name: 'training_package'
                 },
                 {
-                    data: 'price',
-                    name: 'price'
+                    data: 'subscriber',
+                    name: 'subscriber'
                 },
                 {
-                    data: 'total_sessions',
-                    name: 'total_sessions'
+                    data: 'amount_paid',
+                    name: 'amount_paid'
                 },
                 {
-                    data: 'gym',
-                    name: 'gym'
+                    data: 'remaining_sessions',
+                    name: 'remaining_sessions'
                 },
                 {
                     data: 'created_at',
@@ -113,10 +112,10 @@ All Training Package
             ]
         });
     });
-    $('#training_packages').addClass('active');
+    $('#subscriptions').addClass('active');
 
     function getRowId() {
-        $('#training-package-moadal').on('show.bs.modal', function(event) {
+        $('#subscription-moadal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             id = button.data('id');
         });
@@ -124,11 +123,11 @@ All Training Package
     getRowId();
     $(".delete_btn").on('click', (e) => {
         e.preventDefault();
-        $('#training-package-moadal').modal('toggle');
-        var url = "{{ route('training_packages.destroy',['trainingPackage' => 1])}}";
+        $('#subscription-moadal').modal('toggle');
+        var url = "{{ route('subscriptions.destroy',['subscription' => 1])}}";
         url = url.split("/")
         url[url.length - 1] = id;
-        url = url.join("/")
+        url = url.join("/");
         var msgDiv = $("#msg");
         $.ajax({
             url: url,
@@ -142,7 +141,7 @@ All Training Package
                     "background-color": " #d4edda",
                     "border-color": "#c3e6cb"
                 });
-                msgDiv.addClass("alert-danger").html(data.message).show();
+                msgDiv.addClass("alert-success").html(data.message).show();
                 table.ajax.reload();
             },
             error: function(reject) {

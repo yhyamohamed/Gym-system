@@ -17,7 +17,7 @@ class CityManagerFactory extends Factory
      */
     public function definition()
     {
-        $allCityManagersID = User::where('possession_id',2)->pluck('id');
+        $allCityManagersID = User::where('position_id',2)->pluck('id');
         return [
             'NID' => $this->faker->unique()->numerify('##############'),
             'user_id' =>  $this->faker->unique()->randomElement($allCityManagersID),

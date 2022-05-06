@@ -62,108 +62,109 @@ All Gyms
         </div>
         <!-- /.card -->
     </div>
-
-    @endsection
-    @section('dataTable-scripts')
-    <script>
-        var table;
-        $(function() {
-            table = $('#gym-table').DataTable({
-                processing: true,
-                serverSide: true,
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                ajax: "{{ route('gyms.index') }}",
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'creator',
-                        name: 'creator'
-                    },
-                    {
-                        data: 'city_manager',
-                        name: 'city_manager'
-                    },
-                    {
-                        data: 'cover_img',
-                        name: 'cover_img',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ]
-            });
+</div>
+@endsection
+@section('dataTable-scripts')
+<script>
+    var table;
+    $(function() {
+        table = $('#gym-table').DataTable({
+            processing: true,
+            serverSide: true,
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            ajax: "{{ route('gyms.index') }}",
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'creator',
+                    name: 'creator'
+                },
+                {
+                    data: 'city_manager',
+                    name: 'city_manager'
+                },
+                {
+                    data: 'cover_img',
+                    name: 'cover_img',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
         });
-        $('#gyms').addClass('active');
-        function getRowId() {
-            $('#gym-moadal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget);
-                id = button.data('id');
-            });
-        }
-        getRowId();
-        $(".delete_btn").on('click', (e) => {
-            e.preventDefault();
-            $('#gym-moadal').modal('toggle');
-            var url = "{{ route('gyms.destroy',['gym' => 1])}}";
-            url = url.split("/")
-            url[url.length - 1] = id;
-            url = url.join("/");
-            var msgDiv = $("#msg");
-            $.ajax({
-                url: url,
-                type: 'DELETE',
-                data: {
-                    '_token': "{{csrf_token()}}",
-                },
-                success: function(data) {
-                    if (data.status) {
-                        msgDiv.css({
-                            "color": "#155724",
-                            "background-color": " #d4edda",
-                            "border-color": "#c3e6cb"
-                        });
-                        msgDiv.addClass("alert-success").html(data.message).show();
-                        table.ajax.reload();
-                    } else {
-                        msgDiv.css({
-                            "color": "#721c24",
-                            "background-color": "#f8d7da",
-                            "border-color": "#f5c6cb"
-                        });
-                        msgDiv.addClass("alert-danger").html(data.message).show();
-                    }
-                },
-                error: function(reject) {
-                    error = JSON.parse(reject.responseText);
+    });
+    $('#gyms').addClass('active');
+
+    function getRowId() {
+        $('#gym-moadal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            id = button.data('id');
+        });
+    }
+    getRowId();
+    $(".delete_btn").on('click', (e) => {
+        e.preventDefault();
+        $('#gym-moadal').modal('toggle');
+        var url = "{{ route('gyms.destroy',['gym' => 1])}}";
+        url = url.split("/")
+        url[url.length - 1] = id;
+        url = url.join("/");
+        var msgDiv = $("#msg");
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            data: {
+                '_token': "{{csrf_token()}}",
+            },
+            success: function(data) {
+                if (data.status) {
+                    msgDiv.css({
+                        "color": "#155724",
+                        "background-color": " #d4edda",
+                        "border-color": "#c3e6cb"
+                    });
+                    msgDiv.addClass("alert-success").html(data.message).show();
+                    table.ajax.reload();
+                } else {
                     msgDiv.css({
                         "color": "#721c24",
                         "background-color": "#f8d7da",
                         "border-color": "#f5c6cb"
                     });
-                    msgDiv.addClass("alert-danger").html(error.message).show();
+                    msgDiv.addClass("alert-danger").html(data.message).show();
                 }
-            });
+            },
+            error: function(reject) {
+                error = JSON.parse(reject.responseText);
+                msgDiv.css({
+                    "color": "#721c24",
+                    "background-color": "#f8d7da",
+                    "border-color": "#f5c6cb"
+                });
+                msgDiv.addClass("alert-danger").html(error.message).show();
+            }
         });
-    </script>
-    @endsection
+    });
+</script>
+@endsection
