@@ -21,4 +21,8 @@ class GymManager extends Model
     {
         return $this->belongsTo(Gym::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

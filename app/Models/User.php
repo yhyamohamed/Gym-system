@@ -57,4 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(TrainingSession::class)->withPivot('id')->withTimestamps();
     }
+    public function gym_managers(){
+        return $this->hasMany(GymManager::class);
+    }
 }
