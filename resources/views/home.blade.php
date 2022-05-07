@@ -14,7 +14,7 @@
                     @role('gym_manager')
                         I am a gym manager!
                     @endrole
-                    @hasanyrole('admin|gym_manager')
+                    @hasanyrole('admin|gym_manager|city_manager')
                         I am either a writer or an admin or both!
                     @else
                         I have none of these roles...
