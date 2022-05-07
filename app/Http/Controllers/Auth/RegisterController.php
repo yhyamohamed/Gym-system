@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\CityManager;
+use App\Models\GymManager;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -64,10 +66,36 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+       
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        $role = 'user';
+        if ($data['possession_id'] == 1) {
+            $role = 'admin';
+
+        } else if ($data['possession_id'] == 2) {
+            CityManager::create(
+                [
+                    'user_id' => $user->id,
+                    'NID' => $data['cmanager_NID']
+                ]
+            );
+            $role = 'city_manager';
+        } else if ($data['possession_id'] == 3) {
+            GymManager::create(
+                [
+                    'user_id' => $user->id,
+                    'NID' => $data['gmanager_NID'],
+                    'gym_id' => $data['gym_id']
+                ]
+            );
+            $role = 'gym_manager';
+        }
+        $user->assignRole($role);
+        return $user;
+     
     }
 }

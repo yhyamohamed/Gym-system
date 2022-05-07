@@ -8,8 +8,10 @@ use App\Http\Controllers\CityManagerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\TrainingPackageController;
+use App\Http\Controllers\TrainingSessionController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\SubscriptionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,6 +78,16 @@ Route::get('/training-packages/{trainingPackage}/edit' , [TrainingPackageControl
 Route::put('/training-packages/{trainingPackage}', [TrainingPackageController::class, 'update'])->name('training_packages.update');
 
 /*
+ * Training Sessions Routes
+ */
+Route::get('/training_sessions', [TrainingSessionController::class, 'index'])->name('training_sessions.index');
+Route::get('/training_sessions/create/', [TrainingSessionController::class, 'create'])->name('training_sessions.create');
+Route::post('/training_sessions', [TrainingSessionController::class, 'store'])->name('training_sessions.store');
+Route::delete('/training_sessions/{trainingSession}', [TrainingSessionController::class , 'destroy'])->name('training_sessions.destroy');
+Route::get('/training_sessions/{trainingSession}/edit' , [TrainingSessionController::class, 'edit'])->name('training_sessions.edit');
+Route::put('/training_sessions/{trainingSession}', [TrainingSessionController::class, 'update'])->name('training_sessions.update');
+
+/*
  * Coaches Routes
  */
 Route::get('/coaches', [CoachController::class, 'index'])->name('coaches.index');
@@ -89,6 +101,16 @@ Route::delete('/coaches/{coach}', [CoachController::class , 'destroy'])->name('c
  * Attendance Routes
  */
 Route::get('/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
+
+/*
+ * Buy Package For User Routes
+ */
+Route::get('/buy-package', [SubscriptionController::class, 'index'])->name('subscriptions.index');
+Route::get('/buy-package/create/', [SubscriptionController::class, 'create'])->name('subscriptions.create');
+Route::post('/buy-package', [SubscriptionController::class, 'store'])->name('subscriptions.store');
+Route::get('/buy-package/{subscription}/edit' , [SubscriptionController::class, 'edit'])->name('subscriptions.edit');
+Route::put('/buy-package/{subscription}', [SubscriptionController::class, 'update'])->name('subscriptions.update');
+Route::delete('/buy-package/{subscription}', [SubscriptionController::class , 'destroy'])->name('subscriptions.destroy');
 
 Auth::routes();
 

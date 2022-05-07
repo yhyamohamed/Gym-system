@@ -10,10 +10,13 @@ use Laravel\Sanctum\HasApiTokens;
 use Cog\Contracts\Ban\Bannable as BannableContract;
 use Cog\Laravel\Ban\Traits\Bannable;
 use App\models\TrainingSessionUser;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail, BannableContract
 {
-    use HasApiTokens, HasFactory, Notifiable, Bannable;
+
+    use HasApiTokens, HasFactory, Notifiable,HasRoles,Bannable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail, BannableContract
         'gender',
         'profile_image',
         'position_id',
-        'last_login_at'
+        'last_login_at',
+        'NID'
 
     ];
 

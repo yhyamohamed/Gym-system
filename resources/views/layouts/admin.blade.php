@@ -243,6 +243,12 @@
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a id="training_sessions" href="{{ route('training_sessions.index') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Training Sessions</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a id="coaches" href="{{ route('coaches.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Coaches</p>
@@ -255,7 +261,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a id="buy-package" href="{{ route('users.index') }}" class="nav-link">
+                  <a id="subscriptions" href="{{ route('subscriptions.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Buy Package for User</p>
                   </a>

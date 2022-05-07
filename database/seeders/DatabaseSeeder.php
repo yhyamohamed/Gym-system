@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use \App\models\CityManager;
+use App\Models\User;
 use App\Models\Position;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +23,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\CityManager::factory(3)->create();
         \App\Models\Gym::factory(3)->create();
         \App\Models\CityManager::factory()->hasgyms(3)->create();
-        \App\Models\GymManager::factory()->create();
+        \App\Models\GymManager::factory(User::where('possession_id',3)->count())->create();
         \App\Models\TrainingPackage::factory()->count(4)->create();
         \App\Models\Coach::factory(3)->create();
         \App\Models\TrainingSession::factory()->count(3)->create();

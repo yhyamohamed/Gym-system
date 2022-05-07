@@ -59,7 +59,7 @@ create user
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Date Of Birth</label>
-                <input name="date_of_birth" type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
+                <input name="date_of_birth" type="datetime-local" class="form-control" id="exampleFormControlInput1" placeholder="">
                 @error('date_of_birth')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror

@@ -4,17 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class GymManager extends Model
 {
-    use HasFactory;
+    use HasFactory,HasRoles;
 
     protected $fillable = [
       'email',
       'name',
       'password',
       'gym_id',
-      'avatar'
+      'user_id',
+      'NID'
     ];
 
     public function gyms()
