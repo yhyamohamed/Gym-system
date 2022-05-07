@@ -21,7 +21,6 @@ class TrainingSessionUserFactory extends Factory
         return [
             'user_id' => User::factory(),
             'training_session_id' => TrainingSession::factory(),
-            'payment_status' => 'paid',
         ];
     }
 }

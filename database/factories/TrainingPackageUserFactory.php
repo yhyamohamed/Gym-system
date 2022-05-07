@@ -22,6 +22,7 @@ class TrainingPackageUserFactory extends Factory
            'user_id'=>User::factory(),
            'amount_paid'=>$this->faker->numerify('#####'),
            'training_package_id'=>TrainingPackage::factory(),
+           'payment_status' => 'paid',
         ];
     }
 }
