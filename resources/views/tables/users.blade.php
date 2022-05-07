@@ -16,7 +16,7 @@ All Users
 @endsection
 
 
-@section('content')
+@section('table-content')
 
 
 <center>

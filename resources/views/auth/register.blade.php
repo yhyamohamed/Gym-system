@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+Register
+@endsection
 
 @section('content')
     <div class="container">
@@ -75,7 +78,7 @@
 
 
                                 <div class="col-md-6">
-                                    <select name='position_id' class='custom-select custom-select-sm' label='Role'
+                                    <select name='possession_id' class='custom-select custom-select-sm' label='Role'
                                         id='role'>
                                         <option value="0" selected>Whats Your Role</option>
                                         <option value="1">I'm an Admin</option>
@@ -125,7 +128,7 @@
 @endsection
 @section('dataTable-scripts')
     <script>
-
+     
         $('#role').on('change', function() {
             const val = +$("option:selected", this).val();
             if (val == 1 || val == 4) {

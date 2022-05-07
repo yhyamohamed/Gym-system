@@ -2,18 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Coach;
-use App\Models\coachTrainingSession;
-use App\Models\Gym;
-use App\Models\GymManager;
-use App\Models\TrainingPackage;
-use App\Models\TrainingPackageUser;
-use App\Models\TrainingSession;
-use App\Models\TrainingSessionUser;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use \App\Models\CityManager;
+use \App\models\CityManager;
 use App\Models\User;
-
+use App\Models\Position;
 
 
 class DatabaseSeeder extends Seeder

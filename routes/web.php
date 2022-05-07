@@ -7,11 +7,13 @@ use App\Http\Controllers\GymManagerController;
 use App\Http\Controllers\CityManagerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GymController;
-use App\Http\Controllers\TrainingSessionController;
 use App\Http\Controllers\TrainingPackageController;
+use App\Http\Controllers\TrainingSessionController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\RevenueController;
+use App\Http\Controllers\CityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,8 +80,8 @@ Route::get('/training-packages/{trainingPackage}/edit' , [TrainingPackageControl
 Route::put('/training-packages/{trainingPackage}', [TrainingPackageController::class, 'update'])->name('training_packages.update');
 
 /*
-* Training Sessions Routes
-*/
+ * Training Sessions Routes
+ */
 Route::get('/training_sessions', [TrainingSessionController::class, 'index'])->name('training_sessions.index');
 Route::get('/training_sessions/create/', [TrainingSessionController::class, 'create'])->name('training_sessions.create');
 Route::post('/training_sessions', [TrainingSessionController::class, 'store'])->name('training_sessions.store');
@@ -111,6 +113,16 @@ Route::post('/buy-package', [SubscriptionController::class, 'store'])->name('sub
 Route::get('/buy-package/{subscription}/edit' , [SubscriptionController::class, 'edit'])->name('subscriptions.edit');
 Route::put('/buy-package/{subscription}', [SubscriptionController::class, 'update'])->name('subscriptions.update');
 Route::delete('/buy-package/{subscription}', [SubscriptionController::class , 'destroy'])->name('subscriptions.destroy');
+
+/*
+ * Revenue Routes
+ */
+Route::get('/revenue', [RevenueController::class, 'index'])->name('revenues.index');
+
+/*
+ * City Routes
+ */
+Route::get('/city', [CityController::class, 'index'])->name('cities.index');
 
 Auth::routes();
 

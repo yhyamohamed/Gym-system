@@ -60,6 +60,7 @@ Edit Training Sessions
                             <label for="coachesList" class="form-label">Coach</label>
                             <select class="form-control js-example-basic-multiple" name="coaches[]" multiple="multiple" id="coachesList"">
                                 @foreach ($trainingSession -> coaches as $coach)
+                                {{-- <option value="{{ $trainingSession['tranining_package_id'] }}" selected hidden>{{ $trainingSession->training_package->name }}</option> --}}
                                 <option value="{{ $coach->id }}" selected>{{ $coach->name }}</option>
                                 @endforeach
                                 @foreach ($coaches as $coach)

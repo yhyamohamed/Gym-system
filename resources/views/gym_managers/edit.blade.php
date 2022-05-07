@@ -12,6 +12,7 @@ edit Gym Manager
 @endsection
 
 @section('content')
+
 <div class="container-fluid offset-md-2">
         <div class="row">
           <!-- left column -->
@@ -54,12 +55,11 @@ edit Gym Manager
             @enderror
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Gym name</label>
+                <label for="exampleFormControlTextarea1" class="form-label">Gym ID</label>
                 <select name="gym_id" class="form-control" >
-                
-                <option value="{{$gym_managers->gym_managers->first()->gym->name}}" selected>{{$gym_managers->gym_managers->first()->gym->name}}</option>
+                <option value="{{$gym_managers->gym->id}}" selected>{{$gym_managers->gym->id}}</option>
                     @foreach($gyms as $gym)
-                    <option value="{{$gym->id}}">{{$gym->name}}</option>
+                    <option value="{{$gym->id}}">{{$gym->id}}</option>
                     @endforeach
                 </select>
             </div>
