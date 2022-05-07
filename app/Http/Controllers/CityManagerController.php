@@ -18,7 +18,7 @@ class CityManagerController extends Controller
     public function index(Request $request)
     { {
             if ($request->ajax()) {
-                $cityMangers = User::where("possession_id",2)->get();
+                $cityMangers = User::where("position_id",2)->get();
                 $data = CityManagerResource::collection($cityMangers);
                 return DataTables::of($data)
                     ->addIndexColumn()
@@ -65,7 +65,7 @@ class CityManagerController extends Controller
                 'email' =>  $request['email'],
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'possession_id' => 2,
+                'position_id' => 2,
             ]);
 
             CityManager::create([
@@ -86,12 +86,12 @@ class CityManagerController extends Controller
 
     public function update(UpdateCityManagerRequest $request, $city_managerId)
 
-    {   
+    {
         $user = User::find($city_managerId);
-        
+
         if ($user) {
             $name = $user->profile_image;
-            
+
 
             if ($request->hasFile('fileUpload')) {
 
@@ -102,15 +102,15 @@ class CityManagerController extends Controller
                 $name = $image->getClientOriginalName();
                 $imagePath = $request->file('fileUpload')->storeAs('public/images/', $name);
             }
-            
+
             $user->update([
                 'name' =>  $request['name'],
                 'email' =>  $request['email'],
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'possession_id' => 2,
+                'position_id' => 2,
             ]);
-           
+
             $city_manager = CityManager::where('user_id', $user->id)->first();
             $city_manager->update([
             ]);

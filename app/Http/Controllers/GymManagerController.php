@@ -17,9 +17,9 @@ use DataTables;
 class GymManagerController extends Controller
 {
     public function index(Request $request)
-    {  
+    {
         if ($request->ajax()) {
-            $gymMangers = User::where("possession_id",3)->get();
+            $gymMangers = User::where("position_id",3)->get();
             $data = GymManagerResource::collection($gymMangers);
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -56,7 +56,7 @@ class GymManagerController extends Controller
     }
 
     public function store(StoreGymManagerRequest $request)
-    {   
+    {
         if ($request->hasFile('fileUpload')) {
             $image = $request->file('fileUpload');
             $name = $image->getClientOriginalName();
@@ -67,7 +67,7 @@ class GymManagerController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'possession_id' => 3,
+                'position_id' => 3,
             ]);
             $manager=GymManager::create([
                 'user_id' => $user->id,
@@ -104,15 +104,15 @@ class GymManagerController extends Controller
                 $name = $image->getClientOriginalName();
                 $imagePath = $request->file('fileUpload')->storeAs('public/images/', $name);
             }
-            
+
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'possession_id' => 3,
+                'position_id' => 3,
             ]);
-           
+
             $manager = GymManager::where('user_id', $user->id)->first();
             $manager ->update([
                 'gym_id' => $request->gym_id,
