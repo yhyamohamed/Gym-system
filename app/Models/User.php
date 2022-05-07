@@ -31,8 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail, BannableContract
         'gender',
         'profile_image',
         'last_login_at',
-        'NID',
-        'possession_id',
+        'NID'
+
     ];
 
     /**

@@ -10,32 +10,30 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreGymManagerRequest;
 use App\Http\Requests\UpdateGymManagerRequest;
-use App\Http\Resources\GymManagerResource;
 use App\Models\User;
 use DataTables;
 
 class GymManagerController extends Controller
 {
     public function index(Request $request)
-    {  
+    {
         if ($request->ajax()) {
-            $gymMangers = User::where("possession_id",3)->get();
-            $data = GymManagerResource::collection($gymMangers);
+            $data = User::where('position_id', 3)->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('date', function ($row) {
-                    $data = $row['created_at'];
+                    $data = $row->created_at->format('y-m-d');
                     return $data;
                 })
                 ->addColumn('image', function ($row) {
-                    $src = asset('storage/images/' . $row['profile_image']);
+                    $src = asset('storage/images/' . $row->profile_image);
                     return '<img src="' . $src . '" style="width:50px;height:50px;" />';
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-primary">Edit</a>
+                    return '<a href="' . route('gym_managers.edit', ['gym_manager' => $row->id]) . '" class="btn btn-primary">Edit</a>
                 <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                 data-bs-target="#usermoadal"
-                data-id=' . $row['id'] . '>
+                data-id=' . $row->id . '>
                 delete
                     </button>
                     ';
@@ -56,7 +54,7 @@ class GymManagerController extends Controller
     }
 
     public function store(StoreGymManagerRequest $request)
-    {   
+    {
         if ($request->hasFile('fileUpload')) {
             $image = $request->file('fileUpload');
             $name = $image->getClientOriginalName();
@@ -67,14 +65,13 @@ class GymManagerController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'possession_id' => 3,
+                'position_id' => 3,
             ]);
-            $manager=GymManager::create([
+
+            GymManager::create([
                 'user_id' => $user->id,
-                'gym_id' => $request->gym_id,
-                'NID' =>$request->NID,
+                'gym_id' => $request['gym_id'],
             ]);
-            // dd($manager);
         }
         return redirect()->route('gym_managers.index');
     }
@@ -88,12 +85,12 @@ class GymManagerController extends Controller
         );
     }
 
-    public function update(UpdateGymManagerRequest $request, User $gym_manager)
-
+    public function update(UpdateGymManagerRequest $request, $gym_managerId)
     {
-        $user = $gym_manager;
+        $user = User::find($gym_managerId);
         if ($user) {
             $name = $user->profile_image;
+            // dd($name);
 
             if ($request->hasFile('fileUpload')) {
 
@@ -104,18 +101,16 @@ class GymManagerController extends Controller
                 $name = $image->getClientOriginalName();
                 $imagePath = $request->file('fileUpload')->storeAs('public/images/', $name);
             }
-            
+
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'possession_id' => 3,
             ]);
-           
-            $manager = GymManager::where('user_id', $user->id)->first();
-            $manager ->update([
-                'gym_id' => $request->gym_id,
+            $gym_manager = GymManager::where('user_id', $user->id)->first();
+            $gym_manager->update([
+                'gym_id' => $request['gym_id'],
             ]);
         }
         return redirect()->route('gym_managers.index');

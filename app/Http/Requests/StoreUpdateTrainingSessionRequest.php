@@ -29,8 +29,6 @@ class StoreUpdateTrainingSessionRequest extends FormRequest
             'start_at' => ['required', 'date', new SessionConflict],
             'finish_at' => ['required', 'date', new SessionConflict],
             'training_package_id' => 'required|exists:training_packages,id',
-            'coaches' => 'required|array',
-            'coaches.*' => 'required|exists:coaches,id',
         ];
     }
 }

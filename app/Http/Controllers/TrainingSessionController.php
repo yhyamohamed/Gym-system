@@ -15,6 +15,12 @@ class TrainingSessionController extends Controller
      * Get all training sessions.
      *
      */
+    // public function index() {
+
+    //     $trainingSessions = TrainingSession::all();
+
+    //     return view('tables.training_sessions', compact('trainingSessions'));
+    // }
 
     public function index(Request $request)
     {
@@ -35,13 +41,15 @@ class TrainingSessionController extends Controller
                 //     return '<img src="' . $src . '" style="width:50px;height:50px;" />';
                 // })
                 ->addColumn('action', function ($row) {
-                    return '<button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                    return '<center>
+                    <a href="' . route('training_sessions.edit', ['trainingSession' => $row->id]) . '" class="btn btn-primary">Edit</a>
+                    <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                     data-bs-target="#training-session-modal"
                     data-id=' . $row->id . '
                     >
                     Delete
-                        </button>
-                        <a href="' . route('training_sessions.edit', ['trainingSession' => $row->id]) . '" class="btn btn-primary">Edit</a>';      
+                    </button>
+                    </center>';      
                 })
                 ->rawColumns(['start at', 'finish at', 'action'])
                 ->make(true);
@@ -66,15 +74,26 @@ class TrainingSessionController extends Controller
      *
      */
     public function store(StoreUpdateTrainingSessionRequest $request) {
-
-        $trainingSession = TrainingSession::create([
-            'name' => $request->name,
-            'start_at' => $request->start_at,
-            'finish_at' => $request->finish_at,
-            'training_package_id' => $request->training_package_id,
-        ]);
-
-        $trainingSession->coaches()->sync($request->coaches);
+        
+        // Gym::create([
+        //     'name' => $request->name,
+        //     'creator' => $request->creator,
+        //     'cover_img' => str_replace('public', 'storage', $path),
+        //     'city_manager_id' => $request->city_manager_id,
+        // ]);
+        $trainingSession = new TrainingSession();
+        // TrainingSession::create($request->all());
+        $trainingSession -> id = 20;
+        $trainingSession -> name = $request -> name;
+        $trainingSession -> start_at = $request -> start_at;
+        $trainingSession -> finish_at = $request -> finish_at;
+        $trainingSession -> training_package_id = $request -> training_package_id;
+        $trainingSession -> coaches() -> attach($request -> coaches);
+        // 'name',
+        // 'start_at',
+        // 'finish_at',
+        // 'gym_id',
+        // 'training_package_id'
 
         return redirect()->route('training_sessions.index');
     }
@@ -86,7 +105,6 @@ class TrainingSessionController extends Controller
     public function edit(TrainingSession $trainingSession)
     {
         $coaches = Coach::all();
-
         $trainingPackages = TrainingPackage::all();
         
         return view(
@@ -109,14 +127,7 @@ class TrainingSessionController extends Controller
             return redirect()->back()->with('error', 'Can\'t update a training session that has users.');
         }
 
-        $trainingSession->update([
-            'name' => $request->name,
-            'start_at' => $request->start_at,
-            'finish_at' => $request->finish_at,
-            'training_package_id' => $request->training_package_id,
-        ]);
-
-        $trainingSession->coaches()->sync($request->coaches);
+        $trainingSession->update($request->all());
 
         return redirect()->route('training_sessions.index');
     }

@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
 class UpdateGymManagerRequest extends FormRequest
 {
     /**
@@ -25,10 +24,11 @@ class UpdateGymManagerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => "required",
-            'email' => ["required", Rule::unique('users')->ignore($this->gym_manager)],
-            'password' => "min:6",
-            'fileUpload' => ['nullable', 'image', 'mimes:jpg,png,jpeg'],
+            'name'=>"required",
+            'email'=>["required",
+            Rule::unique('gym_managers')->ignore($this->gym_manager)],
+            'password'=>"min:6",
+            'fileUpload'=>['nullable','image','mimes:jpg,png,jpeg'],
         ];
     }
 }

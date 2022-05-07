@@ -11,9 +11,11 @@ class CityManager extends Model
     use HasFactory,HasRoles;
 
     protected $fillable=[
-      
-      'NID',
-      'user_id'
+      'email',
+      'password',
+      'name',
+      'user_id',
+      'NID'
     ];
 
     public function gyms()

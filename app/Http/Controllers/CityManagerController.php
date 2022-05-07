@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreCityManagerRequest;
 use App\Http\Requests\UpdateCityManagerRequest;
-use App\Http\Resources\CityManagerResource;
 use App\Models\User;
 use DataTables;
 
@@ -18,23 +17,22 @@ class CityManagerController extends Controller
     public function index(Request $request)
     { {
             if ($request->ajax()) {
-                $cityMangers = User::where("possession_id",2)->get();
-                $data = CityManagerResource::collection($cityMangers);
+                $data = User::where('position_id', 2)->get();
                 return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('date', function ($row) {
-                        $data = $row['created_at'];
+                        $data = $row->created_at->format('y-m-d');
                         return $data;
                     })
                     ->addColumn('image', function ($row) {
-                        $src = asset('storage/images/' . $row['profile_image']);
+                        $src = asset('storage/images/' . $row->profile_image);
                         return '<img src="' . $src . '" style="width:50px;height:50px;" />';
                     })
                     ->addColumn('action', function ($row) {
-                        return '<a href="' . route('city_managers.edit', ['city_manager' => $row['id']]) . '" class="btn btn-primary">Edit</a>
+                        return '<a href="' . route('city_managers.edit', ['city_manager' => $row->id]) . '" class="btn btn-primary">Edit</a>
                     <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                     data-bs-target="#usermoadal"
-                    data-id=' . $row['id'] . '>
+                    data-id=' . $row->id . '>
                     delete
                         </button>
                         ';
@@ -65,12 +63,11 @@ class CityManagerController extends Controller
                 'email' =>  $request['email'],
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'possession_id' => 2,
+                'position_id' => 2,
             ]);
 
             CityManager::create([
                 'user_id' => $user->id,
-                'NID' =>$request->NID,
             ]);
         }
         return redirect()->route('city_managers.index');
@@ -86,12 +83,11 @@ class CityManagerController extends Controller
 
     public function update(UpdateCityManagerRequest $request, $city_managerId)
 
-    {   
+    {
         $user = User::find($city_managerId);
-        
         if ($user) {
             $name = $user->profile_image;
-            
+            // dd($name);
 
             if ($request->hasFile('fileUpload')) {
 
@@ -102,15 +98,12 @@ class CityManagerController extends Controller
                 $name = $image->getClientOriginalName();
                 $imagePath = $request->file('fileUpload')->storeAs('public/images/', $name);
             }
-            
             $user->update([
                 'name' =>  $request['name'],
                 'email' =>  $request['email'],
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
-                'possession_id' => 2,
             ]);
-           
             $city_manager = CityManager::where('user_id', $user->id)->first();
             $city_manager->update([
             ]);
