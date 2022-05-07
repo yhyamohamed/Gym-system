@@ -24,18 +24,18 @@ class GymManagerController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('date', function ($row) {
-                    $data = $row['created_at'];
+                    $data = $row->created_at->format('y-m-d');
                     return $data;
                 })
                 ->addColumn('image', function ($row) {
-                    $src = asset('storage/images/' . $row['profile_image']);
+                    $src = asset('storage/images/' . $row->profile_image);
                     return '<img src="' . $src . '" style="width:50px;height:50px;" />';
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-primary">Edit</a>
+                    return '<a href="' . route('gym_managers.edit', ['gym_manager' => $row->id]) . '" class="btn btn-primary">Edit</a>
                 <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                 data-bs-target="#usermoadal"
-                data-id=' . $row['id'] . '>
+                data-id=' . $row->id . '>
                 delete
                     </button>
                     ';
@@ -69,12 +69,11 @@ class GymManagerController extends Controller
                 'profile_image' => $name,
                 'position_id' => 3,
             ]);
-            $manager=GymManager::create([
+
+            GymManager::create([
                 'user_id' => $user->id,
-                'gym_id' => $request->gym_id,
-                'NID' =>$request->NID,
+                'gym_id' => $request['gym_id'],
             ]);
-            // dd($manager);
         }
         return redirect()->route('gym_managers.index');
     }
@@ -88,12 +87,12 @@ class GymManagerController extends Controller
         );
     }
 
-    public function update(UpdateGymManagerRequest $request, User $gym_manager)
-
+    public function update(UpdateGymManagerRequest $request, $gym_managerId)
     {
-        $user = $gym_manager;
+        $user = User::find($gym_managerId);
         if ($user) {
             $name = $user->profile_image;
+            // dd($name);
 
             if ($request->hasFile('fileUpload')) {
 
