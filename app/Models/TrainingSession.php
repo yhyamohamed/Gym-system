@@ -42,6 +42,7 @@ class TrainingSession extends Model
     }
     public function gyms()
     {
+       if( $this->training_packages)
         return $this->training_packages->gym;
     }
 }

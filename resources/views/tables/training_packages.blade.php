@@ -14,7 +14,7 @@ All Training Package
 <li class="breadcrumb-item active">Training Package</li>
 @endsection
 
-@section('table-content')
+@section('content')
 <center>
     <div role="alert" class="alert col-md-8" id="msg" style="display: none;"></div>
 </center>

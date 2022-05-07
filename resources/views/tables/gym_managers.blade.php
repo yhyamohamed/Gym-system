@@ -16,7 +16,7 @@ Gym Managers
 @endsection
 
 
-@section('table-content')
+@section('content')
 <center>
   <div role="alert" class="alert  col-md-8" id="msg" style="display: none;"></div>
 
@@ -36,7 +36,7 @@ Gym Managers
               <th>name</th>
               <th>email</th>
               <th>created-at</th>
-              <th>gym_id</th>
+              <th>gym_name</th>
               <th>profile image</th>
               <th>Actions</th>
             </tr>
@@ -101,8 +101,8 @@ Gym Managers
           name: 'date'
         },
         {
-          data: 'gym_id',
-          name: 'gym_id'
+          data: 'gym_name',
+          name: 'gym_name'
         },
         {
           data: 'image',

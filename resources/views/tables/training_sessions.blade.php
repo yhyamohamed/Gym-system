@@ -14,7 +14,7 @@ Training Sessions Schedule
 <li class="breadcrumb-item active">Training Session</li>
 @endsection
 
-@section('table-content')
+@section('content')
 <center>
     <div role="alert" class="alert col-md-8" id="msg" style="display: none;"></div>
 </center>
@@ -62,7 +62,6 @@ Training Sessions Schedule
 <script type="text/javascript">
  var table;
     $(function () {
-      
       table = $('.data-table').DataTable({
           processing: true,
           serverSide: true,

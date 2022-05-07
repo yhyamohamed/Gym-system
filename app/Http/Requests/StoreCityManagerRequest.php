@@ -28,7 +28,7 @@ class StoreCityManagerRequest extends FormRequest
             'email'=>["required","unique:users,email"],
             'password'=>"min:6",
             'confirmation_password'=>'required|same:password|min:6',
-            'fileUpload'=>['required','image','mimes:jpg,png,jpeg'],
+            'NID'=>"required",
         ];
     }
 }

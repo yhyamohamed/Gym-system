@@ -33,15 +33,17 @@ class UserController extends Controller
 
 
         $user = User::where('email', $request->email)->first();
-
-        $user->update([
-            'last_login_at' => Carbon::now()->toDateTimeString()
-        ]);
-
-        if($user->email_verified_at == null){
-            Notification::send($user, new GreetingUser($user));
+        if($user){
+            $user->update([
+                'last_login_at' => Carbon::now()->toDateTimeString()
+            ]);
+    
+            if($user->email_verified_at == null){
+                Notification::send($user, new GreetingUser($user));
+            }
+    
         }
-
+        
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
