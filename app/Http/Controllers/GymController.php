@@ -143,7 +143,7 @@ class GymController extends Controller
                 Storage::delete(str_replace('storage', 'public', $gym->cover_img));
                 return response()->json([
                     'status' => true,
-                    'message' => 'user no. ' . $gym->id . ' deleted',
+                    'message' => 'Gym no. ' . $gym->id . ' deleted',
                 ], 200);
             } else {
                 return response()->json(["message" => "Something went wrong"], 400);
