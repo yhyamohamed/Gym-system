@@ -15,9 +15,15 @@ class AttendanceController extends Controller
 {
 
     public function index(Request $request)
-    {
-
-        return  AttendanceResource::collection(TrainingSessionUser::where('user_id', $request->user()->id)->get());
+    {   
+        $userTrainingSession=TrainingSessionUser::where('user_id', $request->user()->id)->get();
+      
+        if($userTrainingSession){
+            return  AttendanceResource::collection($userTrainingSession);
+        }else{
+            return response()->json(["message" => "you don't have any training sessions"], 409);
+        }
+        
     }
 
     public function remainingSessions(Request $request)

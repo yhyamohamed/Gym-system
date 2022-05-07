@@ -7,26 +7,31 @@
                 <div class="card">
                     @role('admin')
                         I am an admin!
-                    @endrole    
-                        @role('city_manager')
-                            I am a city manager!
-                        @endrole    
-                            @role('gym_manager')
-                                I am a gym manager!
-                            @endrole    
-                                <div class="card-header">{{ __('Dashboard') }}</div>
+                    @endrole
+                    @role('city_manager')
+                        I am a city manager!
+                    @endrole
+                    @role('gym_manager')
+                        I am a gym manager!
+                    @endrole
+                    @hasanyrole('admin|gym_manager')
+                        I am either a writer or an admin or both!
+                    @else
+                        I have none of these roles...
+                    @endhasanyrole
+                    <div class="card-header">{{ __('Dashboard') }}</div>
 
-                                <div class="card-body">
-                                    @if (session('status'))
-                                        <div class="alert alert-success" role="alert">
-                                            {{ session('status') }}
-                                        </div>
-                                    @endif
-
-                                    {{ __('You are logged in!') }}
-                                </div>
+                    <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
                             </div>
-                        </div>
+                        @endif
+
+                        {{ __('You are logged in!') }}
                     </div>
                 </div>
-            @endsection
+            </div>
+        </div>
+    </div>
+@endsection

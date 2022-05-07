@@ -56,13 +56,20 @@ create gym manager
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">National ID</label>
+                <input name="NID" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                @error('NID')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Gym ID</label>
+                <label for="exampleFormControlTextarea1" class="form-label">Gym Name</label>
                 <select name="gym_id" class="form-control">
                   <option></option>
                     @foreach($gyms as $gym)
-                    <option value="{{$gym->id}}">{{$gym->id}}</option>
+                    <option value="{{$gym->id}}">{{$gym->name}}</option>
                     @endforeach
 
                 </select>
