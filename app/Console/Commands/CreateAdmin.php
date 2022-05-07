@@ -30,15 +30,21 @@ class CreateAdmin extends Command
      */
     public function handle()
     {
+        $check = User::where('email', $this->option('email'))->count();
+        if ($check == 0) {
+            $admin = User::create([
+                'email' => $this->option('email'),
+                'password' => Hash::make($this->option('password')),
+                'name' => 'Admin',
+                'position_id' => 1,
+            ]);
+            $admin->assignRole('admin');
+            $this->info('The command was successful!');
+        } else {
+            $this->error('Email already exists!');
+        }
 
-        $admin = User::create([
-            'email'=> $this->option('email'),
-            'password'=>Hash::make($this->option('password')),
-            'name'=>'Admin',
-            'position_id'=>1,
-        ]);
-        $admin->assignRole('admin');
-        $this->info('The command was successful!');
+
         return 0;
     }
 }
