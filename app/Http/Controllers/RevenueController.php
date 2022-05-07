@@ -55,6 +55,14 @@ class RevenueController extends Controller
                 $data = "$" . number_format(($row->amount_paid) / 100, 2, '.', ' ');
                 return $data;
             })
+            ->addColumn('package_gym', function ($row) {
+                $data = TrainingPackage::find($row->training_package_id)->gym->name;
+                return $data;
+            })
+            ->addColumn('package_city', function ($row) {
+                $data = TrainingPackage::find($row->training_package_id)->gym->city_manager->city_name;
+                return $data;
+            })
             ->addColumn('created_at', function ($row) {
                 $data = $row->created_at->toDateTimeString();
                 return $data;
