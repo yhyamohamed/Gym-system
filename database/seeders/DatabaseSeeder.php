@@ -27,9 +27,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PositionSeeder::class);
         User::factory(30)->create();
-        CityManager::factory(3)->create();
+        CityManager::factory(5)->create();
         Gym::factory(3)->create();
-        CityManager::factory()->hasgyms(3)->create();
         GymManager::factory(User::where('position_id',3)->count())->create();
         TrainingPackage::factory()->count(4)->create();
         Coach::factory(3)->create();
