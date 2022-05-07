@@ -4,14 +4,14 @@ Training Packages Table
 @endsection
 
 @section('page-header')
-All Training Package
+All Training Packages
 <br />
 <a href="{{ route('training_packages.create') }}" class="btn btn-success">Create Training Package</a>
 @endsection
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">Training Package</li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active">Training Packages</li>
 @endsection
 
 @section('content')

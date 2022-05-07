@@ -1,14 +1,15 @@
 @extends('layouts.admin')
 @section('title')
-edit coach
+Edit Coach
 @endsection
 
 
 
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">Starter Page</li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active"><a href="{{ route('coaches.index') }}">Coaches</a></li>
+<li class="breadcrumb-item active">Edit Coach</li>
 @endsection
 
 @section('content')
@@ -50,8 +51,6 @@ edit coach
   @endsection
   @section('dataTable-scripts')
   <script>
-    $(function() {
-
     $('#coaches').addClass('active');
   </script>
   @endsection

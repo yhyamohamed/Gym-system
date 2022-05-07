@@ -7,8 +7,9 @@ edit Gym Manager
 
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">Starter Page</li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active"><a href="{{ route('gym_managers.index') }}">Gym Managers</a></li>
+<li class="breadcrumb-item active">Edit Gym Manager</li>
 @endsection
 
 @section('content')
