@@ -17,7 +17,7 @@
       <div class="image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{Auth::user()->name}}</a>
+        <a href="#" class="d-block">git</a>
       </div>
     </div>
 
