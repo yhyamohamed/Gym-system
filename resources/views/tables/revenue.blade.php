@@ -24,7 +24,7 @@
                 Revenue
             </div>
             <div class="card-body text-center">
-                <p class="card-text fs-1">{{$totalRevenue}}</p>
+                <p class="card-text fs-1">{{ $totalRevenue }}</p>
             </div>
             <div class="card-footer text-muted"></div>
         </div>
@@ -34,14 +34,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="trainingSession-table" class="table table-bordered data-table">
+                    <table id="revenues-table" class="table table-bordered data-table">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th>User Name</th>
                                 <th>Email</th>
-                                <th>Package Name</th>
+                                <th>Training Package Name</th>
                                 <th>Amount paid</th>
+                                <th>Purchase Date</th>
+                                <th>Remaining Sessions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,7 +55,31 @@
     @endsection
 
     @section('dataTable-scripts')
-        <script>
-            $('#revenue').addClass('active');
-        </script>
+    <script>
+        $('#revenue').addClass('active');
+        var table;
+        $(function () {
+        table = $('#revenues-table').DataTable({
+            processing: true,
+            serverSide: true,
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            ajax: "{{ route('revenues.index') }}",
+            columns: [
+                {data: 'id', name: 'ID'},
+                {data: 'user_name', name: 'User Name'},
+                {data: 'email', name: 'Email'},
+                {data: 'training_package_name', name: 'Training Package Name'},
+                {data: 'amount_paid', name: 'Amount Paid'},
+                {data: 'created_at', name: 'Purchase Date'},
+                {data: 'remaining_sessions', name: 'Remaining Sessions'},
+            ]
+            });
+        });
+    </script>
     @endsection

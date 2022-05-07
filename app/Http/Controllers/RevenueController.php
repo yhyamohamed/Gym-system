@@ -8,10 +8,11 @@ use App\Models\TrainingPackage;
 use App\Models\TrainingPackageUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use DataTables;
 
 class RevenueController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
 
@@ -33,8 +34,35 @@ class RevenueController extends Controller
 
         }
 
-        $totalRevenue = $allPurchases->sum('amount_paid');
+        $totalRevenue = "$" . number_format($allPurchases->sum('amount_paid') / 100, 2, '.', ',');
 
-        return view('tables.revenue', compact('allPurchases', 'totalRevenue'));
+        if ($request->ajax()) {
+            return DataTables::of($allPurchases)
+            ->addIndexColumn()
+            ->addColumn('user_name', function ($row) {
+                $data = User::find($row->user_id)->name;
+                return $data;
+                })
+            ->addColumn('training_package_name', function ($row) {
+                $data = TrainingPackage::find($row->training_package_id)->name;
+                return $data;
+            })
+            ->addColumn('email', function ($row) {
+                $data = User::find($row->user_id)->email;
+                return $data;
+            })
+            ->addColumn('amount_paid', function ($row) {
+                $data = "$" . number_format(($row->amount_paid) / 100, 2, '.', ' ');
+                return $data;
+            })
+            ->addColumn('created_at', function ($row) {
+                $data = $row->created_at->toDateTimeString();
+                return $data;
+            })
+            ->rawColumns(['user_name', 'training_package_name', 'email', 'amount_paid', 'created at'])
+            ->make(true);
+        }
+            return view('tables.revenue', compact('totalRevenue'));
     }
+
 }
