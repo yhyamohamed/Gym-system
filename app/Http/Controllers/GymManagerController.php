@@ -12,6 +12,7 @@ use App\Http\Requests\StoreGymManagerRequest;
 use App\Http\Requests\UpdateGymManagerRequest;
 use App\Http\Resources\GymManagerResource;
 use App\Models\User;
+use Auth;
 use DataTables;
 
 class GymManagerController extends Controller
@@ -32,16 +33,25 @@ class GymManagerController extends Controller
                     return '<img src="' . $src . '" style="width:50px;height:50px;" />';
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-primary">Edit</a>
+                    $user = User::find($row['id']);
+                    $action =  '<a href="' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-primary">Edit</a>
                 <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                 data-bs-target="#usermoadal"
                 data-id=' . $row['id'] . '>
                 delete
+                    </button>';
+                   
+                if(! $user->isBanned()){
+                $action.=  '<button type="button"' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-warning mx-1">Ban
+                </button>
+                ';
+                
+                }else{
+                    $action.=  '<button type="button"' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-warning mx-1">un Ban
                     </button>
-                    <button type="button" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-ban-circle"></span> Ban
-                  </button>
-                    ';
+                    '; 
+                }
+                return $action;      
                 })
                 ->rawColumns(['image', 'action', 'date'])
                 ->make(true);
