@@ -43,11 +43,13 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+
     public function showRegistrationForm()
     {
-        $gyms =Gym::all();
-        return view('auth.register',['gyms'=>$gyms] );
+        $gyms = Gym::all();
+        return view('auth.register')->with('gyms', $gyms);
     }
+
     /**
      * Get a validator for an incoming registration request.
      *
