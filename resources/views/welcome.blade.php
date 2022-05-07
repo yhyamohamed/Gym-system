@@ -7,7 +7,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Gym System</span>
         </a>
 
         <!-- Sidebar -->
@@ -17,7 +17,7 @@
                 <div class="image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <a href="#" class="d-block">{{Auth::user()->name}}</a>
                 </div>
             </div>
 

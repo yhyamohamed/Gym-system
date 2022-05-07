@@ -12,6 +12,7 @@ edit Gym Manager
 @endsection
 
 @section('content')
+
 <div class="container-fluid offset-md-2">
         <div class="row">
           <!-- left column -->
@@ -57,7 +58,7 @@ edit Gym Manager
                 <label for="exampleFormControlTextarea1" class="form-label">Gym name</label>
                 <select name="gym_id" class="form-control" >
                 
-                <option value="{{$gym_managers->gym_managers->first()->gym->name}}" selected>{{$gym_managers->gym_managers->first()->gym->name}}</option>
+                <option value="{{$gym_managers->gym_managers->first()->gym->id}}" selected>{{$gym_managers->gym_managers->first()->gym->name}}</option>
                     @foreach($gyms as $gym)
                     <option value="{{$gym->id}}">{{$gym->name}}</option>
                     @endforeach
@@ -67,10 +68,10 @@ edit Gym Manager
                 <label class="form-label" for="customFile @error('fileUpload') is-invalid @enderror">Upload image</label>
                 <div class="row">
                     <div class="col-sm-6">
-                        <input type="file" name="fileUpload" class="form-control " id="customFile" value= "{{ $gym_managers->avatar}} "/>  
+                        <input type="file" name="fileUpload" class="form-control " id="customFile" value= "{{ $gym_managers->profile_image}} "/>  
                     </div>                  
                     <div class="col-sm-6">
-                            <img src="{{ asset('storage/images/'.$gym_managers->avatar) }}"  style="width:50px;height:50px;"/>
+                            <img src="{{ asset('storage/images/'.$gym_managers->profile_image) }}"  style="width:50px;height:50px;"/>
                     </div>
                     @error('fileUpload')
             <div class="alert alert-danger">{{ $message }}</div>

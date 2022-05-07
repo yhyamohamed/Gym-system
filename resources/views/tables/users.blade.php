@@ -128,6 +128,7 @@ All Users
         },
       ]
     });
+    table.column(0).visible(false);
     $('#users').addClass('active');
     var ids = null;
 

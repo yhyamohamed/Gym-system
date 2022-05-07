@@ -59,6 +59,7 @@ Gym Managers
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <a href="" id="" class="btn btn-danger delete_btn">Delete</a>
               </div>
+              
             </div>
           </div>
         </div>

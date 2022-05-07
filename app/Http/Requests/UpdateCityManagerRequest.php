@@ -27,7 +27,7 @@ class UpdateCityManagerRequest extends FormRequest
         return [
             'name'=>"required",
             'email'=>["required",
-            Rule::unique('city_managers')->ignore($this->city_manager)],
+            Rule::unique('users')->ignore($this->city_manager)],
             'password'=>"min:6",
             'fileUpload'=>['nullable','image','mimes:jpg,png,jpeg'],
         ];

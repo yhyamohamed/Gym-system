@@ -12,6 +12,7 @@ use App\Http\Requests\StoreGymManagerRequest;
 use App\Http\Requests\UpdateGymManagerRequest;
 use App\Http\Resources\GymManagerResource;
 use App\Models\User;
+use Auth;
 use DataTables;
 
 class GymManagerController extends Controller
@@ -32,13 +33,25 @@ class GymManagerController extends Controller
                     return '<img src="' . $src . '" style="width:50px;height:50px;" />';
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-primary">Edit</a>
+                    $user = User::find($row['id']);
+                    $action =  '<a href="' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-primary">Edit</a>
                 <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                 data-bs-target="#usermoadal"
                 data-id=' . $row['id'] . '>
                 delete
+                    </button>';
+                   
+                if(! $user->isBanned()){
+                $action.=  '<button type="button"' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-warning mx-1">Ban
+                </button>
+                ';
+                
+                }else{
+                    $action.=  '<button type="button"' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-warning mx-1">un Ban
                     </button>
-                    ';
+                    '; 
+                }
+                return $action;      
                 })
                 ->rawColumns(['image', 'action', 'date'])
                 ->make(true);
@@ -74,7 +87,7 @@ class GymManagerController extends Controller
                 'gym_id' => $request->gym_id,
                 'NID' =>$request->NID,
             ]);
-            // dd($manager);
+            
         }
         return redirect()->route('gym_managers.index');
     }
@@ -108,11 +121,11 @@ class GymManagerController extends Controller
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'created_at'=>$request->created_at,
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
                 'position_id' => 3,
             ]);
-
             $manager = GymManager::where('user_id', $user->id)->first();
             $manager ->update([
                 'gym_id' => $request->gym_id,
