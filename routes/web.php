@@ -11,6 +11,7 @@ use App\Http\Controllers\TrainingPackageController;
 use App\Http\Controllers\TrainingSessionController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\RevnueController;
 use App\Http\Controllers\SubscriptionController;
 /*
 |--------------------------------------------------------------------------
@@ -113,5 +114,6 @@ Route::put('/buy-package/{subscription}', [SubscriptionController::class, 'updat
 Route::delete('/buy-package/{subscription}', [SubscriptionController::class , 'destroy'])->name('subscriptions.destroy');
 
 Auth::routes();
+Route::get('/revnue', [RevnueController::class, 'index'])->name('revnues.index');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

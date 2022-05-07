@@ -101,8 +101,8 @@ All Gym Managers
           name: 'date'
         },
         {
-          data: 'gym_id',
-          name: 'gym_id'
+          data: 'gym_name',
+          name: 'gym_name'
         },
         {
           data: 'image',

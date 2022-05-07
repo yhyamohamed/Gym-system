@@ -19,7 +19,6 @@ class UserController extends Controller
     {
         if ($request->ajax()) {
             $data = User::where("position_id",4)->get();
-           
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('date', function ($row) {

@@ -267,7 +267,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a id="revenue" href="{{ route('users.index') }}" class="nav-link">
+                  <a id="revenue" href="{{ route('revnues.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Revenue </p>
                   </a>
