@@ -21,7 +21,7 @@ class CityManagerFactory extends Factory
         return [
             'NID' => $this->faker->unique()->numerify('##############'),
             'user_id' =>  $this->faker->unique()->randomElement($allCityManagersID),
-
+            'city_name' => $this->faker->unique()->randomElement(['Alexandria','Aswan','Cairo','Siwa','Dahab'])
         ];
     }
 }
