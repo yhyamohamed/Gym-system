@@ -55,6 +55,13 @@ create city manager
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">National Id</label>
+                <input name="NID" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                @error('NID')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            </div>
 
             <div class="mb-3">
             <div>
