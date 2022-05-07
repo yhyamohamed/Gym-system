@@ -38,6 +38,9 @@ class GymManagerController extends Controller
                 data-id=' . $row['id'] . '>
                 delete
                     </button>
+                    <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Ban
+                  </button>
                     ';
                 })
                 ->rawColumns(['image', 'action', 'date'])
@@ -74,7 +77,7 @@ class GymManagerController extends Controller
                 'gym_id' => $request->gym_id,
                 'NID' =>$request->NID,
             ]);
-            // dd($manager);
+            
         }
         return redirect()->route('gym_managers.index');
     }
@@ -108,11 +111,11 @@ class GymManagerController extends Controller
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'created_at'=>$request->created_at,
                 'password' => Hash::make($request->password),
                 'profile_image' => $name,
                 'position_id' => 3,
             ]);
-
             $manager = GymManager::where('user_id', $user->id)->first();
             $manager ->update([
                 'gym_id' => $request->gym_id,

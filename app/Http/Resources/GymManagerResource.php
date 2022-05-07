@@ -21,7 +21,7 @@ class GymManagerResource extends JsonResource
             'email'=>$this->email,
             'created_at'=>$this->created_at->format('y-m-d'),
             'profile_image'=>$this->profile_image,
-            'gym_name'=> $this->gym_managers->first()->gym->name,
+            'gym_name'=> $this->gym_managers->first(),
         ];
 
     }
