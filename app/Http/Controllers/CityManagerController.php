@@ -127,7 +127,7 @@ class CityManagerController extends Controller
     {
         $user = User::find($city_managerId);
         if ($user) {
-            $city_manager = CityManager::where('user_id', 15)->first();
+            $city_manager = CityManager::where('user_id', $user->id)->first();
             $city_manager->delete();
             $deleted = $user->delete();
         } else {

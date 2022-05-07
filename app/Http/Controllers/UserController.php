@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-
+        
         if ($request->ajax()) {
             $data = User::where("position_id",4)->get();
             return DataTables::of($data)
