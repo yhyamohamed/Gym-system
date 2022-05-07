@@ -18,7 +18,7 @@ class GymManagerFactory extends Factory
      */
     public function definition()
     {
-        $allGymManagersID = User::where('possession_id',3)->pluck('id');
+        $allGymManagersID = User::where('position_id',3)->pluck('id');
         return [
             'NID' => $this->faker->unique()->numerify('##############'),
             'user_id' =>  $this->faker->unique()->randomElement($allGymManagersID),

@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
 use App\models\TrainingSessionUser;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, BannableContract
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+
+    use HasApiTokens, HasFactory, Notifiable,HasRoles,Bannable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -65,9 +69,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function city_managers(){
         return $this->hasMany(CityManager::class);
     }
-    public function possession()
+    public function position()
     {
-        return $this->belongsTo(Possession::class);
+        return $this->belongsTo(Position::class);
     }
-    
+
 }

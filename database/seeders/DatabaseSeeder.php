@@ -5,8 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use \App\models\CityManager;
-use App\Models\Possession;
 use App\Models\User;
+use App\Models\Position;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(PossessionSeeder::class);
+        $this->call(PositionSeeder::class);
         \App\Models\User::factory(20)->create();
         \App\Models\CityManager::factory(3)->create();
         \App\Models\Gym::factory(3)->create();

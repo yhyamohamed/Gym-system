@@ -45,17 +45,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/subscription/result', [App\Http\Controllers\Api\SubscriptionController::class, 'checkoutEndpoint'])->name('subscription.result');
-/*Route::get('/email/verify', function () {
-    return view('auth/verify.blade.php');
-})->middleware('auth:sanctum')->name('verification.notice');
-*/
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/user');
+    return response()->json(['message' => 'E-Mail verified successfully ']);
 })->middleware(['auth:sanctum', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
+    return response()->json(['message' => 'Verification link sent!']);
 })->middleware(['auth:sanctum', 'throttle:6,1'])->name('verification.send');

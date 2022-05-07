@@ -121,7 +121,7 @@ class TrainingPackageController extends Controller
             $deleted = $trainingPackage->delete();
             if ($deleted) {
                 return response()->json([
-                    'message' => 'user no. ' . $trainingPackage->id . ' deleted',
+                    'message' => 'Training Package no. ' . $trainingPackage->id . ' deleted',
                 ], 200);
             } else {
                 return response()->json(["message" => "Something went wrong"], 400);
