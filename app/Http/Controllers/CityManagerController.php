@@ -121,11 +121,6 @@ class CityManagerController extends Controller
         return redirect()->route('city_managers.index');
     }
 
-    // public function destroy($city_managerId){
-    //     CityManager::where('id', $city_managerId)->delete();
-    //     return redirect()->route('city_managers.index');
-
-    // }
     public function destroy($city_managerId)
     {
         $user = User::find($city_managerId);
