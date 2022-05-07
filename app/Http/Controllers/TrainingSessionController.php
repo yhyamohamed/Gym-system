@@ -161,7 +161,7 @@ class TrainingSessionController extends Controller
 
         $trainingSession->delete();
 
-        return redirect()->route('tables.training_sessions');
+        return redirect()->route('training_sessions.index');
     }
 
 }
