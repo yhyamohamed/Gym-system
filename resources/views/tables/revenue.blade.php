@@ -24,7 +24,7 @@
                 Revenue
             </div>
             <div class="card-body text-center">
-                <p class="card-text fs-1">9999999</p>
+                <p class="card-text fs-1">{{$totalRevenue}}</p>
             </div>
             <div class="card-footer text-muted"></div>
         </div>
