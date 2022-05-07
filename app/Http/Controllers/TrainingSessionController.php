@@ -15,12 +15,6 @@ class TrainingSessionController extends Controller
      * Get all training sessions.
      *
      */
-    // public function index() {
-
-    //     $trainingSessions = TrainingSession::all();
-
-    //     return view('tables.training_sessions', compact('trainingSessions'));
-    // }
 
     public function index(Request $request)
     {
@@ -72,26 +66,15 @@ class TrainingSessionController extends Controller
      *
      */
     public function store(StoreUpdateTrainingSessionRequest $request) {
-        
-        // Gym::create([
-        //     'name' => $request->name,
-        //     'creator' => $request->creator,
-        //     'cover_img' => str_replace('public', 'storage', $path),
-        //     'city_manager_id' => $request->city_manager_id,
-        // ]);
-        $trainingSession = new TrainingSession();
-        // TrainingSession::create($request->all());
-        $trainingSession -> id = 20;
-        $trainingSession -> name = $request -> name;
-        $trainingSession -> start_at = $request -> start_at;
-        $trainingSession -> finish_at = $request -> finish_at;
-        $trainingSession -> training_package_id = $request -> training_package_id;
-        $trainingSession -> coaches() -> attach($request -> coaches);
-        // 'name',
-        // 'start_at',
-        // 'finish_at',
-        // 'gym_id',
-        // 'training_package_id'
+
+        $trainingSession = TrainingSession::create([
+            'name' => $request->name,
+            'start_at' => $request->start_at,
+            'finish_at' => $request->finish_at,
+            'training_package_id' => $request->training_package_id,
+        ]);
+
+        $trainingSession->coaches()->sync($request->coaches);
 
         return redirect()->route('training_sessions.index');
     }
@@ -103,6 +86,7 @@ class TrainingSessionController extends Controller
     public function edit(TrainingSession $trainingSession)
     {
         $coaches = Coach::all();
+
         $trainingPackages = TrainingPackage::all();
         
         return view(
@@ -125,7 +109,14 @@ class TrainingSessionController extends Controller
             return redirect()->back()->with('error', 'Can\'t update a training session that has users.');
         }
 
-        $trainingSession->update($request->all());
+        $trainingSession->update([
+            'name' => $request->name,
+            'start_at' => $request->start_at,
+            'finish_at' => $request->finish_at,
+            'training_package_id' => $request->training_package_id,
+        ]);
+
+        $trainingSession->coaches()->sync($request->coaches);
 
         return redirect()->route('training_sessions.index');
     }

@@ -26,7 +26,7 @@ class SessionConflict implements Rule
      */
     public function passes($attribute, $value)
     {
-        $check = TrainingSession::where('start_at', '<=', $value)->where('finish_at', '>=', $value)->count();
+        $check = TrainingSession::where('start_at', '<', $value)->where('finish_at', '>', $value)->count();
         return $check == 0;
     }
 
@@ -37,6 +37,6 @@ class SessionConflict implements Rule
      */
     public function message()
     {
-        return 'The session time overlaps with another.';
+        return 'The :attribute time overlaps with another session.';
     }
 }
