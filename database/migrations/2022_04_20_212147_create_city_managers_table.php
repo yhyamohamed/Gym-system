@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('NID')->unique();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()->onUpdate('cascade');
+            $table->string('city_name');
             $table->timestamps();
         });
     }
