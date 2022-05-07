@@ -16,7 +16,7 @@ class Gym extends Model
         'city_manager_id',
     ];
 
-    public function city_manager(){
+    public function city_managers(){
         return $this->belongsTo(CityManager::class);
     }
 

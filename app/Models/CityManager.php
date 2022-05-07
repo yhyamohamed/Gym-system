@@ -20,4 +20,8 @@ class CityManager extends Model
     {
         return $this->hasMany(Gym::class);
     }
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

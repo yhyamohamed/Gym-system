@@ -17,12 +17,13 @@ class GymManager extends Model
       'avatar'
     ];
 
-    public function gym()
+    public function gyms()
     {
         return $this->belongsTo(Gym::class);
     }
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class);
     }
+   
 }

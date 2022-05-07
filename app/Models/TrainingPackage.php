@@ -18,7 +18,7 @@ class TrainingPackage extends Model
         'stripe_product_id'
     ];
     
-    public function gym(){
+    public function gyms(){
         return $this->belongsTo(Gym::class);
     }
 
