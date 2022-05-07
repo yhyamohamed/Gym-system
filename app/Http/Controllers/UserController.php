@@ -17,25 +17,25 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
-            $data = User::all();
+            $data = User::where("position_id",4)->get();
+           
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('date', function ($row) {
-                    $data = $row->created_at->format('y-m-d');
+                    $data = $row['created_at'];
                     return $data;
                 })
                 ->addColumn('image', function ($row) {
-                    $src = asset('storage/images/' . $row->profile_image);
+                    $src = asset('storage/images/' . $row['profile_image']);
                     return '<img src="' . $src . '" style="width:50px;height:50px;" />';
                 })
                 ->addColumn('action', function ($row) {
                     return '<center>
-                    <a href="' . route('users.edit', ['user' => $row->id]) . '" class="btn btn-primary">Edit</a>
+                    <a href="' . route('users.edit', ['user' => $row['id']]) . '" class="btn btn-primary">Edit</a>
                     <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                     data-bs-target="#usermoadal"
-                    data-id=' . $row->id . '>
+                    data-id=' . $row['id'] . '>
                     delete
                     </button>
                     </center>';
