@@ -71,6 +71,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'possession_id' => $data['possession_id'] ,
         ]);
         $role = 'user';
         if ($data['possession_id'] == 1) {
