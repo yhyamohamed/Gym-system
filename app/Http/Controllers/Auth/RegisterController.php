@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\CityManager;
+use App\Models\Gym;
 use App\Models\GymManager;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -41,6 +42,12 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function showRegistrationForm()
+    {
+        $gyms = Gym::all();
+        return view('auth.register')->with('gyms', $gyms);
     }
 
     /**
