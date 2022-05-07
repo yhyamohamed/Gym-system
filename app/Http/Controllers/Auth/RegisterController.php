@@ -66,18 +66,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-       
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'possession_id' => $data['possession_id'] ,
+            'position_id' => $data['position_id'] ,
         ]);
         $role = 'user';
-        if ($data['possession_id'] == 1) {
+        if ($data['position_id'] == 1) {
             $role = 'admin';
 
-        } else if ($data['possession_id'] == 2) {
+        } else if ($data['position_id'] == 2) {
             CityManager::create(
                 [
                     'user_id' => $user->id,
@@ -85,7 +85,7 @@ class RegisterController extends Controller
                 ]
             );
             $role = 'city_manager';
-        } else if ($data['possession_id'] == 3) {
+        } else if ($data['position_id'] == 3) {
             GymManager::create(
                 [
                     'user_id' => $user->id,
@@ -97,6 +97,6 @@ class RegisterController extends Controller
         }
         $user->assignRole($role);
         return $user;
-     
+
     }
 }
