@@ -88,11 +88,10 @@ class GymManagerController extends Controller
         );
     }
 
-    public function update(UpdateGymManagerRequest $request, User $user)
+    public function update(UpdateGymManagerRequest $request, User $gym_manager)
 
     {
-        // $user = User::find($gym_managerId);
-        dd($user);
+        $user = $gym_manager;
         if ($user) {
             $name = $user->profile_image;
 
@@ -105,7 +104,7 @@ class GymManagerController extends Controller
                 $name = $image->getClientOriginalName();
                 $imagePath = $request->file('fileUpload')->storeAs('public/images/', $name);
             }
-
+            
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -113,12 +112,13 @@ class GymManagerController extends Controller
                 'profile_image' => $name,
                 'possession_id' => 3,
             ]);
-            $gym_manager = GymManager::where('user_id', $user->id)->first();
-            $gym_manager->update([
-                'gym_id' => $request['gym_id'],
+           
+            $manager = GymManager::where('user_id', $user->id)->first();
+            $manager ->update([
+                'gym_id' => $request->gym_id,
             ]);
         }
-        // return redirect()->route('gym_managers.index');
+        return redirect()->route('gym_managers.index');
     }
 
     public function destroy($gym_managerId)

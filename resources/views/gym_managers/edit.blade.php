@@ -55,11 +55,11 @@ edit Gym Manager
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Gym name</label>
-                <select name="gym_name" class="form-control" >
+                <select name="gym_id" class="form-control" >
                 
                 <option value="{{$gym_managers->gym_managers->first()->gym->name}}" selected>{{$gym_managers->gym_managers->first()->gym->name}}</option>
                     @foreach($gyms as $gym)
-                    <option value="{{$gym->name}}">{{$gym->name}}</option>
+                    <option value="{{$gym->id}}">{{$gym->name}}</option>
                     @endforeach
                 </select>
             </div>
