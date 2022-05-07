@@ -236,13 +236,15 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>Cities</p>
                   </a>
-                </li>
-                <li class="nav-item">
+                </li> @role('admin|gym_manager')
+               <li class="nav-item">
                   <a id="gyms" href="{{ route('gyms.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Gyms</p>
                   </a>
                 </li>
+                @endrole
+               
                 <li class="nav-item">
                   <a id="training_packages" href="{{ route('training_packages.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
