@@ -19,7 +19,7 @@ class UserController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = User::all();
+            $data = User::where('position_id', 4)->get()git;
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('date', function ($row) {
