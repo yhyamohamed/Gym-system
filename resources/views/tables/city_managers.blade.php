@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('title')
-city Mangers Table
+city Managers Table
 @endsection
 
 @section('page-header')
-All City Managers
+City Managers
 <br />
 <a href="{{ route('city_managers.create') }}" class="mt-4 btn btn-success">Create City Manager</a>
 @endsection
@@ -113,7 +113,7 @@ All City Managers
         },
       ]
     });
-    $('#ciy-managers').addClass('active');
+    $('#city-managers').addClass('active');
     var ids = null;
 
     function getRowId() {

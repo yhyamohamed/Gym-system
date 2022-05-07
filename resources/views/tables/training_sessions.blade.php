@@ -62,13 +62,12 @@ Training Sessions Schedule
 <script type="text/javascript">
  var table;
     $(function () {
-      
       table = $('.data-table').DataTable({
           processing: true,
           serverSide: true,
           "paging": true,
-          "lengthChange": false,
-          "searching": false,
+          "lengthChange": true,
+          "searching": true,
           "ordering": true,
           "info": true,
           "autoWidth": false,

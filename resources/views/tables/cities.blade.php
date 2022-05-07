@@ -22,11 +22,11 @@ Cities
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <table id="trainingSession-table" class="table table-bordered data-table">
+                <table id="cities-table" class="table table-bordered data-table">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th>City Name</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,5 +43,25 @@ Cities
 @section('dataTable-scripts')
 <script>
 $('#cities').addClass('active');
+
+var table;
+    $(function () {
+      table = $('#cities-table').DataTable({
+          processing: true,
+          serverSide: true,
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
+          "responsive": true,
+          ajax: "{{ route('cities.index') }}",
+          columns: [
+              {data: 'id', name: '#'},
+              {data: 'city_name', name: 'City Name'},
+          ]
+      });
+    });
 </script>
 @endsection
