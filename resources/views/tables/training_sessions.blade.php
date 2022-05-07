@@ -14,7 +14,7 @@ Training Sessions Schedule
 <li class="breadcrumb-item active">Training Session</li>
 @endsection
 
-@section('content')
+@section('table-content')
 <center>
     <div role="alert" class="alert col-md-8" id="msg" style="display: none;"></div>
 </center>
