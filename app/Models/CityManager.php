@@ -8,14 +8,13 @@ use Spatie\Permission\Traits\HasRoles;
 
 class CityManager extends Model
 {
-    use HasFactory,HasRoles;
+    use HasFactory, HasRoles;
 
-    protected $fillable=[
+    protected $fillable = [
 
-      'NID',
-      'user_id',
-      'city_name'
-
+        'NID',
+        'user_id',
+        'city_name'
     ];
 
     public function gyms()

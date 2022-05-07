@@ -88,7 +88,8 @@ class RegisterController extends Controller
             CityManager::create(
                 [
                     'user_id' => $user->id,
-                    'NID' => $data['cmanager_NID']
+                    'NID' => $data['cmanager_NID'],
+                    'city_name' => $data['city_name']
                 ]
             );
             $role = 'city_manager';
