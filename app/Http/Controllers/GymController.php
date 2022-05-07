@@ -75,7 +75,7 @@ class GymController extends Controller
 
         Gym::create([
             'name' => $request->name,
-            'creator' => $request->creator,
+            'creator' => CityManager::find($request->city_manager_id)->user->name,
             'cover_img' => str_replace('public', 'storage', $path),
             'city_manager_id' => $request->city_manager_id,
         ]);
@@ -109,7 +109,6 @@ class GymController extends Controller
 
         $gym->update([
             'name' => $request->name,
-            'creator' => $request->creator,
             'city_manager_id' => $request->city_manager_id,
         ]);
 

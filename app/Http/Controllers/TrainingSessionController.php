@@ -136,7 +136,7 @@ class TrainingSessionController extends Controller
             if($deleted){
                 return response()->json([
                     'status' => true,
-                    'message' => 'user no. ' . $trainingSession->id . ' deleted',
+                    'message' => 'training session no. ' . $trainingSession->id . ' deleted',
                 ], 200);
                 } else{
                 return response()->json(["message"=> "something went wrong"], 400);

@@ -38,14 +38,10 @@ Create Gym
                             <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Creator</label>
-                            <input name="creator" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                        </div>
-                        <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">City Manger</label>
                             <select name="city_manager_id" class="form-control">
                                 @foreach ($cityMangers as $cityManger)
-                                <option value="{{ $cityManger->id }}">{{ $cityManger->name }}</option>
+                                <option value="{{ $cityManger->city_managers->first()->id }}">{{ $cityManger->name }}</option>
                                 @endforeach
                             </select>
                         </div>
