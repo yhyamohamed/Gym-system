@@ -71,6 +71,7 @@ class CityManagerController extends Controller
             CityManager::create([
                 'user_id' => $user->id,
                 'NID' =>$request->NID,
+                'city_name'=>$request->city_name,
             ]);
         }
         return redirect()->route('city_managers.index');
@@ -84,10 +85,10 @@ class CityManagerController extends Controller
         );
     }
 
-    public function update(UpdateCityManagerRequest $request, $city_managerId)
+    public function update(UpdateCityManagerRequest $request, User $city_manager)
 
     {
-        $user = User::find($city_managerId);
+        $user =$city_manager;
 
         if ($user) {
             $name = $user->profile_image;
@@ -113,6 +114,8 @@ class CityManagerController extends Controller
 
             $city_manager = CityManager::where('user_id', $user->id)->first();
             $city_manager->update([
+                'city_name'=>$request->city_name,
+
             ]);
         }
         return redirect()->route('city_managers.index');

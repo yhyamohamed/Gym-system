@@ -12,6 +12,7 @@ edit City Manager
 @endsection
 
 @section('content')
+{{-- @dd($city_managers); --}}
 <div class="container-fluid offset-md-2">
         <div class="row">
           <!-- left column -->
@@ -53,14 +54,21 @@ edit City Manager
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">city</label>
+              <input name="city_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="{{ $city_managers->city_managers->first()->city_name }}">
+              @error('city_name')
+          <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
+          </div>
             <div class="mb-3" >
                 <label class="form-label" for="customFile @error('fileUpload') is-invalid @enderror">Upload image</label>
                 <div class="row">
                     <div class="col-sm-6">
-                        <input type="file" name="fileUpload" class="form-control " id="customFile" value= "{{ $city_managers->avatar}} "/>  
+                        <input type="file" name="fileUpload" class="form-control " id="customFile" value= "{{ $city_managers->profile_image}} "/>  
                     </div>                  
                     <div class="col-sm-6">
-                            <img src="{{ asset('storage/images/'.$city_managers->avatar) }}"  style="width:50px;height:50px;"/>
+                            <img src="{{ asset('storage/images/'.$city_managers->profile_image) }}"  style="width:50px;height:50px;"/>
                     </div>
                     @error('fileUpload')
             <div class="alert alert-danger">{{ $message }}</div>

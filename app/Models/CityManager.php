@@ -14,7 +14,7 @@ class CityManager extends Model
 
         'NID',
         'user_id',
-        'city_name'
+        'city_name',
     ];
 
     public function gyms()
