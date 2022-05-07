@@ -12,6 +12,8 @@ use App\Http\Controllers\TrainingPackageController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\RevenueController;
+use App\Http\Controllers\CityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -111,6 +113,16 @@ Route::post('/buy-package', [SubscriptionController::class, 'store'])->name('sub
 Route::get('/buy-package/{subscription}/edit' , [SubscriptionController::class, 'edit'])->name('subscriptions.edit');
 Route::put('/buy-package/{subscription}', [SubscriptionController::class, 'update'])->name('subscriptions.update');
 Route::delete('/buy-package/{subscription}', [SubscriptionController::class , 'destroy'])->name('subscriptions.destroy');
+
+/*
+ * Revenue Routes
+ */
+Route::get('/revenue', [RevenueController::class, 'index'])->name('revenues.index');
+
+/*
+ * City Routes
+ */
+Route::get('/city', [CityController::class, 'index'])->name('cities.index');
 
 Auth::routes();
 
