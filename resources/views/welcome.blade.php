@@ -18,6 +18,7 @@
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{Auth::user()->name}}</a>
+                    <em class="text-white">{{Auth::user()->getRoleNames()[0]}}</em>
                 </div>
             </div>
 
