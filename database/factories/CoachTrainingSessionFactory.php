@@ -8,7 +8,7 @@ use App\Models\TrainingSession;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class coachTrainingSessionFactory extends Factory
+class CoachTrainingSessionFactory extends Factory
 {
     /**
      * Define the model's default state.
