@@ -11,15 +11,12 @@ class CityController extends Controller
 {
     public function index(Request $request)
     {
-        // if ($request->ajax()) {
-
-            
-            $data = CityManagerResource::collection(CityManager::all(['id', 'NID']));
-            dd($data);
-            // return DataTables::of($data)
-            //     ->addIndexColumn()
-            //     ->make(true);
+        if ($request->ajax()) {
+            $data = CityManager::all(['id', 'city_name']);
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+            }
             return view('tables.cities');
-        // }
     }
 }

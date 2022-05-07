@@ -26,8 +26,7 @@ Cities
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>City Manager</th>
+                            <th>City Name</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,24 +44,24 @@ Cities
 <script>
 $('#cities').addClass('active');
 
-// var table;
-//     $(function () {
-//       table = $('.data-table').DataTable({
-//           processing: true,
-//           serverSide: true,
-//           "paging": true,
-//           "lengthChange": true,
-//           "searching": true,
-//           "ordering": true,
-//           "info": true,
-//           "autoWidth": false,
-//           "responsive": true,
-//           ajax: "{{ route('cities.index') }}",
-//           columns: [
-//               {data: 'id', name: '#'},
-//               {data: 'name', name: 'Name'},
-//           ]
-//       });
-//     });
+var table;
+    $(function () {
+      table = $('#cities-table').DataTable({
+          processing: true,
+          serverSide: true,
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
+          "responsive": true,
+          ajax: "{{ route('cities.index') }}",
+          columns: [
+              {data: 'id', name: '#'},
+              {data: 'city_name', name: 'City Name'},
+          ]
+      });
+    });
 </script>
 @endsection
