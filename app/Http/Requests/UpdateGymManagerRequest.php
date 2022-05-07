@@ -22,11 +22,10 @@ class UpdateGymManagerRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {
+    {   dd($this->request->email);
         return [
             'name'=>"required",
-            'email'=>["required",
-            Rule::unique('gym_managers')->ignore($this->gym_manager)],
+            'email'=>["required",Rule::unique('users')->ignore($this->request)],
             'password'=>"min:6",
             'fileUpload'=>['nullable','image','mimes:jpg,png,jpeg'],
         ];

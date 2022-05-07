@@ -10,11 +10,9 @@ class GymManager extends Model
     use HasFactory;
 
     protected $fillable = [
-      'email',
-      'name',
-      'password',
-      'gym_id',
-      'avatar'
+        'gym_id',
+        'user_id',
+        'NID',
     ];
 
     public function gym()
