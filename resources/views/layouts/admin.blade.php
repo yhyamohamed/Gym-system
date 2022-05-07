@@ -243,6 +243,12 @@
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a id="training_sessions" href="{{ route('training_sessions.index') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Training Sessions</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a id="coaches" href="{{ route('coaches.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Coaches</p>

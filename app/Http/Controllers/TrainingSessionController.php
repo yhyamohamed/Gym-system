@@ -41,13 +41,15 @@ class TrainingSessionController extends Controller
                 //     return '<img src="' . $src . '" style="width:50px;height:50px;" />';
                 // })
                 ->addColumn('action', function ($row) {
-                    return '<button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                    return '<center>
+                    <a href="' . route('training_sessions.edit', ['trainingSession' => $row->id]) . '" class="btn btn-primary">Edit</a>
+                    <button type="button" class="btn btn-danger " data-bs-toggle="modal"
                     data-bs-target="#training-session-modal"
                     data-id=' . $row->id . '
                     >
                     Delete
-                        </button>
-                        <a href="' . route('training_sessions.edit', ['trainingSession' => $row->id]) . '" class="btn btn-primary">Edit</a>';      
+                    </button>
+                    </center>';      
                 })
                 ->rawColumns(['start at', 'finish at', 'action'])
                 ->make(true);
