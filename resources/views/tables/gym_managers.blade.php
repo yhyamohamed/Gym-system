@@ -118,6 +118,8 @@ Gym Managers
         },
       ]
     });
+  
+    table.column(0).visible(false);
     $('#gym-managers').addClass('active');
     var ids = null;
 
