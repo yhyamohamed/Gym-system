@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('body')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -93,8 +93,12 @@
                                     <div class="alert alert-success d-none" id='extrasMsg' role="alert">
                                         no extra informations is needed for this user
                                     </div>
-                                    <div class='form-row d-none' data-role=2> National ID :
+                                    <div class='form-row d-none' data-role=2> 
+                                        National ID :
                                         <input id="NID" type="number" class="form-control" name="cmanager_NID">
+                                        <br>
+                                        city name :
+                                        <input id="city_name" type="text" class="form-control" name="city_name">
                                     </div>
                                     <div class='form-row d-none' data-role=3> National ID :
                                         <input id="NID" type="number" class="form-control" name="gmanager_NID">

@@ -7,7 +7,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Gym System</span>
         </a>
 
         <!-- Sidebar -->
@@ -17,7 +17,7 @@
                 <div class="image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <a href="#" class="d-block">{{Auth::user()->name}}</a>
                 </div>
             </div>
 
@@ -163,7 +163,35 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-                @yield('content')
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                @role('admin')
+                                    I am an admin!
+                                @endrole
+                                @role('city_manager')
+                                    I am a city manager!
+                                @endrole
+                                @role('gym_manager')
+                                    I am a gym manager!
+                                @endrole
+                                
+                                <div class="card-header">{{ __('welcome') }}</div>
+            
+                                <div class="card-body">
+                                    @if (session('status'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('status') }}
+                                        </div>
+                                    @endif
+            
+                                    {{ __('You are logged in!') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div><!-- /.container-fluid -->
         </div>

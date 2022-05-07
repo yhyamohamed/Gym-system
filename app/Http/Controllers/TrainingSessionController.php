@@ -30,10 +30,6 @@ class TrainingSessionController extends Controller
                     $data = $row->finish_at->toDayDateTimeString();
                     return $data;
                 })
-                // ->addColumn('image', function ($row) {
-                //     $src = asset('storage/images/'. $row->profile_image);
-                //     return '<img src="' . $src . '" style="width:50px;height:50px;" />';
-                // })
                 ->addColumn('action', function ($row) {
                     return '<button type="button" class="btn btn-danger " data-bs-toggle="modal"
                     data-bs-target="#training-session-modal"
@@ -149,7 +145,6 @@ class TrainingSessionController extends Controller
                 return response()->json(["message"=> "could't find this training session"], 400);
             }
             
-
         $trainingSession->delete();
 
         return redirect()->route('training_sessions.index');
