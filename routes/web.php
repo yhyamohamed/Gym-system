@@ -7,6 +7,7 @@ use App\Http\Controllers\GymManagerController;
 use App\Http\Controllers\CityManagerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GymController;
+use App\Http\Controllers\TrainingSessionController;
 use App\Http\Controllers\TrainingPackageController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\AttendanceController;
@@ -74,6 +75,17 @@ Route::post('/training-packages', [TrainingPackageController::class, 'store'])->
 Route::delete('/training-packages/{trainingPackage}', [TrainingPackageController::class , 'destroy'])->name('training_packages.destroy');
 Route::get('/training-packages/{trainingPackage}/edit' , [TrainingPackageController::class, 'edit'])->name('training_packages.edit');
 Route::put('/training-packages/{trainingPackage}', [TrainingPackageController::class, 'update'])->name('training_packages.update');
+
+/*
+* Training Sessions Routes
+*/
+Route::get('/training_sessions', [TrainingSessionController::class, 'index'])->name('training_sessions.index');
+Route::get('/training_sessions/create/', [TrainingSessionController::class, 'create'])->name('training_sessions.create');
+Route::post('/training_sessions', [TrainingSessionController::class, 'store'])->name('training_sessions.store');
+Route::delete('/training_sessions/{trainingSession}', [TrainingSessionController::class , 'destroy'])->name('training_sessions.destroy');
+Route::get('/training_sessions/{trainingSession}/edit' , [TrainingSessionController::class, 'edit'])->name('training_sessions.edit');
+Route::put('/training_sessions/{trainingSession}', [TrainingSessionController::class, 'update'])->name('training_sessions.update');
+
 
 /*
  * Coaches Routes
