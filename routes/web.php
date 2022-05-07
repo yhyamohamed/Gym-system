@@ -39,6 +39,9 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::delete('/gym_managers/{gym_manager}', [GymManagerController::class , 'destroy'])->name('gym_managers.destroy');
     Route::get('/gym_managers/{gym_manager}/edit', [GymManagerController::class, 'edit'])->name('gym_managers.edit');
     Route::put('/gym_managers/{gym_manager}', [GymManagerController::class, 'update'])->name('gym_managers.update');
+    Route::put('/gym_managers/{gym_manager}/ban', [GymManagerController::class, 'ban'])->name('gym_managers.ban');
+    Route::put('/gym_managers/{gym_manager}/unban', [GymManagerController::class, 'unban'])->name('gym_managers.unban');
+
 
     /*
      * City Managers Routes

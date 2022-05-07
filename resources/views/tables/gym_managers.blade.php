@@ -63,6 +63,44 @@ Gym Managers
             </div>
           </div>
         </div>
+
+        <div class="modal fade" id="banmoadal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">banning manager NO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                are you SURE ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="" id="" class="btn btn-danger ban_btn">Ban</a>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="unbanmoadal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">unbanning manager NO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                are you SURE ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="" id="" class="btn btn-danger unban_btn">Unban</a>
+              </div>
+              
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- /.card -->
@@ -125,7 +163,7 @@ Gym Managers
     var ids = null;
 
     function getRowId() {
-      $('#usermoadal').on('show.bs.modal', function(event) {
+      $('.modal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         id = button.data('id'); // Extract info from data-* attributes
         ids = id;
@@ -144,6 +182,76 @@ Gym Managers
       $.ajax({
         url: url,
         type: "DELETE",
+        data: {
+          '_token': "{{csrf_token()}}",
+        },
+        success: function(data) {
+
+          msgDiv.css({
+            "color": "#155724",
+            "background-color": " #d4edda",
+            "border-color": "#c3e6cb"
+          });
+          msgDiv.addClass("alert-success").html(data.message).show();
+
+          table.ajax.reload();
+        },
+        error: function(error) {
+          err = JSON.parse(error.responseText);
+          msgDiv.css({
+            "color": "#721c24",
+            "background-color": "#f8d7da",
+            "border-color": "#f5c6cb"
+          });
+          msgDiv.addClass("alert-danger").html(err.message).show();
+        }
+      });
+    })
+
+    $(".ban_btn").on('click', (e) => {
+      e.preventDefault();
+      test = "{{ route('gym_managers.ban',['gym_manager' => 10])}}";
+      url = test.replace("10", id);
+      $('#banmoadal').modal('toggle');
+      let msgDiv = $("#msg")
+      $.ajax({
+        url: url,
+        type: "PUT",
+        data: {
+          '_token': "{{csrf_token()}}",
+        },
+        success: function(data) {
+
+          msgDiv.css({
+            "color": "#155724",
+            "background-color": " #d4edda",
+            "border-color": "#c3e6cb"
+          });
+          msgDiv.addClass("alert-success").html(data.message).show();
+
+          table.ajax.reload();
+        },
+        error: function(error) {
+          err = JSON.parse(error.responseText);
+          msgDiv.css({
+            "color": "#721c24",
+            "background-color": "#f8d7da",
+            "border-color": "#f5c6cb"
+          });
+          msgDiv.addClass("alert-danger").html(err.message).show();
+        }
+      });
+    })
+
+    $(".unban_btn").on('click', (e) => {
+      e.preventDefault();
+      test = "{{ route('gym_managers.unban',['gym_manager' => 10])}}";
+      url = test.replace("10", id);
+      $('#unbanmoadal').modal('toggle');
+      let msgDiv = $("#msg")
+      $.ajax({
+        url: url,
+        type: "PUT",
         data: {
           '_token': "{{csrf_token()}}",
         },
