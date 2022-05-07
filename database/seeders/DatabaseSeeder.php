@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(PositionSeeder::class);
-        User::factory(20)->create();
+        User::factory(30)->create();
         CityManager::factory(3)->create();
         Gym::factory(3)->create();
         CityManager::factory()->hasgyms(3)->create();
