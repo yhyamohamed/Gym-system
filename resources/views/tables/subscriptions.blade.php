@@ -4,14 +4,14 @@ Subscriptions
 @endsection
 
 @section('page-header')
-All subscriptions
+All Subscriptions
 <br />
 <a href="{{ route('subscriptions.create') }}" class="btn btn-success">Subscriptions</a>
 @endsection
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">Buy Package For User</li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active">Subscriptions</li>
 @endsection
 
 @section('content')

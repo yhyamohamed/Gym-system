@@ -4,7 +4,7 @@ Create Training Packages
 @endsection
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
 <li class="breadcrumb-item"><a href="{{ route('training_packages.index') }}">Training Packages</a></li>
 <li class="breadcrumb-item active">Create Training Packages</li>
 @endsection

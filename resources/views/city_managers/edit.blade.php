@@ -7,8 +7,9 @@ edit City Manager
 
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">Starter Page</li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active"><a href="{{ route('city_managers.index') }}">City Managers</a></li>
+<li class="breadcrumb-item active">Edit City Manager</li>
 @endsection
 
 @section('content')

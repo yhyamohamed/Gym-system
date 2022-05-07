@@ -42,14 +42,20 @@ class GymManagerController extends Controller
                     </button>';
                    
                 if(! $user->isBanned()){
-                $action.=  '<button type="button"' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-warning mx-1">Ban
-                </button>
+                $action.=  '<button type="button" class="btn btn-warning mx-1" data-bs-toggle="modal"
+                data-bs-target="#banmoadal"
+                data-id=' . $row['id'] . '>
+                Ban
+                    </button>
                 ';
                 
                 }else{
-                    $action.=  '<button type="button"' . route('gym_managers.edit', ['gym_manager' => $row['id']]) . '" class="btn btn-warning mx-1">un Ban
-                    </button>
-                    '; 
+                    $action.=  '<button type="button" class="btn btn-warning mx-1" data-bs-toggle="modal"
+                    data-bs-target="#unbanmoadal"
+                    data-id=' . $row['id'] . '>
+                    Unban
+                        </button>
+                    ';
                 }
                 return $action;      
                 })
@@ -138,14 +144,14 @@ class GymManagerController extends Controller
     {
         $user = User::find($gym_managerId);
         $user->ban();
-        return response()->json(['success' => 'Gym manager banned successfully.']);
+        return response()->json(['message' => 'Gym manager banned successfully.']);
     }
 
     public function unban($gym_managerId)
     {
         $user = User::find($gym_managerId);
         $user->unban();
-        return response()->json(['success' => 'Gym manager unbanned successfully.']);
+        return response()->json(['message' => 'Gym manager unbanned successfully.']);
     }
 
     public function destroy($gym_managerId)

@@ -10,8 +10,8 @@ Training Sessions Schedule
 @endsection
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">Training Session</li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active">Training Sessions</li>
 @endsection
 
 @section('content')

@@ -18,7 +18,7 @@ class TrainingPackageController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('price', function ($row) {
-                    $data = number_format(($row->price) / 100, 2, '.', ' ') . "$";
+                    $data = "$" . number_format(($row->price) / 100, 2, '.', ',');
                     return $data;
                 })
                 ->addColumn('gym', function ($row) {
