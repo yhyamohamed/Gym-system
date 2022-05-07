@@ -1,14 +1,15 @@
 @extends('layouts.admin')
 @section('title')
-create coach
+Create Coach
 @endsection
 
 
 
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">Starter Page</li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active"><a href="{{ route('coaches.index') }}">Coaches</a></li>
+<li class="breadcrumb-item active">Create Coach</li>
 @endsection
 
 @section('content')

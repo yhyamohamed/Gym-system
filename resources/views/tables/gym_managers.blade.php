@@ -11,8 +11,8 @@ Gym Managers
 
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">Starter Page</li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active">Gym Managers</li>
 @endsection
 
 
@@ -126,8 +126,8 @@ Gym Managers
 
     function getRowId() {
       $('#usermoadal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        id = button.data('id'); // Extract info from data-* attributes
+        var button = $(event.relatedTarget) 
+        id = button.data('id');
         ids = id;
       });
     }

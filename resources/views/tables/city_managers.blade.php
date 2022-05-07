@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-city Managers Table
+City Managers Table
 @endsection
 
 @section('page-header')
@@ -11,8 +11,8 @@ City Managers
 
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">Starter Page</li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active">City Managers</li>
 @endsection
 
 

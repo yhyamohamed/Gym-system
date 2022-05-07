@@ -4,7 +4,7 @@ Create Training Sessions
 @endsection
 
 @section('left-breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a></li>
+<li class="breadcrumb-item"><a href="/">Home</a></li>
 <li class="breadcrumb-item"><a href="{{ route('training_sessions.index') }}">Training Sessions</a></li>
 <li class="breadcrumb-item active">Create Training Session</li>
 @endsection
