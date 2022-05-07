@@ -4,7 +4,7 @@ Gym Mangers Table
 @endsection
 
 @section('page-header')
-All Gym Managers
+Gym Managers
 <br />
 <a href="{{ route('gym_managers.create') }}" class="mt-4 btn btn-success">Create Gym Manager</a>
 @endsection
