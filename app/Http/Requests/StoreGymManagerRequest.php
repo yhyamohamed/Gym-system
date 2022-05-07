@@ -29,8 +29,7 @@ class StoreGymManagerRequest extends FormRequest
             'password'=>"min:6",
             'gym_id' =>"required",
             'confirmation_password'=>'required|same:password|min:6',
-            'NID'=> "required",
-
+            'fileUpload'=>['required','image','mimes:jpg,png,jpeg'],
         ];
     }
 

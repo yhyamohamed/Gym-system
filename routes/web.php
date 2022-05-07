@@ -7,8 +7,8 @@ use App\Http\Controllers\GymManagerController;
 use App\Http\Controllers\CityManagerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GymController;
-use App\Http\Controllers\TrainingSessionController;
 use App\Http\Controllers\TrainingPackageController;
+use App\Http\Controllers\TrainingSessionController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\SubscriptionController;
@@ -80,8 +80,8 @@ Route::get('/training-packages/{trainingPackage}/edit' , [TrainingPackageControl
 Route::put('/training-packages/{trainingPackage}', [TrainingPackageController::class, 'update'])->name('training_packages.update');
 
 /*
-* Training Sessions Routes
-*/
+ * Training Sessions Routes
+ */
 Route::get('/training_sessions', [TrainingSessionController::class, 'index'])->name('training_sessions.index');
 Route::get('/training_sessions/create/', [TrainingSessionController::class, 'create'])->name('training_sessions.create');
 Route::post('/training_sessions', [TrainingSessionController::class, 'store'])->name('training_sessions.store');
